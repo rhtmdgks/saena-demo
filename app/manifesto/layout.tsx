@@ -1,0 +1,52 @@
+import type { Viewport } from "next";
+import { Geist } from "next/font/google";
+import { Providers } from "@/context/theme-provider";
+import { MeshGradientComponent } from "@/components/mesh-gradient";
+import { Header } from "@/components/header";
+import "../globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  preload: true,
+});
+
+export const viewport: Viewport = {
+  maximumScale: 1, // Disable auto-zoom on mobile Safari
+};
+
+export default function ManifestoLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <>
+      <Providers defaultTheme="dark">
+        <MeshGradientComponent
+          colors={[
+            "#7c3aed",
+            "#8b5cf6",
+            "#a78bfa",
+            "#c4b5fd",
+          ]}
+          speed={3}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        />
+        <div className="max-w-screen-sm mx-auto w-full relative z-[1] flex flex-col min-h-screen">
+          <div className="px-5 gap-8 flex flex-col flex-1 py-[12vh]">
+            <Header />
+            <main className="flex justify-center">{children}</main>
+          </div>
+        </div>
+      </Providers>
+    </>
+  );
+}
