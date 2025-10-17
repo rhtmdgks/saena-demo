@@ -1,31 +1,49 @@
 import { CheckCircle2 } from "lucide-react"
 
 export default function ImproveContent() {
+  // Reportly-based improvement suggestions
   const improvements = [
     {
       title: "Strengthen partnerships with fintech-focused review platforms",
       impact: "High impact",
       effort: "Low effort",
       description:
-        "Platforms like NerdWallet and FitSmallBusiness are highly cited, indicating their influence in fintech decision-making. Rho should optimize its presence on these platforms to drive credibility and customer acquisition.",
+        "Platforms like NerdWallet and FitSmallBusiness are highly cited by AI models, indicating their influence in fintech decision-making. Optimizing presence on these platforms will drive credibility and improve AI visibility scores by an estimated 15-20 points.",
       steps: [
-        "Conduct interviews with CFOs to identify key challenges in accounts payable",
-        "Publish whitepapers, webinars, and blog posts tailored to CFOs on topics like cost optimization and automation",
-        "Promote content through LinkedIn and CFO-specific forums",
+        "Create comprehensive company profiles on NerdWallet, FitSmallBusiness, and Capterra",
+        "Encourage satisfied customers to leave detailed reviews highlighting specific features",
+        "Respond to all reviews within 24 hours to demonstrate active engagement",
+        "Publish case studies and success stories on these platforms",
       ],
-      links: ["fitsmallbusiness.com", "nerdwallet.com"],
+      links: ["nerdwallet.com", "fitsmallbusiness.com", "capterra.com"],
     },
     {
-      title: "Leverage high-authority media coverage to enhance brand credibility",
-      impact: "Low impact",
+      title: "Enhance customer support content and visibility",
+      impact: "High impact",
+      effort: "Medium effort",
+      description:
+        "Customer support category scored 72 points, significantly below the industry average of 78 points. AI models rarely mention your brand in support-related queries. Improving this area will boost overall score and competitive positioning.",
+      steps: [
+        "Create a comprehensive knowledge base with detailed FAQs and troubleshooting guides",
+        "Publish customer success stories highlighting support experiences",
+        "Develop video tutorials and webinars on common customer challenges",
+        "Partner with customer service review sites to increase visibility",
+      ],
+      links: ["trustpilot.com", "g2.com"],
+    },
+    {
+      title: "Leverage high-authority media coverage for thought leadership",
+      impact: "Medium impact",
       effort: "High effort",
       description:
-        "Forbes.com has the highest citation volume, indicating strong media presence. Rho should capitalize on this by securing more thought leadership content and PR placements.",
+        "Forbes.com and TechCrunch have high citation volumes in AI responses. Securing more thought leadership content and PR placements on these platforms will enhance brand authority and improve citation scores.",
       steps: [
-        "Develop a media outreach strategy targeting Forbes and similar high-authority publications",
-        "Publish executive thought leadership articles on fintech trends and innovations",
+        "Develop a media outreach strategy targeting Forbes, TechCrunch, and Business Insider",
+        "Publish executive thought leadership articles on fintech trends, AI in finance, and automation",
+        "Participate in industry podcasts and webinars as expert speakers",
+        "Create data-driven reports and studies that media outlets can reference",
       ],
-      links: [],
+      links: ["forbes.com", "techcrunch.com", "businessinsider.com"],
     },
   ]
 
@@ -45,7 +63,7 @@ export default function ImproveContent() {
               <div className="flex items-center gap-2 mb-2">
                 <div
                   className={`h-1 w-12 rounded-full ${
-                    item.impact === "High impact" ? "bg-emerald-500" : "bg-red-500"
+                    item.impact === "High impact" ? "bg-[#C6FF3A] shadow-lg shadow-[#C6FF3A]/50" : "bg-red-500"
                   }`}
                 ></div>
                 <span className="text-xs text-gray-600 dark:text-gray-400">

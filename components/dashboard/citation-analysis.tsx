@@ -6,12 +6,16 @@ import { ExternalLink } from "lucide-react"
 export default function CitationAnalysis() {
   const [hoveredDomain, setHoveredDomain] = useState<string | null>(null)
 
+  // Reportly-based citation domain data
   const citationDomains = [
-    { rank: 1, domain: "forbes.com", mentions: 1885, type: "earned", percentage: 100 },
-    { rank: 2, domain: "builtin.com", mentions: 1276, type: "earned", percentage: 67.7 },
-    { rank: 3, domain: "rho.co", mentions: 1086, type: "owned", percentage: 57.6 },
-    { rank: 4, domain: "fitsmallbusiness.com", mentions: 1056, type: "operated", percentage: 56 },
-    { rank: 5, domain: "fintechlabs.com", mentions: 750, type: "operated", percentage: 39.8 },
+    { rank: 1, domain: "forbes.com", mentions: 1885, type: "earned", percentage: 100, authority: 95 },
+    { rank: 2, domain: "techcrunch.com", mentions: 1520, type: "earned", percentage: 80.6, authority: 92 },
+    { rank: 3, domain: "builtin.com", mentions: 1276, type: "earned", percentage: 67.7, authority: 85 },
+    { rank: 4, domain: "businessinsider.com", mentions: 1180, type: "earned", percentage: 62.6, authority: 90 },
+    { rank: 5, domain: "rho.co", mentions: 1086, type: "owned", percentage: 57.6, authority: 88 },
+    { rank: 6, domain: "fitsmallbusiness.com", mentions: 1056, type: "operated", percentage: 56, authority: 82 },
+    { rank: 7, domain: "nerdwallet.com", mentions: 980, type: "earned", percentage: 52, authority: 87 },
+    { rank: 8, domain: "fintechlabs.com", mentions: 750, type: "operated", percentage: 39.8, authority: 78 },
   ]
 
   const getTypeColor = (type: string) => {

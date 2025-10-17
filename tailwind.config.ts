@@ -40,6 +40,8 @@ const config: Config = {
       },
       white: "#ffffff",
       black: "#000000",
+      "accent-green": "rgb(var(--accent-green) / <alpha-value>)",
+      "text-primary": "#1C1C1F",
     },
     fontSize: {
       "2xs": [

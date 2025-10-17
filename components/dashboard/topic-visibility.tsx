@@ -15,15 +15,15 @@ export default function TopicVisibility() {
   ]
 
   const keywords = [
-    { text: "Business Banking", size: "text-5xl", color: "text-emerald-500", frequency: 70 },
-    { text: "Expense Management", size: "text-4xl", color: "text-blue-500", frequency: 55 },
-    { text: "Investment Strategies", size: "text-6xl", color: "text-emerald-500", frequency: 88 },
-    { text: "Startup Banking", size: "text-3xl", color: "text-orange-500", frequency: 35 },
-    { text: "Revenue Management", size: "text-5xl", color: "text-emerald-500", frequency: 73 },
-    { text: "Payment Infrastructure", size: "text-4xl", color: "text-blue-500", frequency: 50 },
-    { text: "Treasury Management", size: "text-3xl", color: "text-orange-500", frequency: 30 },
-    { text: "Cross-border Payments", size: "text-2xl", color: "text-red-500", frequency: 20 },
-    { text: "Finance Automation", size: "text-3xl", color: "text-orange-500", frequency: 35 },
+    { text: "Business Banking", size: "text-5xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_12px_rgba(198,255,58,0.6)]", frequency: 70 },
+    { text: "Expense Management", size: "text-4xl", color: "text-accent-green-glow", glow: "", frequency: 55 },
+    { text: "Investment Strategies", size: "text-6xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_14px_rgba(198,255,58,0.7)]", frequency: 88 },
+    { text: "Startup Banking", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 35 },
+    { text: "Revenue Management", size: "text-5xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_12px_rgba(198,255,58,0.6)]", frequency: 73 },
+    { text: "Payment Infrastructure", size: "text-4xl", color: "text-accent-green-glow", glow: "", frequency: 50 },
+    { text: "Treasury Management", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 30 },
+    { text: "Cross-border Payments", size: "text-2xl", color: "text-red-500", glow: "drop-shadow-[0_0_6px_rgba(239,68,68,0.6)]", frequency: 20 },
+    { text: "Finance Automation", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 35 },
   ]
 
   return (
@@ -36,7 +36,7 @@ export default function TopicVisibility() {
             <span
               key={index}
               onClick={() => setSelectedKeyword(keyword.text)}
-              className={`${keyword.size} ${keyword.color} font-bold transition-all duration-300 cursor-pointer relative ${
+              className={`${keyword.size} ${keyword.color} ${keyword.glow} font-bold transition-all duration-300 cursor-pointer relative ${
                 selectedKeyword === keyword.text
                   ? "opacity-100 scale-110"
                   : selectedKeyword
@@ -63,19 +63,19 @@ export default function TopicVisibility() {
         </div>
         <div className="flex items-center gap-6 mt-4 text-xs">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+            <div className="w-3 h-3 rounded-full bg-[#C6FF3A] shadow-lg shadow-[#C6FF3A]/50"></div>
             <span className="text-gray-600 dark:text-gray-400">70+ mentions</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+            <div className="w-3 h-3 rounded-full bg-accent-green shadow-lg shadow-accent-green/50"></div>
             <span className="text-gray-600 dark:text-gray-400">50+ mentions</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+            <div className="w-3 h-3 rounded-full bg-orange-500 shadow-lg shadow-orange-500/50"></div>
             <span className="text-gray-600 dark:text-gray-400">30+ mentions</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <div className="w-3 h-3 rounded-full bg-red-500 shadow-lg shadow-red-500/50"></div>
             <span className="text-gray-600 dark:text-gray-400">20+ mentions</span>
           </div>
         </div>
@@ -95,16 +95,16 @@ export default function TopicVisibility() {
                 className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-[#1F1F23] hover:bg-gray-100 dark:hover:bg-[#2B2B30] transition-all duration-200 cursor-pointer group relative overflow-hidden"
               >
                 <div
-                  className="absolute left-0 top-0 h-full bg-blue-500/10 dark:bg-blue-400/10 transition-all duration-500"
+                  className="absolute left-0 top-0 h-full bg-accent-green-10 transition-all duration-500"
                   style={{ width: `${widthPercentage}%` }}
                 />
                 <div className="flex items-center gap-3 flex-1 relative z-10">
                   <span className="text-gray-500 dark:text-gray-400 text-sm w-4 font-medium">{item.rank}</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <span className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-accent-green transition-colors">
                     {item.theme}
                   </span>
                 </div>
-                <span className="font-bold text-blue-600 dark:text-blue-400 relative z-10">{item.frequency}</span>
+                <span className="font-bold text-accent-green-glow relative z-10">{item.frequency}</span>
               </div>
             )
           })}

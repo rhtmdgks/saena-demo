@@ -38,11 +38,10 @@ export default function AdminLogin() {
       const expiryDate = new Date();
       expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
       document.cookie = `prototype-session=authenticated; path=/; expires=${expiryDate.toUTCString()}`;
-      
-      setTimeout(() => {
-        console.log("Redirecting to prototype dashboard...");
-        window.location.replace("/admin/prototype");
-      }, 500);
+      console.log("Cookie set:", document.cookie);
+      setIsLoading(false);
+      console.log("Using router.push...");
+      router.push("/admin/prototype");
       return;
     }
     // Admin accounts - redirect to admin dashboard
@@ -54,11 +53,10 @@ export default function AdminLogin() {
       const expiryDate = new Date();
       expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
       document.cookie = `admin-session=authenticated; path=/; expires=${expiryDate.toUTCString()}`;
-      
-      setTimeout(() => {
-        console.log("Redirecting to admin dashboard...");
-        window.location.replace("/admin");
-      }, 500);
+      console.log("Cookie set:", document.cookie);
+      setIsLoading(false);
+      console.log("Using router.push...");
+      router.push("/admin");
       return;
     } else {
       console.log("Invalid credentials");

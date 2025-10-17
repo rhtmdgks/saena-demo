@@ -1,13 +1,16 @@
 import { Search, TrendingUp, Calendar } from "lucide-react"
 
 export default function SearchContent() {
+  // Reportly-based search query analysis data
   const searchQueries = [
-    { query: "best business credit cards", volume: 12500, visibility: 89.8, trend: "up", change: 5.2 },
-    { query: "corporate expense management", volume: 8900, visibility: 76.3, trend: "up", change: 3.1 },
-    { query: "business banking solutions", volume: 15200, visibility: 92.1, trend: "up", change: 8.5 },
-    { query: "startup financial tools", volume: 6700, visibility: 68.4, trend: "down", change: -2.3 },
-    { query: "accounts payable automation", volume: 9800, visibility: 85.7, trend: "up", change: 12.4 },
-    { query: "business payment processing", volume: 11300, visibility: 71.2, trend: "up", change: 4.8 },
+    { query: "best business banking for startups", volume: 15200, visibility: 95, trend: "up", change: 8.5, category: "Business Banking" },
+    { query: "business credit cards comparison", volume: 12500, visibility: 89, trend: "up", change: 5.2, category: "Product Features" },
+    { query: "expense management software", volume: 11800, visibility: 88, trend: "up", change: 12.4, category: "Business Banking" },
+    { query: "accounts payable automation tools", volume: 9800, visibility: 85, trend: "up", change: 15.3, category: "Innovation" },
+    { query: "corporate card programs", volume: 8900, visibility: 82, trend: "up", change: 3.1, category: "Product Features" },
+    { query: "business banking customer service", volume: 7600, visibility: 72, trend: "down", change: -2.3, category: "Customer Support" },
+    { query: "fintech solutions for SMBs", volume: 6700, visibility: 78, trend: "up", change: 4.8, category: "Innovation" },
+    { query: "business payment processing", volume: 5900, visibility: 75, trend: "up", change: 6.2, category: "Product Features" },
   ]
 
   const topPerformingQueries = searchQueries.sort((a, b) => b.visibility - a.visibility).slice(0, 3)
@@ -29,10 +32,10 @@ export default function SearchContent() {
             className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]"
           >
             <div className="flex items-start justify-between mb-3">
-              <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">#{index + 1} Top Query</span>
+              <span className="text-xs font-semibold text-accent-green-glow">#{index + 1} Top Query</span>
               <span
                 className={`text-xs font-medium ${
-                  query.trend === "up" ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
+                  query.trend === "up" ? "text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]" : "text-red-600 dark:text-red-400"
                 }`}
               >
                 {query.trend === "up" ? "↑" : "↓"} {Math.abs(query.change)}%
@@ -107,7 +110,7 @@ export default function SearchContent() {
                     <span
                       className={`text-sm font-medium flex items-center justify-end gap-1 ${
                         query.trend === "up"
-                          ? "text-emerald-600 dark:text-emerald-400"
+                          ? "text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]"
                           : "text-red-600 dark:text-red-400"
                       }`}
                     >
@@ -140,7 +143,7 @@ export default function SearchContent() {
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div
-                    className="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                    className="bg-accent-green h-2 rounded-full transition-all duration-500"
                     style={{ width: `${item.percentage}%` }}
                   />
                 </div>
@@ -153,7 +156,7 @@ export default function SearchContent() {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Seasonal Trends</h3>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <Calendar className="h-5 w-5 text-blue-500 mt-0.5" />
+              <Calendar className="h-5 w-5 text-accent-green mt-0.5" />
               <div>
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Q4 Peak Season</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -162,7 +165,7 @@ export default function SearchContent() {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Calendar className="h-5 w-5 text-emerald-500 mt-0.5" />
+              <Calendar className="h-5 w-5 text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)] mt-0.5" />
               <div>
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Tax Season Spike</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">

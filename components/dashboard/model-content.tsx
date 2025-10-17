@@ -1,92 +1,94 @@
 import { Bot, Zap, Shield, Globe } from "lucide-react"
 
 export default function ModelContent() {
+  // Reportly-based AI model performance data
   const aiModels = [
     {
       name: "ChatGPT",
       provider: "OpenAI",
       visibility: 95,
-      accuracy: 92,
+      accuracy: 94,
       sentiment: "positive",
-      mentions: 1250,
+      mentions: 1450,
       trend: "up",
       change: 8.5,
-    },
-    {
-      name: "Perplexity",
-      provider: "Perplexity AI",
-      visibility: 88,
-      accuracy: 89,
-      sentiment: "positive",
-      mentions: 980,
-      trend: "up",
-      change: 12.3,
     },
     {
       name: "Claude",
       provider: "Anthropic",
       visibility: 92,
-      accuracy: 94,
+      accuracy: 96,
+      sentiment: "positive",
+      mentions: 1280,
+      trend: "up",
+      change: 6.7,
+    },
+    {
+      name: "Perplexity",
+      provider: "Perplexity AI",
+      visibility: 88,
+      accuracy: 91,
       sentiment: "positive",
       mentions: 1120,
       trend: "up",
-      change: 6.7,
+      change: 12.3,
     },
     {
       name: "Gemini",
       provider: "Google",
       visibility: 85,
-      accuracy: 87,
-      sentiment: "neutral",
-      mentions: 890,
+      accuracy: 88,
+      sentiment: "positive",
+      mentions: 980,
       trend: "up",
       change: 4.2,
-    },
-    {
-      name: "Copilot",
-      provider: "Microsoft",
-      visibility: 78,
-      accuracy: 82,
-      sentiment: "neutral",
-      mentions: 720,
-      trend: "down",
-      change: -2.1,
     },
     {
       name: "SearchGPT",
       provider: "OpenAI",
       visibility: 82,
-      accuracy: 85,
+      accuracy: 87,
       sentiment: "positive",
-      mentions: 650,
+      mentions: 850,
       trend: "up",
       change: 15.8,
     },
+    {
+      name: "Copilot",
+      provider: "Microsoft",
+      visibility: 78,
+      accuracy: 83,
+      sentiment: "neutral",
+      mentions: 720,
+      trend: "down",
+      change: -2.1,
+    },
   ]
 
+  // Reportly-based model comprehensive metrics
   const modelMetrics = [
     {
       title: "Average Visibility",
       value: "86.7%",
-      description: "across all models",
+      description: "across all AI models",
       icon: Bot,
     },
     {
       title: "Accuracy Score",
-      value: "88.2%",
+      value: "89.8%",
       description: "information accuracy",
       icon: Shield,
     },
     {
-      title: "Response Speed",
-      value: "1.2s",
-      description: "avg response time",
+      title: "Total Mentions",
+      value: "7,400",
+      description: "across all platforms",
       icon: Zap,
     },
     {
-      title: "Global Coverage",
-      value: "45+",
-      description: "countries covered",
+      title: "Positive Sentiment",
+      value: "83%",
+      description: "of all mentions",
       icon: Globe,
     },
   ]
@@ -181,7 +183,7 @@ export default function ModelContent() {
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
                         model.sentiment === "positive"
-                          ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                          ? "bg-[#C6FF3A]/20 text-[#C6FF3A] shadow-lg shadow-[#C6FF3A]/30"
                           : "bg-gray-500/20 text-gray-600 dark:text-gray-400"
                       }`}
                     >
@@ -195,7 +197,7 @@ export default function ModelContent() {
                     <span
                       className={`text-sm font-medium ${
                         model.trend === "up"
-                          ? "text-emerald-600 dark:text-emerald-400"
+                          ? "text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]"
                           : "text-red-600 dark:text-red-400"
                       }`}
                     >
@@ -235,7 +237,7 @@ export default function ModelContent() {
               .map((model, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{model.name}</span>
-                  <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-sm font-semibold text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]">
                     +{model.change}%
                   </span>
                 </div>
