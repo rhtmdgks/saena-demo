@@ -22,10 +22,12 @@ import {
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const pathname = usePathname();
 
   function handleNavigation() {
     setIsMobileMenuOpen(false);
@@ -52,8 +54,13 @@ export default function Sidebar() {
     hasSubmenu?: boolean;
     onClick?: () => void;
   }) {
-    const className =
-      "flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-50 dark:hover:bg-[#1F1F23]";
+    const isActive = href && pathname === href;
+    const baseClassName =
+      "flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors";
+    const activeClassName = isActive
+      ? "bg-accent-green/10 text-accent-green dark:text-accent-green"
+      : "text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-50 dark:hover:bg-[#1F1F23]";
+    const className = `${baseClassName} ${activeClassName}`;
 
     if (hasSubmenu) {
       return (
@@ -115,8 +122,8 @@ export default function Sidebar() {
           <div className="flex-1 overflow-y-auto py-4 px-4">
             <div className="space-y-6">
               <div>
-                <div className="px-3 mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                  Metrics
+                <div className="px-3 mb-2 text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-300">
+                  Answer Engine Insights
                 </div>
                 <div className="space-y-1">
                   <NavItem href="/admin/prototype" icon={Home}>

@@ -9,6 +9,11 @@ const config: Config = {
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ['Geist', 'system-ui', 'sans-serif'],
+      serif: ['Source Serif 4', 'Georgia', 'serif'],
+      mono: ['Geist Mono', 'Menlo', 'monospace'],
+    },
     colors: {
       slate: {
         1: "rgb(var(--slate-1) / <alpha-value>)",

@@ -1,4 +1,7 @@
+"use client"
+
 import { Search, TrendingUp, Calendar } from "lucide-react"
+import AnimatedList from "@/components/AnimatedList"
 
 export default function SearchContent() {
   // Reportly-based search query analysis data
@@ -58,7 +61,7 @@ export default function SearchContent() {
         ))}
       </div>
 
-      {/* All Search Queries Table */}
+      {/* All Search Queries List */}
       <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">All Search Queries</h3>
@@ -72,57 +75,38 @@ export default function SearchContent() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200 dark:border-[#1F1F23]">
-                <th className="text-left py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">Query</th>
-                <th className="text-right py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
-                  Volume
-                </th>
-                <th className="text-right py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
-                  Visibility
-                </th>
-                <th className="text-right py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
-                  Trend
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {searchQueries.map((query, index) => (
-                <tr
-                  key={index}
-                  className="border-b border-gray-100 dark:border-[#1F1F23] hover:bg-gray-50 dark:hover:bg-[#1F1F23] transition-colors"
+        <AnimatedList
+          items={searchQueries.map((query) => (
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <Search className="h-4 w-4 text-gray-400 flex-shrink-0" />
+                <span className="text-sm font-medium text-gray-900 dark:text-white truncate">"{query.query}"</span>
+              </div>
+              <div className="flex items-center gap-4 flex-shrink-0">
+                <span className="text-sm text-gray-900 dark:text-white w-20 text-right">
+                  {query.volume.toLocaleString()}
+                </span>
+                <span className="text-sm font-semibold text-gray-900 dark:text-white w-12 text-right">
+                  {query.visibility}%
+                </span>
+                <span
+                  className={`text-sm font-medium flex items-center gap-1 w-16 justify-end ${
+                    query.trend === "up"
+                      ? "text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]"
+                      : "text-red-600 dark:text-red-400"
+                  }`}
                 >
-                  <td className="py-3 px-4">
-                    <div className="flex items-center gap-2">
-                      <Search className="h-4 w-4 text-gray-400" />
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">"{query.query}"</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-right text-sm text-gray-900 dark:text-white">
-                    {query.volume.toLocaleString()}
-                  </td>
-                  <td className="py-3 px-4 text-right">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{query.visibility}%</span>
-                  </td>
-                  <td className="py-3 px-4 text-right">
-                    <span
-                      className={`text-sm font-medium flex items-center justify-end gap-1 ${
-                        query.trend === "up"
-                          ? "text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]"
-                          : "text-red-600 dark:text-red-400"
-                      }`}
-                    >
-                      <TrendingUp className={`h-3 w-3 ${query.trend === "down" ? "rotate-180" : ""}`} />
-                      {Math.abs(query.change)}%
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  <TrendingUp className={`h-3 w-3 ${query.trend === "down" ? "rotate-180" : ""}`} />
+                  {Math.abs(query.change)}%
+                </span>
+              </div>
+            </div>
+          ))}
+          onItemSelect={(item, index) => console.log('Selected:', searchQueries[index])}
+          showGradients={true}
+          enableArrowNavigation={true}
+          displayScrollbar={true}
+        />
       </div>
 
       {/* Query Insights */}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { ThemeProvider } from "@/components/dashboard/theme-provider"
 import Layout from "@/components/dashboard/layout"
+import LoadingSpinner from "@/components/dashboard/loading-spinner"
 import AnalyticsCopilotContent from "@/components/dashboard/analytics-copilot-content"
 
 export default function AnalyticsCopilotPage() {
@@ -28,11 +29,7 @@ export default function AnalyticsCopilotPage() {
   }, [router])
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#0C0C0C] flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-[#4C8EFF] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    )
+    return <LoadingSpinner />
   }
 
   if (!isAuthenticated) {

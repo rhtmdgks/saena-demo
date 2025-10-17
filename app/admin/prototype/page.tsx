@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { ThemeProvider } from "@/components/dashboard/theme-provider"
 import Layout from "@/components/dashboard/layout"
 import Content from "@/components/dashboard/content"
+import LoadingSpinner from "@/components/dashboard/loading-spinner"
 
 export default function PrototypeDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -33,11 +34,7 @@ export default function PrototypeDashboard() {
   }, [router])
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#0C0C0C] flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-[#4C8EFF] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    )
+    return <LoadingSpinner />
   }
 
   if (!isAuthenticated) {

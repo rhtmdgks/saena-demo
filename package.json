@@ -9,7 +9,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^3.10.0",
+    "@mui/material": "^7.3.4",
+    "@mui/x-charts": "^8.14.1",
     "@paper-design/shaders-react": "^0.0.59",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-alert-dialog": "latest",
@@ -50,6 +54,7 @@
     "input-otp": "latest",
     "ldrs": "^1.1.7",
     "lucide-react": "^0.454.0",
+    "motion": "^12.23.24",
     "next": "15.2.4",
     "next-themes": "latest",
     "ogl": "^1.0.11",

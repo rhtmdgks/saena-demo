@@ -16,11 +16,11 @@ export default function TopicVisibility() {
 
   const keywords = [
     { text: "Business Banking", size: "text-5xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_12px_rgba(198,255,58,0.6)]", frequency: 70 },
-    { text: "Expense Management", size: "text-4xl", color: "text-accent-green-glow", glow: "", frequency: 55 },
+    { text: "Expense Management", size: "text-4xl", color: "text-blue-500", glow: "drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]", frequency: 55 },
     { text: "Investment Strategies", size: "text-6xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_14px_rgba(198,255,58,0.7)]", frequency: 88 },
     { text: "Startup Banking", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 35 },
     { text: "Revenue Management", size: "text-5xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_12px_rgba(198,255,58,0.6)]", frequency: 73 },
-    { text: "Payment Infrastructure", size: "text-4xl", color: "text-accent-green-glow", glow: "", frequency: 50 },
+    { text: "Payment Infrastructure", size: "text-4xl", color: "text-blue-500", glow: "drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]", frequency: 50 },
     { text: "Treasury Management", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 30 },
     { text: "Cross-border Payments", size: "text-2xl", color: "text-red-500", glow: "drop-shadow-[0_0_6px_rgba(239,68,68,0.6)]", frequency: 20 },
     { text: "Finance Automation", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 35 },
@@ -67,7 +67,7 @@ export default function TopicVisibility() {
             <span className="text-gray-600 dark:text-gray-400">70+ mentions</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-accent-green shadow-lg shadow-accent-green/50"></div>
+            <div className="w-3 h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50"></div>
             <span className="text-gray-600 dark:text-gray-400">50+ mentions</span>
           </div>
           <div className="flex items-center gap-2">

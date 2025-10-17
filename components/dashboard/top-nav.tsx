@@ -6,16 +6,40 @@ import { Bell, ChevronRight } from "lucide-react"
 import Profile01 from "./profile-01"
 import Link from "next/link"
 import { ThemeToggle } from "./theme-toggle"
+import { usePathname } from "next/navigation"
 
 interface BreadcrumbItem {
   label: string
   href?: string
 }
 
+const pageNames: Record<string, string> = {
+  "/admin/prototype": "Home",
+  "/admin/prototype/search": "Search",
+  "/admin/prototype/industry": "Industry",
+  "/admin/prototype/topic": "Topic",
+  "/admin/prototype/model": "Model",
+  "/admin/prototype/citation": "Citation",
+  "/admin/prototype/improve": "Improve",
+  "/admin/prototype/marketing": "Marketing Strategy",
+  "/admin/prototype/stp": "STP Insight",
+  "/admin/prototype/cvi": "CVI",
+  "/admin/prototype/shopping": "Shopping",
+  "/admin/prototype/analytics/overview": "Analytics Overview",
+  "/admin/prototype/analytics/brand": "Analytics Brand",
+  "/admin/prototype/analytics/website": "Analytics Website",
+  "/admin/prototype/analytics/conversations": "Analytics Conversations",
+  "/admin/prototype/analytics/copilot": "Analytics Copilot",
+}
+
 export default function TopNav() {
+  const pathname = usePathname()
+  const currentPage = pageNames[pathname] || "Dashboard"
+
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: "SAENA", href: "#" },
-    { label: "Answer Engine Insights", href: "#" },
+    { label: "SAENA", href: "/admin/prototype" },
+    { label: "Answer Engine Insights" },
+    { label: currentPage },
   ]
 
   return (
