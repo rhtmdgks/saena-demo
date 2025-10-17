@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -15,31 +15,67 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+    console.log("Component mounted!");
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("=== FORM SUBMITTED ===");
+    console.log("Email:", email);
+    console.log("Password:", password);
     setError("");
     setIsLoading(true);
 
     // Simple client-side authentication
-    setTimeout(() => {
-      // Default credentials
-      if (
-        (email === "admin@thesaena.ai" && password === "1234") ||
-        (email === "Edmond@thesaena.ai" && password === "ahskflwk1!")
-      ) {
-        // Set a cookie that expires in 24 hours
-        const expiryDate = new Date();
-        expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
-        document.cookie = `admin-session=authenticated; path=/; expires=${expiryDate.toUTCString()}`;
-        router.push("/admin");
-      } else {
+    // Prototype account - redirect to prototype dashboard
+    if (email === "prototype@thesaena.ai" && password === "1234") {
+      console.log("Prototype login - setting cookie...");
+      const expiryDate = new Date();
+      expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
+      document.cookie = `prototype-session=authenticated; path=/; expires=${expiryDate.toUTCString()}`;
+      
+      setTimeout(() => {
+        console.log("Redirecting to prototype dashboard...");
+        window.location.replace("/admin/prototype");
+      }, 500);
+      return;
+    }
+    // Admin accounts - redirect to admin dashboard
+    else if (
+      (email === "admin@thesaena.ai" && password === "1234") ||
+      (email === "Edmond@thesaena.ai" && password === "ahskflwk1!")
+    ) {
+      console.log("Admin login - setting cookie...");
+      const expiryDate = new Date();
+      expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
+      document.cookie = `admin-session=authenticated; path=/; expires=${expiryDate.toUTCString()}`;
+      
+      setTimeout(() => {
+        console.log("Redirecting to admin dashboard...");
+        window.location.replace("/admin");
+      }, 500);
+      return;
+    } else {
+      console.log("Invalid credentials");
+      setTimeout(() => {
         setError("Invalid email or password");
-      }
-      setIsLoading(false);
-    }, 1000);
+        setIsLoading(false);
+      }, 1000);
+    }
   };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-[#C6FF3A] border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex flex-col md:flex-row">
@@ -54,7 +90,9 @@ export default function AdminLogin() {
               height={40}
               className="w-10 h-10"
             />
-            <span className="text-2xl font-semibold text-white">GOODWILL(KE)</span>
+            <span className="text-2xl font-semibold text-white">
+              GOODWILL(KE)
+            </span>
           </div>
           <h1 className="text-4xl font-bold text-white mt-12">
             Welcome to GOODWILL(KE) Admin
@@ -65,13 +103,11 @@ export default function AdminLogin() {
           </p>
         </div>
         <div className="mt-auto">
-          <Image
-            src="/images/admin-cover.png"
-            alt="Admin Dashboard"
-            width={500}
-            height={300}
-            className="rounded-xl shadow-lg"
-          />
+          <div className="w-full h-64 bg-white/10 rounded-xl backdrop-blur-sm flex items-center justify-center">
+            <span className="text-white/50 text-sm">
+              Admin Dashboard Preview
+            </span>
+          </div>
         </div>
       </div>
 
@@ -86,7 +122,9 @@ export default function AdminLogin() {
             height={40}
             className="w-10 h-10"
           />
-          <span className="text-2xl font-semibold text-white">GOODWILL(KE)</span>
+          <span className="text-2xl font-semibold text-white">
+            GOODWILL(KE)
+          </span>
         </div>
 
         <div className="w-full max-w-md">
@@ -118,6 +156,9 @@ export default function AdminLogin() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@thesaena.ai"
                 className="bg-[#1a1a1a] border-neutral-800 text-white"
+                autoComplete="off"
+                data-lpignore="true"
+                data-form-type="other"
                 required
               />
             </div>
@@ -141,6 +182,9 @@ export default function AdminLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 className="bg-[#1a1a1a] border-neutral-800 text-white"
+                autoComplete="off"
+                data-lpignore="true"
+                data-form-type="other"
                 required
               />
             </div>

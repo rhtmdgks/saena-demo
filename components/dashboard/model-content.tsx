@@ -1,0 +1,265 @@
+import { Bot, Zap, Shield, Globe } from "lucide-react"
+
+export default function ModelContent() {
+  const aiModels = [
+    {
+      name: "ChatGPT",
+      provider: "OpenAI",
+      visibility: 95,
+      accuracy: 92,
+      sentiment: "positive",
+      mentions: 1250,
+      trend: "up",
+      change: 8.5,
+    },
+    {
+      name: "Perplexity",
+      provider: "Perplexity AI",
+      visibility: 88,
+      accuracy: 89,
+      sentiment: "positive",
+      mentions: 980,
+      trend: "up",
+      change: 12.3,
+    },
+    {
+      name: "Claude",
+      provider: "Anthropic",
+      visibility: 92,
+      accuracy: 94,
+      sentiment: "positive",
+      mentions: 1120,
+      trend: "up",
+      change: 6.7,
+    },
+    {
+      name: "Gemini",
+      provider: "Google",
+      visibility: 85,
+      accuracy: 87,
+      sentiment: "neutral",
+      mentions: 890,
+      trend: "up",
+      change: 4.2,
+    },
+    {
+      name: "Copilot",
+      provider: "Microsoft",
+      visibility: 78,
+      accuracy: 82,
+      sentiment: "neutral",
+      mentions: 720,
+      trend: "down",
+      change: -2.1,
+    },
+    {
+      name: "SearchGPT",
+      provider: "OpenAI",
+      visibility: 82,
+      accuracy: 85,
+      sentiment: "positive",
+      mentions: 650,
+      trend: "up",
+      change: 15.8,
+    },
+  ]
+
+  const modelMetrics = [
+    {
+      title: "Average Visibility",
+      value: "86.7%",
+      description: "across all models",
+      icon: Bot,
+    },
+    {
+      title: "Accuracy Score",
+      value: "88.2%",
+      description: "information accuracy",
+      icon: Shield,
+    },
+    {
+      title: "Response Speed",
+      value: "1.2s",
+      description: "avg response time",
+      icon: Zap,
+    },
+    {
+      title: "Global Coverage",
+      value: "45+",
+      description: "countries covered",
+      icon: Globe,
+    },
+  ]
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">AI Model Performance</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+          Track how different AI models represent your brand
+        </p>
+      </div>
+
+      {/* Model Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {modelMetrics.map((metric, index) => (
+          <div
+            key={index}
+            className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]"
+          >
+            <div className="flex items-start justify-between mb-3">
+              <div className="p-2 bg-purple-500/10 rounded-lg">
+                <metric.icon className="h-5 w-5 text-purple-500" />
+              </div>
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{metric.title}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-500">{metric.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Model Comparison Table */}
+      <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Model Comparison</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200 dark:border-[#1F1F23]">
+                <th className="text-left py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">Model</th>
+                <th className="text-left py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                  Provider
+                </th>
+                <th className="text-right py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                  Visibility
+                </th>
+                <th className="text-right py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                  Accuracy
+                </th>
+                <th className="text-center py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                  Sentiment
+                </th>
+                <th className="text-right py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                  Mentions
+                </th>
+                <th className="text-right py-3 px-4 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                  Trend
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {aiModels.map((model, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-100 dark:border-[#1F1F23] hover:bg-gray-50 dark:hover:bg-[#1F1F23] transition-colors"
+                >
+                  <td className="py-3 px-4">
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{model.name}</span>
+                  </td>
+                  <td className="py-3 px-4">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{model.provider}</span>
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <div className="w-16 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-blue-500 rounded-full"
+                          style={{ width: `${model.visibility}%` }}
+                        />
+                      </div>
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white w-10">
+                        {model.visibility}%
+                      </span>
+                    </div>
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    <span className="text-sm text-gray-900 dark:text-white">{model.accuracy}%</span>
+                  </td>
+                  <td className="py-3 px-4 text-center">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        model.sentiment === "positive"
+                          ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                          : "bg-gray-500/20 text-gray-600 dark:text-gray-400"
+                      }`}
+                    >
+                      {model.sentiment}
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    <span className="text-sm text-gray-900 dark:text-white">{model.mentions.toLocaleString()}</span>
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    <span
+                      className={`text-sm font-medium ${
+                        model.trend === "up"
+                          ? "text-emerald-600 dark:text-emerald-400"
+                          : "text-red-600 dark:text-red-400"
+                      }`}
+                    >
+                      {model.trend === "up" ? "↑" : "↓"} {Math.abs(model.change)}%
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Model Insights */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Best Performing</h3>
+          <div className="space-y-3">
+            {aiModels
+              .sort((a, b) => b.visibility - a.visibility)
+              .slice(0, 3)
+              .map((model, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">{model.name}</span>
+                  <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{model.visibility}%</span>
+                </div>
+              ))}
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Fastest Growing</h3>
+          <div className="space-y-3">
+            {aiModels
+              .sort((a, b) => b.change - a.change)
+              .slice(0, 3)
+              .map((model, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">{model.name}</span>
+                  <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                    +{model.change}%
+                  </span>
+                </div>
+              ))}
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Most Accurate</h3>
+          <div className="space-y-3">
+            {aiModels
+              .sort((a, b) => b.accuracy - a.accuracy)
+              .slice(0, 3)
+              .map((model, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">{model.name}</span>
+                  <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">
+                    {model.accuracy}%
+                  </span>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

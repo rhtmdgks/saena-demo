@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en" className={inter.className}>
       <body className="relative">
         {/* Dynamic Favicon Script */}
-        <Script id="dynamic-favicon" strategy="beforeInteractive">
+        <Script id="dynamic-favicon" strategy="afterInteractive">
           {`
             function updateFavicon() {
               const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -36,9 +36,11 @@ export default function RootLayout({
               }
               link.href = faviconHref;
             }
-            updateFavicon();
-            // Listen for changes in theme
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+            if (typeof window !== 'undefined') {
+              updateFavicon();
+              // Listen for changes in theme
+              window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+            }
           `}
         </Script>
 
