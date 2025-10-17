@@ -1,7 +1,7 @@
 import type { Viewport } from "next";
 import { Geist } from "next/font/google";
 import { Providers } from "@/context/theme-provider";
-import { MeshGradientComponent } from "@/components/mesh-gradient";
+import DarkVeil from "@/components/dark-veil";
 import { Header } from "@/components/header";
 import "../globals.css";
 
@@ -23,14 +23,7 @@ export default function WaitlistLayout({
   return (
     <>
       <Providers defaultTheme="dark">
-        <MeshGradientComponent
-          colors={[
-            "#7c3aed",
-            "#8b5cf6",
-            "#a78bfa",
-            "#c4b5fd",
-          ]}
-          speed={3}
+        <div
           style={{
             position: "fixed",
             top: 0,
@@ -39,7 +32,9 @@ export default function WaitlistLayout({
             width: "100%",
             height: "100%",
           }}
-        />
+        >
+          <DarkVeil hueShift={0} speed={3} />
+        </div>
         <div className="max-w-screen-sm mx-auto w-full relative z-[1] flex flex-col min-h-screen">
           <div className="px-5 gap-8 flex flex-col flex-1 py-[12vh]">
             <Header />
@@ -53,6 +48,6 @@ export default function WaitlistLayout({
 
 export const metadata = {
   title: "Join Waitlist | GOODWILL(KE)",
-  description: "Join our waitlist and be among the first to experience our 3D animation services",
-  generator: "v0.app",
+  description:
+    "Join our waitlist and be among the first to experience our 3D animation services",
 };

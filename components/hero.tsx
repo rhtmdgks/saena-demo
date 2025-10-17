@@ -36,7 +36,7 @@ export function Hero() {
           </div>
           <h1 className="mt-3 text-center text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
             <span className="block">HIGH-IMPACT</span>
-            <span className="block text-lime-300 drop-shadow-[0_0_20px_rgba(132,204,22,0.35)]">
+            <span className="block text-lime-300 drop-shadow-[0_0_40px_rgba(132,204,22,0.8)]">
               BRAND PRESENCE
             </span>
             <span className="block">FOR THE AI ERA</span>

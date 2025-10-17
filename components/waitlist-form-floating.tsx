@@ -109,7 +109,7 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
           type="submit"
           disabled={inputDisabled}
           className={clsx(
-            "absolute h-8 px-3.5 bg-white text-black text-sm top-1/2 transform -translate-y-1/2 right-5 rounded-full font-medium flex gap-1 items-center whitespace-nowrap hover:bg-gray-100 transition-colors",
+            "absolute h-8 px-3.5 bg-white text-black text-sm top-1/2 transform -translate-y-1/2 right-3 rounded-full font-medium flex gap-1 items-center whitespace-nowrap hover:bg-gray-100 transition-colors",
             "disabled:cursor-not-allowed disabled:opacity-50"
           )}
         >
