@@ -25,46 +25,38 @@ export default function AdminLogin() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("=== FORM SUBMITTED ===");
-    console.log("Email:", email);
-    console.log("Password:", password);
     setError("");
     setIsLoading(true);
 
     // Simple client-side authentication
-    // Prototype account - redirect to prototype dashboard
-    if (email === "prototype@thesaena.ai" && password === "1234") {
-      console.log("Prototype login - setting cookie...");
-      const expiryDate = new Date();
-      expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
-      document.cookie = `prototype-session=authenticated; path=/; expires=${expiryDate.toUTCString()}`;
-      console.log("Cookie set:", document.cookie);
-      setIsLoading(false);
-      console.log("Using router.push...");
-      router.push("/admin/prototype");
-      return;
-    }
-    // Admin accounts - redirect to admin dashboard
-    else if (
+    // Note: In production, this should be replaced with proper server-side authentication
+    const isPrototype = email === "prototype@thesaena.ai" && password === "1234";
+    const isAdmin = 
       (email === "admin@thesaena.ai" && password === "1234") ||
-      (email === "Edmond@thesaena.ai" && password === "ahskflwk1!")
-    ) {
-      console.log("Admin login - setting cookie...");
+      (email === "Edmond@thesaena.ai" && password === "ahskflwk1!");
+
+    if (isPrototype || isAdmin) {
+      const sessionType = isPrototype ? "prototype-session" : "admin-session";
+      const redirectPath = isPrototype ? "/admin/prototype" : "/admin";
+      
       const expiryDate = new Date();
       expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
-      document.cookie = `admin-session=authenticated; path=/; expires=${expiryDate.toUTCString()}`;
-      console.log("Cookie set:", document.cookie);
+      
+      // Set secure cookie with SameSite
+      document.cookie = `${sessionType}=authenticated; path=/; expires=${expiryDate.toUTCString()}; SameSite=Strict${
+        window.location.protocol === 'https:' ? '; Secure' : ''
+      }`;
+      
       setIsLoading(false);
-      console.log("Using router.push...");
-      router.push("/admin");
+      router.push(redirectPath);
       return;
-    } else {
-      console.log("Invalid credentials");
-      setTimeout(() => {
-        setError("Invalid email or password");
-        setIsLoading(false);
-      }, 1000);
     }
+
+    // Invalid credentials - add delay to prevent brute force
+    setTimeout(() => {
+      setError("Invalid email or password");
+      setIsLoading(false);
+    }, 1000);
   };
 
   if (!mounted) {

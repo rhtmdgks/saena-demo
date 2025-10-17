@@ -8,10 +8,53 @@ import LiquidEtherWrapper from "@/components/liquid-ether-wrapper"
 const inter = Inter({ subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
-  title: "GOODWILL(KE) | 3D Animation Made Simple, Reliable & Scalable",
+  title: {
+    default: "GOODWILL(KE) | 3D Animation Made Simple, Reliable & Scalable",
+    template: "%s | GOODWILL(KE)"
+  },
   description:
     "From product launches to full-scale campaigns, GOODWILL(KE) delivers 3D animation that's fast, consistent, and built to wow your audience.",
-  generator: "v0.app",
+  keywords: ["3D animation", "product animation", "brand animation", "3D modeling", "animation services"],
+  authors: [{ name: "GOODWILL(KE)" }],
+  creator: "GOODWILL(KE)",
+  publisher: "GOODWILL(KE)",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://theskitbit.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "GOODWILL(KE) | 3D Animation Made Simple, Reliable & Scalable",
+    description: "From product launches to full-scale campaigns, GOODWILL(KE) delivers 3D animation that's fast, consistent, and built to wow your audience.",
+    url: 'https://theskitbit.com',
+    siteName: 'GOODWILL(KE)',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "GOODWILL(KE) | 3D Animation Made Simple, Reliable & Scalable",
+    description: "From product launches to full-scale campaigns, GOODWILL(KE) delivers 3D animation that's fast, consistent, and built to wow your audience.",
+    creator: '@theskitbit',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'G-W6LV22900R',
+  },
 }
 
 export default function RootLayout({
@@ -36,11 +79,9 @@ export default function RootLayout({
               }
               link.href = faviconHref;
             }
-            if (typeof window !== 'undefined') {
-              updateFavicon();
-              // Listen for changes in theme
-              window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
-            }
+            updateFavicon();
+            // Listen for changes in theme
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
           `}
         </Script>
 

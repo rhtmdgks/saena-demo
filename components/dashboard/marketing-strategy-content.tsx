@@ -343,7 +343,13 @@ export default function MarketingStrategyContent() {
               </h3>
 
               <div className="flex items-center justify-center">
-                <svg width="400" height="400" className="overflow-visible">
+                <svg 
+                  width="400" 
+                  height="400" 
+                  className="overflow-visible"
+                  role="img"
+                  aria-label="4P Marketing Strategy Radar Chart"
+                >
                   <defs>
                     <filter id="glow-4p">
                       <feGaussianBlur stdDeviation="4" result="coloredBlur" />
@@ -359,11 +365,11 @@ export default function MarketingStrategyContent() {
                       x2="100%"
                       y2="100%"
                     >
-                      <stop offset="0%" stopColor="#C6FF3A" stopOpacity="0.3" />
+                      <stop offset="0%" stopColor="#C6FF3A" stopOpacity={0.3} />
                       <stop
                         offset="100%"
                         stopColor="#C6FF3A"
-                        stopOpacity="0.1"
+                        stopOpacity={0.1}
                       />
                     </linearGradient>
                   </defs>
@@ -715,10 +721,14 @@ export default function MarketingStrategyContent() {
                 { emotion: "Surprise", value: 28 },
                 { emotion: "Fear", value: 15 },
                 { emotion: "Sadness", value: 12 },
-              ].map((item) => (
-                <div key={item.emotion} className="text-center">
+              ].map((emotionData) => (
+                <div key={emotionData.emotion} className="text-center">
                   <div className="relative w-20 h-20 mx-auto mb-2">
-                    <svg className="transform -rotate-90 w-20 h-20">
+                    <svg 
+                      className="transform -rotate-90 w-20 h-20"
+                      role="img"
+                      aria-label={`${emotionData.emotion}: ${emotionData.value}%`}
+                    >
                       <circle
                         cx="40"
                         cy="40"
@@ -737,19 +747,19 @@ export default function MarketingStrategyContent() {
                         fill="none"
                         strokeDasharray={`${2 * Math.PI * 35}`}
                         strokeDashoffset={`${
-                          2 * Math.PI * 35 * (1 - item.value / 100)
+                          2 * Math.PI * 35 * (1 - emotionData.value / 100)
                         }`}
                         strokeLinecap="round"
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-lg font-bold text-gray-900 dark:text-white">
-                        {item.value}
+                        {emotionData.value}
                       </span>
                     </div>
                   </div>
                   <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {item.emotion}
+                    {emotionData.emotion}
                   </div>
                 </div>
               ))}

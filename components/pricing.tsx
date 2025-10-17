@@ -120,11 +120,20 @@ export function Pricing() {
     let cancelled = false;
     async function load() {
       try {
-        const res = await fetch("/api/geo", { cache: "no-store" });
+        const res = await fetch("/api/geo", { 
+          cache: "no-store",
+          signal: AbortSignal.timeout(5000) // Add timeout
+        });
         if (!res.ok) throw new Error("geo failed");
         const data = await res.json();
-        if (!cancelled) setCurrency(data?.currency === "INR" ? "INR" : "USD");
-      } catch {
+        if (!cancelled && data?.currency) {
+          setCurrency(data.currency === "INR" ? "INR" : "USD");
+        }
+      } catch (error) {
+        // Log error for debugging but don't expose to user
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Failed to fetch geo data:', error);
+        }
         if (!cancelled) setCurrency(guessLocalCurrency());
       }
     }

@@ -1,6 +1,9 @@
+"use client"
+
 import { LogOut, MoveUpRight, Settings, CreditCard, FileText } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 interface MenuItem {
   label: string
@@ -18,10 +21,10 @@ interface Profile01Props {
 }
 
 const defaultProfile = {
-  name: "Eugene An",
-  role: "Prompt Engineer",
+  name: "Edmond Dantès",
+  role: "Marketer",
   avatar: "https://ferf1mheo22r9ira.public.blob.vercel-storage.com/avatar-02-albo9B0tWOSLXCVZh9rX9KFxXIVWMr.png",
-  subscription: "Free Trial",
+  subscription: "Enterprise",
 } satisfies Required<Profile01Props>
 
 export default function Profile01({
@@ -30,6 +33,15 @@ export default function Profile01({
   avatar = defaultProfile.avatar,
   subscription = defaultProfile.subscription,
 }: Partial<Profile01Props> = defaultProfile) {
+  const router = useRouter()
+
+  const handleLogout = () => {
+    // Delete the authentication cookie
+    document.cookie = "prototype-session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    // Redirect to login page
+    router.push("/admin/login")
+  }
+
   const menuItems: MenuItem[] = [
     {
       label: "Subscription",
@@ -96,9 +108,10 @@ export default function Profile01({
 
             <button
               type="button"
+              onClick={handleLogout}
               className="w-full flex items-center justify-between p-2 
                                 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 
-                                rounded-lg transition-colors duration-200"
+                                rounded-lg transition-colors duration-200 cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <LogOut className="w-4 h-4" />

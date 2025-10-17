@@ -55,18 +55,18 @@ export default function IndustryContent() {
         {industryMetrics.map((metric, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23] hover:border-gray-300 dark:hover:border-[#2B2B30] transition-all"
+            className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23] hover:border-gray-300 dark:hover:border-[#2B2B30] transition-all cursor-pointer group"
           >
             <div className="flex items-start justify-between mb-3">
-              <div className="p-2 bg-accent-green-10 rounded-lg">
-                <metric.icon className="h-5 w-5 text-accent-green" />
+              <div className="p-2 bg-gray-100 dark:bg-[#1F1F23] rounded-lg group-hover:bg-accent-green-10 transition-colors">
+                <metric.icon className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-accent-green transition-colors" />
               </div>
-              <span className="text-xs font-medium text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]">{metric.change}</span>
+              <span className="text-sm font-medium text-accent-green-glow">{metric.change}</span>
             </div>
             <div className="space-y-1">
               <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
-              <p className="text-xs text-gray-600 dark:text-gray-400">{metric.title}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-500">{metric.description}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{metric.title}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500">{metric.description}</p>
             </div>
           </div>
         ))}

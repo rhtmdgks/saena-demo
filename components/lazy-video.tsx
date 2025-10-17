@@ -36,7 +36,7 @@ export default function LazyVideo({
     let observer: IntersectionObserver | null = null
 
     const onIntersect: IntersectionObserverCallback = (entries) => {
-      entries.forEach(async (entry) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting && !loaded) {
           // Set the src attribute to start loading
           el.src = src
@@ -48,17 +48,19 @@ export default function LazyVideo({
               try {
                 await el.play()
               } catch (error) {
-                // Autoplay might be blocked
-                console.log("Autoplay blocked:", error)
+                // Autoplay might be blocked - this is expected behavior
+                if (process.env.NODE_ENV === 'development') {
+                  console.log("Autoplay blocked:", error)
+                }
               }
             }
 
             if (el.readyState >= 3) {
               // Video is already loaded enough to play
-              playVideo()
+              void playVideo()
             } else {
               // Wait for video to load enough data
-              el.addEventListener("canplay", playVideo, { once: true })
+              el.addEventListener("canplay", () => void playVideo(), { once: true })
             }
           }
 
@@ -69,15 +71,17 @@ export default function LazyVideo({
           try {
             el.pause()
           } catch (error) {
-            console.log("Error pausing video:", error)
+            if (process.env.NODE_ENV === 'development') {
+              console.log("Error pausing video:", error)
+            }
           }
         } else if (entry.isIntersecting && loaded && autoplay) {
           // Video is back in view and has autoplay - resume playing
-          try {
-            await el.play()
-          } catch (error) {
-            console.log("Error resuming video:", error)
-          }
+          el.play().catch((error) => {
+            if (process.env.NODE_ENV === 'development') {
+              console.log("Error resuming video:", error)
+            }
+          })
         }
       })
     }
@@ -88,7 +92,11 @@ export default function LazyVideo({
     })
     observer.observe(el)
 
-    return () => observer?.disconnect()
+    return () => {
+      if (observer) {
+        observer.disconnect()
+      }
+    }
   }, [src, loaded, autoplay])
 
   return (
