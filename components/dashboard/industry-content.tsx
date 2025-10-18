@@ -1,40 +1,76 @@
+"use client"
+
 import { Building2, TrendingUp, Users, Award } from "lucide-react"
+import { useEffect, useState } from "react"
+import { getIndustryContentData } from "@/lib/api/dashboard-data"
+import type { IndustryContentData } from "@/types/dashboard"
 
 export default function IndustryContent() {
-  const industryComparison = [
-    { company: "Your Brand", score: 89.8, marketShare: 18.5, growth: 12.3, rank: 2 },
-    { company: "Chase", score: 92.0, marketShare: 22.1, growth: 5.2, rank: 1 },
-    { company: "American Express", score: 85.2, marketShare: 19.8, growth: -1.2, rank: 3 },
-    { company: "Capital One", score: 78.0, marketShare: 15.3, growth: 8.5, rank: 4 },
-    { company: "US Bank", score: 76.9, marketShare: 12.4, growth: -2.1, rank: 5 },
-    { company: "Bill", score: 72.3, marketShare: 11.9, growth: 15.8, rank: 6 },
-  ]
+  const [data, setData] = useState<IndustryContentData | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const industryData = await getIndustryContentData()
+        setData(industryData)
+      } catch (error) {
+        console.error("Failed to fetch industry data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-500 dark:text-gray-400">Loading industry data...</div>
+      </div>
+    )
+  }
+
+  if (!data) {
+    return <div>Failed to load data</div>
+  }
+
+  // Industry comparison - 실제 데이터 사용
+  const industryComparison = data.competitors.map(comp => ({
+    company: comp.companyName,
+    score: comp.score,
+    marketShare: comp.marketShare,
+    growth: comp.growthRate,
+    rank: comp.rank
+  }))
+
+  // Industry metrics - 실제 데이터 사용
   const industryMetrics = [
     {
       title: "Industry Rank",
-      value: "#2",
-      change: "+1",
-      description: "out of 50 competitors",
+      value: `#${data.metrics.industryRank}`,
+      change: `+${data.metrics.rankChange}`,
+      description: `out of ${data.metrics.totalCompetitors} competitors`,
       icon: Award,
     },
     {
       title: "Market Share",
-      value: "18.5%",
-      change: "+2.3%",
+      value: `${data.metrics.marketSharePercent}%`,
+      change: `+${data.metrics.marketShareChange}%`,
       description: "of AI mentions",
       icon: Building2,
     },
     {
       title: "Growth Rate",
-      value: "+12.3%",
+      value: `+${data.metrics.growthRate}%`,
       change: "+4.1%",
       description: "vs industry avg",
       icon: TrendingUp,
     },
     {
       title: "Audience Reach",
-      value: "2.4M",
+      value: `${(data.metrics.audienceReach / 1000000).toFixed(1)}M`,
       change: "+18%",
       description: "monthly impressions",
       icon: Users,
@@ -99,7 +135,7 @@ export default function IndustryContent() {
                 <tr
                   key={index}
                   className={`border-b border-gray-100 dark:border-[#1F1F23] hover:bg-gray-50 dark:hover:bg-[#1F1F23] transition-colors ${
-                    company.company === "Your Brand" ? "bg-accent-green-10" : ""
+                    company.company === "suelo" ? "bg-accent-green-10" : ""
                   }`}
                 >
                   <td className="py-3 px-4">
@@ -109,14 +145,14 @@ export default function IndustryContent() {
                     <div className="flex items-center gap-2">
                       <span
                         className={`text-sm font-medium ${
-                          company.company === "Your Brand"
+                          company.company === "suelo"
                             ? "text-accent-green-glow font-semibold"
                             : "text-gray-900 dark:text-white"
                         }`}
                       >
                         {company.company}
                       </span>
-                      {company.company === "Your Brand" && (
+                      {company.company === "suelo" && (
                         <span className="px-2 py-0.5 bg-accent-green-20 text-accent-green-glow text-xs rounded-full font-medium">
                           You
                         </span>
@@ -153,12 +189,7 @@ export default function IndustryContent() {
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Strengths</h3>
           <div className="space-y-3">
-            {[
-              "Highest growth rate in the industry (+12.3%)",
-              "Strong presence in expense management category",
-              "Leading in startup and SMB segments",
-              "High citation authority from financial publications",
-            ].map((strength, index) => (
+            {data.strengths.map((strength, index) => (
               <div key={index} className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#C6FF3A] shadow-lg shadow-[#C6FF3A]/50 mt-2 flex-shrink-0" />
                 <p className="text-sm text-gray-600 dark:text-gray-400">{strength}</p>
@@ -170,12 +201,7 @@ export default function IndustryContent() {
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Opportunities</h3>
           <div className="space-y-3">
-            {[
-              "Expand presence in enterprise segment",
-              "Increase visibility in international markets",
-              "Strengthen partnerships with fintech platforms",
-              "Improve coverage on emerging AI platforms",
-            ].map((opportunity, index) => (
+            {data.opportunities.map((opportunity, index) => (
               <div key={index} className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-accent-green mt-2 flex-shrink-0" />
                 <p className="text-sm text-gray-600 dark:text-gray-400">{opportunity}</p>

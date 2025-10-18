@@ -1,67 +1,61 @@
 import BrandVisibility from "./brand-visibility";
 import { TrendingUp, Target, Globe, Zap } from "lucide-react";
+import type { BrandVisibilityData, HomeContentData } from "@/types/dashboard";
 
-export default function HomeContent() {
-  // Reportly-based actual metrics data
-  const keyMetrics = [
+interface HomeContentProps {
+  brandVisibilityData?: BrandVisibilityData;
+  homeData?: HomeContentData;
+}
+
+export default function HomeContent({ brandVisibilityData, homeData }: HomeContentProps) {
+  // 실제 데이터가 없으면 기본값 사용
+  const keyMetrics = homeData ? [
     {
       title: "Total Score",
-      value: "89",
-      change: "+12.3%",
-      trend: "up",
-      description: "vs industry average",
+      value: String(homeData.keyMetrics.totalScore.value),
+      change: homeData.keyMetrics.totalScore.change,
+      trend: homeData.keyMetrics.totalScore.trend,
+      description: homeData.keyMetrics.totalScore.description,
       icon: Target,
     },
     {
       title: "Competitive Rank",
-      value: "#2",
-      change: "+1",
-      trend: "up",
-      description: "out of 50 brands",
+      value: `#${homeData.keyMetrics.competitiveRank.value}`,
+      change: homeData.keyMetrics.competitiveRank.change,
+      trend: homeData.keyMetrics.competitiveRank.trend,
+      description: `out of ${homeData.keyMetrics.competitiveRank.totalCompetitors} brands`,
       icon: TrendingUp,
     },
     {
       title: "Strongest Category",
-      value: "Business Banking",
-      change: "95",
-      trend: "up",
-      description: "highest score",
+      value: homeData.keyMetrics.strongestCategory.categoryName || "",
+      change: String(homeData.keyMetrics.strongestCategory.score),
+      trend: homeData.keyMetrics.strongestCategory.trend,
+      description: homeData.keyMetrics.strongestCategory.description,
       icon: Zap,
     },
     {
       title: "Weakest Category",
-      value: "Customer Support",
-      change: "72",
-      trend: "down",
-      description: "needs improvement",
+      value: homeData.keyMetrics.weakestCategory.categoryName || "",
+      change: String(homeData.keyMetrics.weakestCategory.score),
+      trend: homeData.keyMetrics.weakestCategory.trend,
+      description: homeData.keyMetrics.weakestCategory.description,
       icon: Globe,
     },
-  ];
+  ] : [];
 
-  // Reportly-based AI insights
-  const recentInsights = [
-    {
-      type: "positive",
-      title: "Strong Presence in Business Banking",
-      description:
-        "Your brand shows exceptional performance in business banking category with 95 points. Consistently mentioned in top 3 for expense management solutions across all AI platforms.",
-      time: "Today",
-    },
-    {
-      type: "neutral",
-      title: "Customer Support Visibility Gap",
-      description:
-        "Customer support visibility is below industry average at 72 points. Limited mentions in customer service related queries compared to competitors.",
-      time: "Today",
-    },
-    {
-      type: "action",
-      title: "Recommended Improvements",
-      description:
-        "Focus on creating content around customer success stories and support capabilities. Partner with review platforms like NerdWallet and FitSmallBusiness to increase support-related visibility.",
-      time: "Today",
-    },
-  ];
+  // 인사이트 데이터 변환
+  const recentInsights = homeData ? homeData.insights.map((insight) => ({
+    type: insight.type,
+    title: insight.title,
+    description: insight.description,
+    time: new Date(insight.timestamp).toLocaleDateString("ko-KR", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+  })) : [];
 
   return (
     <div className="space-y-6">
@@ -107,10 +101,9 @@ export default function HomeContent() {
           Brand visibility
         </h2>
         <p className="text-base text-gray-600 dark:text-gray-400 mb-4">
-          Percentage of AI answers about Business credit cards that mention your
-          brand
+          Percentage of AI answers about sunscreen products that mention your brand
         </p>
-        <BrandVisibility />
+        <BrandVisibility data={brandVisibilityData} />
       </div>
 
       {/* Recent Insights */}
@@ -155,33 +148,22 @@ export default function HomeContent() {
           Platform Coverage
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {[
-            { name: "ChatGPT", coverage: 95, active: true },
-            { name: "Perplexity", coverage: 88, active: true },
-            { name: "Claude", coverage: 92, active: true },
-            { name: "Gemini", coverage: 85, active: true },
-            { name: "Copilot", coverage: 78, active: true },
-            { name: "SearchGPT", coverage: 82, active: true },
-            { name: "You.com", coverage: 75, active: true },
-            { name: "Bing AI", coverage: 80, active: true },
-            { name: "Bard", coverage: 0, active: false },
-            { name: "Others", coverage: 65, active: true },
-          ].map((platform, index) => (
+          {(homeData?.platformCoverage || []).map((platform, index) => (
             <div
               key={index}
               className="flex flex-col items-center p-3 rounded-lg bg-gray-50 dark:bg-[#1F1F23] hover:bg-gray-100 dark:hover:bg-[#2B2B30] transition-colors"
             >
               <span className="text-base font-medium text-gray-900 dark:text-white mb-2">
-                {platform.name}
+                {platform.platformName}
               </span>
               <span
                 className={`text-xl font-bold ${
-                  platform.active
+                  platform.isActive
                     ? "text-accent-green-glow"
                     : "text-gray-400 dark:text-gray-600"
                 }`}
               >
-                {platform.active ? `${platform.coverage}%` : "—"}
+                {platform.isActive ? `${platform.coveragePercent}%` : "—"}
               </span>
             </div>
           ))}

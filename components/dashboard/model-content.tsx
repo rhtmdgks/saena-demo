@@ -1,93 +1,67 @@
+"use client"
+
 import { Bot, Zap, Shield, Globe } from "lucide-react"
+import { useEffect, useState } from "react"
+import { getModelContentData } from "@/lib/api/dashboard-data"
+import type { ModelContentData } from "@/types/dashboard"
 
 export default function ModelContent() {
-  // Reportly-based AI model performance data
-  const aiModels = [
-    {
-      name: "ChatGPT",
-      provider: "OpenAI",
-      visibility: 95,
-      accuracy: 94,
-      sentiment: "positive",
-      mentions: 1450,
-      trend: "up",
-      change: 8.5,
-    },
-    {
-      name: "Claude",
-      provider: "Anthropic",
-      visibility: 92,
-      accuracy: 96,
-      sentiment: "positive",
-      mentions: 1280,
-      trend: "up",
-      change: 6.7,
-    },
-    {
-      name: "Perplexity",
-      provider: "Perplexity AI",
-      visibility: 88,
-      accuracy: 91,
-      sentiment: "positive",
-      mentions: 1120,
-      trend: "up",
-      change: 12.3,
-    },
-    {
-      name: "Gemini",
-      provider: "Google",
-      visibility: 85,
-      accuracy: 88,
-      sentiment: "positive",
-      mentions: 980,
-      trend: "up",
-      change: 4.2,
-    },
-    {
-      name: "SearchGPT",
-      provider: "OpenAI",
-      visibility: 82,
-      accuracy: 87,
-      sentiment: "positive",
-      mentions: 850,
-      trend: "up",
-      change: 15.8,
-    },
-    {
-      name: "Copilot",
-      provider: "Microsoft",
-      visibility: 78,
-      accuracy: 83,
-      sentiment: "neutral",
-      mentions: 720,
-      trend: "down",
-      change: -2.1,
-    },
-  ]
+  const [data, setData] = useState<ModelContentData | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
-  // Reportly-based model comprehensive metrics
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const modelData = await getModelContentData()
+        setData(modelData)
+      } catch (error) {
+        console.error("Failed to fetch model data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-500 dark:text-gray-400">Loading model data...</div>
+      </div>
+    )
+  }
+
+  if (!data) {
+    return <div>Failed to load data</div>
+  }
+
+  // AI model performance data - 실제 데이터 사용
+  const aiModels = data.models
+
+  // Model comprehensive metrics - 실제 데이터 사용
   const modelMetrics = [
     {
       title: "Average Visibility",
-      value: "86.7%",
+      value: `${data.overallMetrics.averageVisibility}%`,
       description: "across all AI models",
       icon: Bot,
     },
     {
       title: "Accuracy Score",
-      value: "89.8%",
+      value: `${data.overallMetrics.accuracyScore}%`,
       description: "information accuracy",
       icon: Shield,
     },
     {
       title: "Total Mentions",
-      value: "7,400",
+      value: data.overallMetrics.totalMentions.toLocaleString(),
       description: "across all platforms",
       icon: Zap,
     },
     {
       title: "Positive Sentiment",
-      value: "83%",
+      value: `${data.overallMetrics.positiveSentimentPercent}%`,
       description: "of all mentions",
       icon: Globe,
     },

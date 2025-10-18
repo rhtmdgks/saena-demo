@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Package,
   DollarSign,
@@ -13,187 +13,144 @@ import {
   TrendingUp,
   TrendingDown,
 } from "lucide-react";
+import { getMarketingStrategyData } from "@/lib/api/dashboard-data";
+import type { MarketingStrategyData } from "@/types/dashboard";
 
 export default function MarketingStrategyContent() {
   const [selectedView, setSelectedView] = useState<"4p" | "4e">("4p");
   const [selectedP, setSelectedP] = useState<string | null>(null);
   const [selectedE, setSelectedE] = useState<string | null>(null);
+  const [data, setData] = useState<MarketingStrategyData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // 4P data
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const marketingData = await getMarketingStrategyData();
+        setData(marketingData);
+      } catch (error) {
+        console.error("Failed to fetch marketing strategy data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-500 dark:text-gray-400">Loading marketing strategy data...</div>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return <div>Failed to load data</div>;
+  }
+
+  // 4P data - 실제 데이터 사용
   const fourPData = {
     Product: {
       icon: Package,
-      score: 92,
-      change: 8.5,
-      trend: "up" as const,
+      score: data.fourP.product.score,
+      change: data.fourP.product.change,
+      trend: data.fourP.product.trend,
       color: "#4C8EFF",
-      metrics: {
-        "USP Share": "78%",
-        "Feature Mentions": "1,245",
-        "Product Clarity": "94%",
-        "Innovation Score": "89%",
-      },
-      topMentions: [
-        { text: "Advanced expense management automation", sentiment: 0.92 },
-        { text: "Real-time financial insights and reporting", sentiment: 0.88 },
-        { text: "Seamless integration with existing tools", sentiment: 0.85 },
-      ],
-      trendData: [
-        { month: "Jan", value: 78 },
-        { month: "Feb", value: 82 },
-        { month: "Mar", value: 85 },
-        { month: "Apr", value: 88 },
-        { month: "May", value: 90 },
-        { month: "Jun", value: 92 },
-      ],
+      metrics: data.fourP.product.metrics,
+      topMentions: data.fourP.product.topMentions.map(m => ({
+        text: m.text,
+        sentiment: m.sentimentScore
+      })),
+      trendData: data.fourP.product.trendData,
     },
     Price: {
       icon: DollarSign,
-      score: 85,
-      change: 5.2,
-      trend: "up" as const,
+      score: data.fourP.price.score,
+      change: data.fourP.price.change,
+      trend: data.fourP.price.trend,
       color: "#10B981",
-      metrics: {
-        "Price Tone Index": "72%",
-        "Value Mentions": "890",
-        "Cost Perception": "Positive",
-        "ROI Score": "88%",
-      },
-      topMentions: [
-        {
-          text: "Competitive pricing for enterprise features",
-          sentiment: 0.85,
-        },
-        { text: "Great value compared to traditional banks", sentiment: 0.82 },
-        { text: "Transparent pricing with no hidden fees", sentiment: 0.9 },
-      ],
-      trendData: [
-        { month: "Jan", value: 72 },
-        { month: "Feb", value: 75 },
-        { month: "Mar", value: 78 },
-        { month: "Apr", value: 80 },
-        { month: "May", value: 83 },
-        { month: "Jun", value: 85 },
-      ],
+      metrics: data.fourP.price.metrics,
+      topMentions: data.fourP.price.topMentions.map(m => ({
+        text: m.text,
+        sentiment: m.sentimentScore
+      })),
+      trendData: data.fourP.price.trendData,
     },
     Place: {
       icon: MapPin,
-      score: 88,
-      change: 12.3,
-      trend: "up" as const,
+      score: data.fourP.place.score,
+      change: data.fourP.place.change,
+      trend: data.fourP.place.trend,
       color: "#F59E0B",
-      metrics: {
-        "Channel Spread": "65%",
-        "Platform Coverage": "8/10",
-        Accessibility: "High",
-        "Omnichannel Score": "91%",
-      },
-      topMentions: [
-        {
-          text: "Available through multiple digital channels",
-          sentiment: 0.88,
-        },
-        { text: "Strong online and mobile presence", sentiment: 0.92 },
-        { text: "Easy to access from anywhere", sentiment: 0.86 },
-      ],
-      trendData: [
-        { month: "Jan", value: 68 },
-        { month: "Feb", value: 72 },
-        { month: "Mar", value: 76 },
-        { month: "Apr", value: 80 },
-        { month: "May", value: 84 },
-        { month: "Jun", value: 88 },
-      ],
+      metrics: data.fourP.place.metrics,
+      topMentions: data.fourP.place.topMentions.map(m => ({
+        text: m.text,
+        sentiment: m.sentimentScore
+      })),
+      trendData: data.fourP.place.trendData,
     },
     Promotion: {
       icon: Megaphone,
-      score: 76,
-      change: -2.1,
-      trend: "down" as const,
+      score: data.fourP.promotion.score,
+      change: data.fourP.promotion.change,
+      trend: data.fourP.promotion.trend,
       color: "#EC4899",
-      metrics: {
-        "Promo KW Ratio": "42%",
-        "Campaign Mentions": "320",
-        "Message Reach": "Medium",
-        "Engagement Rate": "68%",
-      },
-      topMentions: [
-        { text: "Limited promotional messaging visibility", sentiment: 0.45 },
-        { text: "Word-of-mouth recommendations strong", sentiment: 0.88 },
-        { text: "Need more active marketing campaigns", sentiment: 0.52 },
-      ],
-      trendData: [
-        { month: "Jan", value: 82 },
-        { month: "Feb", value: 80 },
-        { month: "Mar", value: 79 },
-        { month: "Apr", value: 78 },
-        { month: "May", value: 77 },
-        { month: "Jun", value: 76 },
-      ],
+      metrics: data.fourP.promotion.metrics,
+      topMentions: data.fourP.promotion.topMentions.map(m => ({
+        text: m.text,
+        sentiment: m.sentimentScore
+      })),
+      trendData: data.fourP.promotion.trendData,
     },
   };
 
-  // 4E data
+  // 4E data - 실제 데이터 사용
   const fourEData = {
     Experience: {
       icon: Star,
-      score: 89,
-      change: 12.4,
-      trend: "up" as const,
-      ratio: 0.67,
+      score: data.fourE.experience.score,
+      change: data.fourE.experience.change,
+      trend: data.fourE.experience.trend,
+      ratio: data.fourE.experience.ratio,
       color: "#4C8EFF",
-      description: "Experience-based sentence ratio",
-      formula: "Experience sentences / Total sentences",
-      insights: [
-        "High mentions of user reviews and satisfaction",
-        "Increase in experience-based recommendations",
-        "Active sharing of positive experiences",
-      ],
+      description: data.fourE.experience.description,
+      formula: data.fourE.experience.formula,
+      insights: data.fourE.experience.insights,
     },
     Exchange: {
       icon: ArrowRightLeft,
-      score: 82,
-      change: 8.7,
-      trend: "up" as const,
-      ratio: 0.74,
+      score: data.fourE.exchange.score,
+      change: data.fourE.exchange.change,
+      trend: data.fourE.exchange.trend,
+      ratio: data.fourE.exchange.ratio,
       color: "#00D9FF",
-      description: "Exchange value mention rate",
-      formula: "Benefit/Value sentences / Total sentences",
-      insights: [
-        "Positive perception of value for money",
-        "Mentions of benefit advantage over competitors",
-        "High satisfaction with ROI",
-      ],
+      description: data.fourE.exchange.description,
+      formula: data.fourE.exchange.formula,
+      insights: data.fourE.exchange.insights,
     },
     Evangelism: {
       icon: Heart,
-      score: 76,
-      change: 15.2,
-      trend: "up" as const,
-      ratio: 0.58,
+      score: data.fourE.evangelism.score,
+      change: data.fourE.evangelism.change,
+      trend: data.fourE.evangelism.trend,
+      ratio: data.fourE.evangelism.ratio,
       color: "#7C3AED",
-      description: "Recommendation/Trust/Share ratio",
-      formula: "Recommendation/Trust sentences / Total sentences",
-      insights: [
-        "High customer recommendation intent",
-        "Increase in trust-based word-of-mouth effect",
-        "Rising brand loyalty",
-      ],
+      description: data.fourE.evangelism.description,
+      formula: data.fourE.evangelism.formula,
+      insights: data.fourE.evangelism.insights,
     },
     Everyplace: {
       icon: Globe,
-      score: 85,
-      change: 6.3,
-      trend: "up" as const,
-      ratio: 0.71,
+      score: data.fourE.everyplace.score,
+      change: data.fourE.everyplace.change,
+      trend: data.fourE.everyplace.trend,
+      ratio: data.fourE.everyplace.ratio,
       color: "#10B981",
-      description: "Touchpoint diversity & distribution",
-      formula: "1 - Herfindahl(Index)",
-      insights: [
-        "Balanced exposure across various platforms",
-        "Good distribution by region and language",
-        "Effective multi-channel strategy",
-      ],
+      description: data.fourE.everyplace.description,
+      formula: data.fourE.everyplace.formula,
+      insights: data.fourE.everyplace.insights,
     },
   };
 
@@ -714,14 +671,7 @@ export default function MarketingStrategyContent() {
             </h3>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {[
-                { emotion: "Joy", value: 45 },
-                { emotion: "Trust", value: 38 },
-                { emotion: "Anticipation", value: 32 },
-                { emotion: "Surprise", value: 28 },
-                { emotion: "Fear", value: 15 },
-                { emotion: "Sadness", value: 12 },
-              ].map((emotionData) => (
+              {data.emotionDistribution.map((emotionData) => (
                 <div key={emotionData.emotion} className="text-center">
                   <div className="relative w-20 h-20 mx-auto mb-2">
                     <svg 

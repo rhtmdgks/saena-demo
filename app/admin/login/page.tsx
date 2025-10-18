@@ -30,23 +30,24 @@ export default function AdminLogin() {
 
     // Simple client-side authentication
     // Note: In production, this should be replaced with proper server-side authentication
-    const isPrototype = email === "prototype@thesaena.ai" && password === "1234";
-    const isAdmin = 
+    const isPrototype =
+      email === "prototype@thesaena.ai" && password === "1234";
+    const isAdmin =
       (email === "admin@thesaena.ai" && password === "1234") ||
       (email === "Edmond@thesaena.ai" && password === "ahskflwk1!");
 
     if (isPrototype || isAdmin) {
       const sessionType = isPrototype ? "prototype-session" : "admin-session";
       const redirectPath = isPrototype ? "/admin/prototype" : "/admin";
-      
+
       const expiryDate = new Date();
       expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
-      
+
       // Set secure cookie with SameSite
       document.cookie = `${sessionType}=authenticated; path=/; expires=${expiryDate.toUTCString()}; SameSite=Strict${
-        window.location.protocol === 'https:' ? '; Secure' : ''
+        window.location.protocol === "https:" ? "; Secure" : ""
       }`;
-      
+
       setIsLoading(false);
       router.push(redirectPath);
       return;
@@ -72,7 +73,7 @@ export default function AdminLogin() {
       {/* Left side - only visible on desktop */}
       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-purple-600 to-blue-600 p-12 flex-col justify-between">
         <div>
-          <div className="flex items-center gap-3">
+          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer">
             <Image
               src="/icons/goodwill_white.svg"
               alt="GOODWILL(KE) logo"
@@ -83,7 +84,7 @@ export default function AdminLogin() {
             <span className="text-2xl font-semibold text-white">
               GOODWILL(KE)
             </span>
-          </div>
+          </a>
           <h1 className="text-4xl font-bold text-white mt-12">
             Welcome to GOODWILL(KE) Admin
           </h1>
@@ -104,7 +105,7 @@ export default function AdminLogin() {
       {/* Right side - login form */}
       <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12">
         {/* Mobile header - only visible on mobile */}
-        <div className="flex md:hidden items-center gap-3 mb-8 w-full">
+        <a href="/" className="flex md:hidden items-center gap-3 mb-8 w-full hover:opacity-80 transition-opacity cursor-pointer">
           <Image
             src="/icons/goodwill_white.svg"
             alt="GOODWILL(KE) logo"
@@ -115,7 +116,7 @@ export default function AdminLogin() {
           <span className="text-2xl font-semibold text-white">
             GOODWILL(KE)
           </span>
-        </div>
+        </a>
 
         <div className="w-full max-w-md">
           <div className="text-center mb-8">

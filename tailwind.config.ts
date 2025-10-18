@@ -9,6 +9,17 @@ const config: Config = {
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    extend: {
+      keyframes: {
+        shine: {
+          '0%': { 'background-position': '100%' },
+          '100%': { 'background-position': '-100%' },
+        },
+      },
+      animation: {
+        shine: 'shine 5s linear infinite',
+      },
+    },
     fontFamily: {
       sans: ['Geist', 'system-ui', 'sans-serif'],
       serif: ['Source Serif 4', 'Georgia', 'serif'],
@@ -97,19 +108,5 @@ const config: Config = {
   },
   plugins: [require("tailwindcss-animate")],
 };
-
-// Add shine animation
-if (config.theme && typeof config.theme === 'object' && 'extend' in config.theme) {
-  const extend = config.theme.extend as any;
-  if (!extend.keyframes) extend.keyframes = {};
-  if (!extend.animation) extend.animation = {};
-  
-  extend.keyframes.shine = {
-    '0%': { 'background-position': '100%' },
-    '100%': { 'background-position': '-100%' },
-  };
-  
-  extend.animation.shine = 'shine 5s linear infinite';
-}
 
 export default config;

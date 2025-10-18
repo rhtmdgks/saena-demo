@@ -1,6 +1,6 @@
 import type { Viewport } from "next";
 import { Geist } from "next/font/google";
-import { Providers } from "@/context/theme-provider";
+import { Providers } from "@/components/providers";
 import DarkVeil from "@/components/dark-veil";
 import { Header } from "@/components/header";
 import "../globals.css";
@@ -10,6 +10,12 @@ const geistSans = Geist({
   subsets: ["latin"],
   preload: true,
 });
+
+export const metadata = {
+  title: "Join Waitlist | GOODWILL(KE)",
+  description:
+    "Join our waitlist and be among the first to experience our 3D animation services",
+};
 
 export const viewport: Viewport = {
   maximumScale: 1, // Disable auto-zoom on mobile Safari
@@ -45,9 +51,3 @@ export default function WaitlistLayout({
     </>
   );
 }
-
-export const metadata = {
-  title: "Join Waitlist | GOODWILL(KE)",
-  description:
-    "Join our waitlist and be among the first to experience our 3D animation services",
-};

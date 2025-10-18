@@ -5,6 +5,7 @@ import { useState, useRef, useMemo } from "react";
 import { motion, useInView } from "motion/react";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import type { BrandVisibilityData } from "@/types/dashboard";
 
 interface BrandRanking {
   rank: number;
@@ -12,6 +13,10 @@ interface BrandRanking {
   visibility: number;
   change: number;
   trending: string;
+}
+
+interface BrandVisibilityProps {
+  data?: BrandVisibilityData;
 }
 
 const AnimatedBrandItem = ({
@@ -107,7 +112,7 @@ const BrandRankingList = ({ items }: { items: BrandRanking[] }) => {
   );
 };
 
-export default function BrandVisibility() {
+export default function BrandVisibility({ data }: BrandVisibilityProps) {
   // Create MUI theme for dark mode support
   const muiTheme = useMemo(
     () =>
@@ -127,112 +132,26 @@ export default function BrandVisibility() {
     []
   );
 
-  const brandRankings = [
-    { rank: 1, brand: "Chase", visibility: 92, change: 5, trending: "up" },
-    { rank: 2, brand: "Rho", visibility: 89.8, change: 1, trending: "up" },
-    {
-      rank: 3,
-      brand: "American Express",
-      visibility: 85.2,
-      change: -1,
-      trending: "down",
-    },
-    {
-      rank: 4,
-      brand: "Capital on Tap",
-      visibility: 78,
-      change: 5,
-      trending: "up",
-    },
-    {
-      rank: 5,
-      brand: "US Bank",
-      visibility: 76.9,
-      change: -2,
-      trending: "down",
-    },
-    { rank: 6, brand: "Bill", visibility: 72.3, change: 1.8, trending: "up" },
-    { rank: 7, brand: "Brex", visibility: 71.5, change: 3.2, trending: "up" },
-    {
-      rank: 8,
-      brand: "Mercury",
-      visibility: 68.4,
-      change: 2.1,
-      trending: "up",
-    },
-    {
-      rank: 9,
-      brand: "Divvy",
-      visibility: 65.8,
-      change: -1.5,
-      trending: "down",
-    },
-    {
-      rank: 10,
-      brand: "Expensify",
-      visibility: 63.2,
-      change: 1.2,
-      trending: "up",
-    },
-    {
-      rank: 11,
-      brand: "Stripe",
-      visibility: 61.7,
-      change: 4.3,
-      trending: "up",
-    },
-    {
-      rank: 12,
-      brand: "Square",
-      visibility: 59.3,
-      change: -0.8,
-      trending: "down",
-    },
-    {
-      rank: 13,
-      brand: "PayPal",
-      visibility: 57.9,
-      change: 2.5,
-      trending: "up",
-    },
-    { rank: 14, brand: "Wise", visibility: 55.4, change: 3.7, trending: "up" },
-    {
-      rank: 15,
-      brand: "Revolut",
-      visibility: 53.1,
-      change: -2.1,
-      trending: "down",
-    },
-    { rank: 16, brand: "N26", visibility: 50.8, change: 1.9, trending: "up" },
-    { rank: 17, brand: "Chime", visibility: 48.5, change: 0.6, trending: "up" },
-    {
-      rank: 18,
-      brand: "Varo",
-      visibility: 46.2,
-      change: -1.3,
-      trending: "down",
-    },
-    {
-      rank: 19,
-      brand: "Current",
-      visibility: 43.9,
-      change: 2.8,
-      trending: "up",
-    },
-    { rank: 20, brand: "Novo", visibility: 41.5, change: 1.4, trending: "up" },
-  ];
+  // 실제 데이터가 없으면 기본값 사용
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
-  const chartData = [65, 70, 68, 75, 82, 78, 85, 89.8];
-  const dates = [
-    "Jan 29",
-    "Jan 30",
-    "Jan 31",
-    "Feb 01",
-    "Feb 02",
-    "Feb 03",
-    "Feb 04",
-    "Feb 05",
-  ];
+  // 데이터 변환
+  const brandRankings = data.brandRankings.map((item) => ({
+    rank: item.rank,
+    brand: item.brandName,
+    visibility: item.visibilityScore,
+    change: item.changePercent,
+    trending: item.trending,
+  }));
+
+  // 차트 데이터 준비
+  const chartData = data.timeSeriesData.map((item) => item.score);
+  const dates = data.timeSeriesData.map((item) => {
+    const date = new Date(item.date);
+    return date.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+  });
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3">
@@ -241,11 +160,21 @@ export default function BrandVisibility() {
         <div className="mb-4">
           <div className="flex items-baseline gap-3 mb-2">
             <span className="text-4xl font-bold text-gray-900 dark:text-white">
-              89.8%
+              {data.currentScore}%
             </span>
-            <span className="text-accent-green-glow text-base font-medium flex items-center gap-1">
-              <ArrowUpRight className="h-5 w-5" />
-              1% vs last week
+            <span
+              className={`text-base font-medium flex items-center gap-1 ${
+                data.changeTrend === "up"
+                  ? "text-accent-green-glow"
+                  : "text-red-600 dark:text-red-400"
+              }`}
+            >
+              {data.changeTrend === "up" ? (
+                <ArrowUpRight className="h-5 w-5" />
+              ) : (
+                <ArrowDownRight className="h-5 w-5" />
+              )}
+              {data.changePercent}% vs last week
             </span>
           </div>
           <p className="text-base text-gray-600 dark:text-gray-400">

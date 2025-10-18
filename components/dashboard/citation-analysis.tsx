@@ -2,21 +2,29 @@
 
 import { useState } from "react"
 import { ExternalLink } from "lucide-react"
+import type { CitationAnalysisData } from "@/types/dashboard"
 
-export default function CitationAnalysis() {
+interface CitationAnalysisProps {
+  data?: CitationAnalysisData;
+}
+
+export default function CitationAnalysis({ data }: CitationAnalysisProps) {
   const [hoveredDomain, setHoveredDomain] = useState<string | null>(null)
 
-  // Reportly-based citation domain data
-  const citationDomains = [
-    { rank: 1, domain: "forbes.com", mentions: 1885, type: "earned", percentage: 100, authority: 95 },
-    { rank: 2, domain: "techcrunch.com", mentions: 1520, type: "earned", percentage: 80.6, authority: 92 },
-    { rank: 3, domain: "builtin.com", mentions: 1276, type: "earned", percentage: 67.7, authority: 85 },
-    { rank: 4, domain: "businessinsider.com", mentions: 1180, type: "earned", percentage: 62.6, authority: 90 },
-    { rank: 5, domain: "rho.co", mentions: 1086, type: "owned", percentage: 57.6, authority: 88 },
-    { rank: 6, domain: "fitsmallbusiness.com", mentions: 1056, type: "operated", percentage: 56, authority: 82 },
-    { rank: 7, domain: "nerdwallet.com", mentions: 980, type: "earned", percentage: 52, authority: 87 },
-    { rank: 8, domain: "fintechlabs.com", mentions: 750, type: "operated", percentage: 39.8, authority: 78 },
-  ]
+  // 실제 데이터가 없으면 로딩 표시
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const citationDomains = data.domains.map((domain) => ({
+    rank: domain.rank,
+    domain: domain.domainName,
+    mentions: domain.mentionCount,
+    type: domain.type,
+    percentage: domain.percentage,
+    authority: domain.authorityScore,
+    url: domain.url,
+  }));
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -52,23 +60,38 @@ export default function CitationAnalysis() {
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-blue-500"></div>
             <span className="text-gray-700 dark:text-gray-300">Earned</span>
-            <span className="text-gray-500 dark:text-gray-400">30,445 (95.1%)</span>
+            <span className="text-gray-500 dark:text-gray-400">
+              {data.citationsByType.earned.count.toLocaleString()} ({data.citationsByType.earned.percentage}%)
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-orange-500"></div>
             <span className="text-gray-700 dark:text-gray-300">Operated</span>
-            <span className="text-gray-500 dark:text-gray-400">518 (1.6%)</span>
+            <span className="text-gray-500 dark:text-gray-400">
+              {data.citationsByType.operated.count.toLocaleString()} ({data.citationsByType.operated.percentage}%)
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-cyan-500"></div>
             <span className="text-gray-700 dark:text-gray-300">Owned</span>
-            <span className="text-gray-500 dark:text-gray-400">1,056 (3.3%)</span>
+            <span className="text-gray-500 dark:text-gray-400">
+              {data.citationsByType.owned.count.toLocaleString()} ({data.citationsByType.owned.percentage}%)
+            </span>
           </div>
         </div>
         <div className="h-8 flex rounded-lg overflow-hidden">
-          <div className="bg-blue-500 flex-[95.1]"></div>
-          <div className="bg-orange-500 flex-[1.6]"></div>
-          <div className="bg-cyan-500 flex-[3.3]"></div>
+          <div 
+            className="bg-blue-500" 
+            style={{ flex: data.citationsByType.earned.percentage }}
+          ></div>
+          <div 
+            className="bg-orange-500" 
+            style={{ flex: data.citationsByType.operated.percentage }}
+          ></div>
+          <div 
+            className="bg-cyan-500" 
+            style={{ flex: data.citationsByType.owned.percentage }}
+          ></div>
         </div>
       </div>
 
@@ -88,15 +111,31 @@ export default function CitationAnalysis() {
           >
             <span className="col-span-1 text-gray-500 dark:text-gray-400 font-medium">{item.rank}</span>
             <div className="col-span-6 flex items-center gap-2">
-              <span className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                {item.domain}
-              </span>
-              {hoveredDomain === item.domain && (
+              {item.url ? (
+                <a 
+                  href={item.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                >
+                  {item.domain}
+                </a>
+              ) : (
+                <span className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {item.domain}
+                </span>
+              )}
+              {hoveredDomain === item.domain && item.url && (
                 <ExternalLink className="h-3 w-3 text-gray-400 dark:text-gray-500" />
               )}
               {item.type === "owned" && (
                 <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-xs font-medium">
                   Owned
+                </span>
+              )}
+              {item.type === "operated" && (
+                <span className="px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-medium">
+                  Operated
                 </span>
               )}
             </div>

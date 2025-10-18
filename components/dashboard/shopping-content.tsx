@@ -1,63 +1,96 @@
+"use client"
+
 import { ShoppingCart, TrendingUp, Package, DollarSign, Star, ExternalLink } from "lucide-react"
+import { useEffect, useState } from "react"
+import { getShoppingContentData } from "@/lib/api/dashboard-data"
+import type { ShoppingContentData } from "@/types/dashboard"
 
 export default function ShoppingContent() {
+  const [data, setData] = useState<ShoppingContentData | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const shoppingData = await getShoppingContentData()
+        setData(shoppingData)
+      } catch (error) {
+        console.error("Failed to fetch shopping data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-500 dark:text-gray-400">Loading shopping data...</div>
+      </div>
+    )
+  }
+
+  if (!data) {
+    return <div>Failed to load data</div>
+  }
+
   // Shopping metrics
   const shoppingMetrics = [
     {
       title: "Product Mentions",
-      value: "1,245",
-      change: "+18.5%",
-      trend: "up",
+      value: data.metrics.productMentions.toLocaleString(),
+      change: `+${data.metrics.productMentionsChange}%`,
+      trend: "up" as const,
       description: "in shopping queries",
       icon: ShoppingCart,
     },
     {
       title: "Avg. Rating",
-      value: "4.7/5",
-      change: "+0.3",
-      trend: "up",
+      value: `${data.metrics.averageRating}/5`,
+      change: `+${data.metrics.ratingChange}`,
+      trend: "up" as const,
       description: "across platforms",
       icon: Star,
     },
     {
       title: "Price Competitiveness",
-      value: "92%",
+      value: `${data.metrics.priceCompetitiveness}%`,
       change: "+5.2%",
-      trend: "up",
+      trend: "up" as const,
       description: "vs competitors",
       icon: DollarSign,
     },
     {
       title: "Availability Score",
-      value: "88%",
+      value: `${data.metrics.availabilityScore}%`,
       change: "+12%",
-      trend: "up",
+      trend: "up" as const,
       description: "product availability",
       icon: Package,
     },
   ]
 
-  // Shopping platform performance
-  const shoppingPlatforms = [
-    { name: "Google Shopping", visibility: 95, mentions: 580, rating: 4.8, trend: "up", change: 8.5 },
-    { name: "Amazon", visibility: 92, mentions: 450, rating: 4.7, trend: "up", change: 12.3 },
-    { name: "eBay", visibility: 78, mentions: 215, rating: 4.5, trend: "up", change: 5.2 },
-  ]
+  // Shopping platform performance - 실제 데이터 사용
+  const shoppingPlatforms = data.platforms
 
-  // Popular product categories
-  const productCategories = [
-    { category: "Business Credit Cards", mentions: 485, visibility: 95, growth: 15.3 },
-    { category: "Expense Management Tools", mentions: 380, visibility: 88, growth: 22.1 },
-    { category: "Payment Processing", mentions: 280, visibility: 82, growth: 8.7 },
-    { category: "Financial Software", mentions: 100, visibility: 75, growth: -2.3 },
-  ]
+  // Popular product categories - 실제 데이터 사용
+  const productCategories = data.categories.map(cat => ({
+    category: cat.categoryName,
+    mentions: cat.mentions,
+    visibility: cat.visibility,
+    growth: cat.growthPercent
+  }))
 
-  // Competitor price comparison
-  const priceComparison = [
-    { product: "Business Credit Card", ourPrice: "$0", competitorAvg: "$25", savings: "100%", advantage: true },
-    { product: "Expense Management", ourPrice: "$49", competitorAvg: "$79", savings: "38%", advantage: true },
-    { product: "Payment Processing", ourPrice: "2.9%", competitorAvg: "3.2%", savings: "9%", advantage: true },
-  ]
+  // Competitor price comparison - 실제 데이터 사용
+  const priceComparison = data.priceComparison.map(comp => ({
+    product: comp.productName,
+    ourPrice: comp.yourPrice,
+    competitorAvg: comp.competitorAvg,
+    savings: comp.savingsPercent,
+    advantage: comp.hasAdvantage === true
+  }))
 
   return (
     <div className="space-y-6">

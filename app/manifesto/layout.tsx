@@ -1,6 +1,6 @@
 import type { Viewport } from "next";
 import { Geist } from "next/font/google";
-import { Providers } from "@/context/theme-provider";
+import { Providers } from "@/components/providers";
 import DarkVeil from "@/components/dark-veil";
 import { Header } from "@/components/header";
 import "../globals.css";

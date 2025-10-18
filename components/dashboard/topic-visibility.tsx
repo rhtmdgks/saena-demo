@@ -1,30 +1,61 @@
 "use client"
 
 import { useState } from "react"
+import type { TopicVisibilityData } from "@/types/dashboard"
 
-export default function TopicVisibility() {
+interface TopicVisibilityProps {
+  data?: TopicVisibilityData;
+}
+
+export default function TopicVisibility({ data }: TopicVisibilityProps) {
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null)
 
-  const topThemes = [
-    { rank: 1, theme: "Accounts Payable Automation", frequency: 88 },
-    { rank: 2, theme: "Business Banking", frequency: 73 },
-    { rank: 3, theme: "Cash Management", frequency: 70 },
-    { rank: 4, theme: "Corporate Cards", frequency: 55 },
-    { rank: 5, theme: "Expense Management", frequency: 55 },
-    { rank: 6, theme: "Treasury Management", frequency: 49 },
-  ]
+  // 실제 데이터가 없으면 로딩 표시
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
-  const keywords = [
-    { text: "Business Banking", size: "text-5xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_12px_rgba(198,255,58,0.6)]", frequency: 70 },
-    { text: "Expense Management", size: "text-4xl", color: "text-blue-500", glow: "drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]", frequency: 55 },
-    { text: "Investment Strategies", size: "text-6xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_14px_rgba(198,255,58,0.7)]", frequency: 88 },
-    { text: "Startup Banking", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 35 },
-    { text: "Revenue Management", size: "text-5xl", color: "text-[#C6FF3A]", glow: "drop-shadow-[0_0_12px_rgba(198,255,58,0.6)]", frequency: 73 },
-    { text: "Payment Infrastructure", size: "text-4xl", color: "text-blue-500", glow: "drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]", frequency: 50 },
-    { text: "Treasury Management", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 30 },
-    { text: "Cross-border Payments", size: "text-2xl", color: "text-red-500", glow: "drop-shadow-[0_0_6px_rgba(239,68,68,0.6)]", frequency: 20 },
-    { text: "Finance Automation", size: "text-3xl", color: "text-orange-500", glow: "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]", frequency: 35 },
-  ]
+  const topThemes = data.topThemes.map((theme) => ({
+    rank: theme.rank,
+    theme: theme.themeName,
+    frequency: theme.frequency,
+  }));
+
+  // 키워드 데이터를 시각화 스타일로 변환
+  const getSizeClass = (size: string) => {
+    switch (size) {
+      case "large": return "text-6xl";
+      case "medium": return "text-4xl";
+      case "small": return "text-2xl";
+      default: return "text-3xl";
+    }
+  };
+
+  const getColorClass = (color: string) => {
+    switch (color) {
+      case "primary": return "text-[#C6FF3A]";
+      case "secondary": return "text-blue-500";
+      case "tertiary": return "text-orange-500";
+      default: return "text-gray-500";
+    }
+  };
+
+  const getGlowClass = (color: string) => {
+    switch (color) {
+      case "primary": return "drop-shadow-[0_0_14px_rgba(198,255,58,0.7)]";
+      case "secondary": return "drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]";
+      case "tertiary": return "drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]";
+      default: return "";
+    }
+  };
+
+  const keywords = data.keywords.map((keyword) => ({
+    text: keyword.text,
+    size: getSizeClass(keyword.size),
+    color: getColorClass(keyword.color),
+    glow: getGlowClass(keyword.color),
+    frequency: keyword.frequency,
+  }));
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

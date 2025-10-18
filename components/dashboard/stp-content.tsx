@@ -1,82 +1,80 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Users2, Target, Crosshair } from "lucide-react"
+import { getSTPData } from "@/lib/api/dashboard-data"
+import type { STPData } from "@/types/dashboard"
 
 export default function STPContent() {
   const [selectedSegment, setSelectedSegment] = useState<string | null>(null)
+  const [data, setData] = useState<STPData | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const stpData = await getSTPData()
+        setData(stpData)
+      } catch (error) {
+        console.error("Failed to fetch STP data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-500 dark:text-gray-400">Loading STP data...</div>
+      </div>
+    )
+  }
+
+  if (!data) {
+    return <div>Failed to load data</div>
+  }
 
   const stpData = {
     segmentation: {
       icon: Users2,
       title: "Segmentation",
       description: "Market segmentation analysis",
-      segments: [
-        {
-          name: "Tech-Savvy Professionals",
-          size: 35,
-          characteristics: ["25-40 years old", "High income", "Digital native"],
-          keywords: ["Innovation", "Efficiency", "Automation", "AI"]
-        },
-        {
-          name: "Small Business Owners",
-          size: 28,
-          characteristics: ["30-50 years old", "SMB operators", "Cost-sensitive"],
-          keywords: ["Value for money", "Simplicity", "Integrated solution"]
-        },
-        {
-          name: "Enterprise Decision Makers",
-          size: 22,
-          characteristics: ["35-55 years old", "Enterprise executives", "Security-focused"],
-          keywords: ["Reliability", "Scalability", "Security", "Support"]
-        },
-        {
-          name: "Freelancers & Creators",
-          size: 15,
-          characteristics: ["20-35 years old", "Freelancers", "Flexibility-seeking"],
-          keywords: ["Flexibility", "Mobile", "Easy payment"]
-        }
-      ]
+      segments: data.segments.map(seg => ({
+        name: seg.name,
+        size: seg.sizePercent,
+        characteristics: seg.characteristics,
+        keywords: seg.keywords
+      }))
     },
     targeting: {
       icon: Target,
       title: "Targeting",
       description: "Target market selection",
       primaryTarget: {
-        segment: "Tech-Savvy Professionals",
-        score: 92,
-        rationale: [
-          "Highest purchasing power and product understanding",
-          "Fast technology adoption and recommendation intent",
-          "Highest long-term customer value (LTV)"
-        ]
+        segment: data.targeting.primary.segmentName,
+        score: data.targeting.primary.score,
+        rationale: data.targeting.primary.rationale
       },
       secondaryTarget: {
-        segment: "Small Business Owners",
-        score: 78,
-        rationale: [
-          "Market with high growth potential",
-          "Good conversion rate with focus on practical value",
-          "Community with strong word-of-mouth effect"
-        ]
+        segment: data.targeting.secondary.segmentName,
+        score: data.targeting.secondary.score,
+        rationale: data.targeting.secondary.rationale
       }
     },
     positioning: {
       icon: Crosshair,
       title: "Positioning",
       description: "Positioning strategy",
-      statement: "An innovative platform that maximizes business efficiency through AI-powered financial automation",
-      attributes: [
-        { name: "Innovation", value: 95, competitor: 72 },
-        { name: "Ease of Use", value: 88, competitor: 65 },
-        { name: "Price Competitiveness", value: 82, competitor: 78 },
-        { name: "Customer Support", value: 90, competitor: 70 }
-      ],
-      differentiators: [
-        "AI-powered real-time insights",
-        "Intuitive UX/UI",
-        "Integrated financial management solution"
-      ]
+      statement: data.positioning.statement,
+      attributes: data.positioning.attributes.map(attr => ({
+        name: attr.name,
+        value: attr.yourScore,
+        competitor: attr.competitorAvg
+      })),
+      differentiators: data.positioning.differentiators
     }
   }
 
@@ -263,22 +261,61 @@ export default function STPContent() {
               <text x="255" y="345" textAnchor="start" className="text-xs fill-gray-600 dark:fill-gray-400">Low Quality ↓</text>
 
               {/* Our Brand */}
-              <circle cx="350" cy="120" r="40" fill="#C6FF3A" fillOpacity="0.2" stroke="#C6FF3A" strokeWidth="2" filter="url(#glow-stp)" />
-              <circle cx="350" cy="120" r="6" fill="#C6FF3A" stroke="white" strokeWidth="2" />
-              <text x="350" y="105" textAnchor="middle" className="text-sm font-bold fill-gray-900 dark:fill-white">Our Brand</text>
+              <circle 
+                cx={data.positioning.positioningMap.yourBrand.x} 
+                cy={data.positioning.positioningMap.yourBrand.y} 
+                r="40" 
+                fill="#C6FF3A" 
+                fillOpacity="0.2" 
+                stroke="#C6FF3A" 
+                strokeWidth="2" 
+                filter="url(#glow-stp)" 
+              />
+              <circle 
+                cx={data.positioning.positioningMap.yourBrand.x} 
+                cy={data.positioning.positioningMap.yourBrand.y} 
+                r="6" 
+                fill="#C6FF3A" 
+                stroke="white" 
+                strokeWidth="2" 
+              />
+              <text 
+                x={data.positioning.positioningMap.yourBrand.x} 
+                y={data.positioning.positioningMap.yourBrand.y - 15} 
+                textAnchor="middle" 
+                className="text-sm font-bold fill-gray-900 dark:fill-white"
+              >
+                suelo
+              </text>
 
               {/* Competitors */}
-              <circle cx="180" cy="180" r="25" fillOpacity="0.2" strokeWidth="2" style={{ fill: 'rgb(var(--accent-green))', stroke: 'rgb(var(--accent-green))' }} />
-              <circle cx="180" cy="180" r="4" style={{ fill: 'rgb(var(--accent-green))' }} />
-              <text x="180" y="210" textAnchor="middle" className="text-xs fill-gray-600 dark:fill-gray-400">Competitor A</text>
-
-              <circle cx="320" cy="250" r="30" fill="#F59E0B" fillOpacity="0.2" stroke="#F59E0B" strokeWidth="2" />
-              <circle cx="320" cy="250" r="4" fill="#F59E0B" />
-              <text x="320" y="285" textAnchor="middle" className="text-xs fill-gray-600 dark:fill-gray-400">Competitor B</text>
-
-              <circle cx="150" cy="280" r="20" fill="#EC4899" fillOpacity="0.2" stroke="#EC4899" strokeWidth="2" />
-              <circle cx="150" cy="280" r="4" fill="#EC4899" />
-              <text x="150" y="310" textAnchor="middle" className="text-xs fill-gray-600 dark:fill-gray-400">Competitor C</text>
+              {data.positioning.positioningMap.competitors.map((comp, idx) => (
+                <g key={idx}>
+                  <circle 
+                    cx={comp.x} 
+                    cy={comp.y} 
+                    r={comp.size} 
+                    fill="#9CA3AF" 
+                    fillOpacity="0.2" 
+                    stroke="#9CA3AF" 
+                    strokeWidth="2" 
+                  />
+                  <circle 
+                    cx={comp.x} 
+                    cy={comp.y} 
+                    r="4" 
+                    fill="#9CA3AF" 
+                  />
+                  <text 
+                    x={comp.x} 
+                    y={comp.y + comp.size + 15} 
+                    textAnchor="middle" 
+                    className="text-xs fill-gray-600 dark:fill-gray-400"
+                  >
+                    {comp.name}
+                  </text>
+                </g>
+              ))}
             </svg>
           </div>
         </div>
