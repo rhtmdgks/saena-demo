@@ -35,7 +35,7 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
   useEffect(() => {
     if (state === STATES.success) {
       const resetTimeout = setTimeout(() => {
-        window.location.href = '/';
+        window.location.href = "/";
       }, 3000);
 
       return () => clearTimeout(resetTimeout);
