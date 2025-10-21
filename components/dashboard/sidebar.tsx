@@ -18,6 +18,7 @@ import {
   Home,
   Users2,
   Shield,
+  Presentation,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -155,6 +156,9 @@ export default function Sidebar() {
                   </NavItem>
                   <NavItem href="/admin/prototype/cvi" icon={Shield}>
                     CVI
+                  </NavItem>
+                  <NavItem href="/admin/prototype/presentation" icon={Presentation}>
+                    Presentation
                   </NavItem>
                 </div>
               </div>
