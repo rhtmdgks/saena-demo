@@ -32,8 +32,8 @@
 ## 📞 지원
 
 - 이슈: GitHub Issues
-- 보안: security@thesaena.ai
-- 일반: support@thesaena.ai
+- 보안: security@the-saena.ai
+- 일반: support@the-saena.ai
 
 ---
 

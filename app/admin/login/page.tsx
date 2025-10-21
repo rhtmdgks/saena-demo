@@ -31,10 +31,10 @@ export default function AdminLogin() {
     // Simple client-side authentication
     // Note: In production, this should be replaced with proper server-side authentication
     const isPrototype =
-      email === "prototype@thesaena.ai" && password === "1234";
+      email === "prototype@the-saena.ai" && password === "1234";
     const isAdmin =
-      (email === "admin@thesaena.ai" && password === "1234") ||
-      (email === "Edmond@thesaena.ai" && password === "ahskflwk1!");
+      (email === "admin@the-saena.ai" && password === "1234") ||
+      (email === "Edmond@the-saena.ai" && password === "ahskflwk1!");
 
     if (isPrototype || isAdmin) {
       const sessionType = isPrototype ? "prototype-session" : "admin-session";
@@ -145,7 +145,7 @@ export default function AdminLogin() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@thesaena.ai"
+                placeholder="admin@the-saena.ai"
                 className="bg-[#1a1a1a] border-neutral-800 text-white"
                 autoComplete="off"
                 data-lpignore="true"
@@ -200,10 +200,10 @@ export default function AdminLogin() {
             <p className="text-neutral-400 text-sm">
               Need help? Contact{" "}
               <a
-                href="mailto:support@thesaena.ai"
+                href="mailto:support@the-saena.ai"
                 className="text-[#C6FF3A] hover:underline"
               >
-                support@thesaena.ai
+                support@the-saena.ai
               </a>
             </p>
           </div>

@@ -116,7 +116,7 @@ npm run lint
 ## 📞 연락처
 
 - 웹사이트: [https://theskitbit.com](https://theskitbit.com)
-- 이메일: support@thesaena.ai
+- 이메일: support@the-saena.ai
 - Twitter: [@theskitbit](https://twitter.com/theskitbit)
 
 ## 🙏 감사의 말
