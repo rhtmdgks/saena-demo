@@ -43,7 +43,7 @@
   background-position: inherit;
   border-radius: inherit;
   transition: all 0.5s ease;
-  filter: contrast(2) saturate(2) blur(36px);
+  filter: contrast(1.5) saturate(1.5) blur(20px);
   transform: scale(0.8) translate3d(0, 0, 0.1px);
   background-size: 100% 100%;
   background-image: var(--behind-gradient);
@@ -56,7 +56,7 @@
 
 .pc-card-wrapper:hover::before,
 .pc-card-wrapper.active::before {
-  filter: contrast(1) saturate(2) blur(40px) opacity(1);
+  filter: contrast(1) saturate(1.5) blur(24px) opacity(0.8);
   transform: scale(0.9) translate3d(0, 0, 0.1px);
 }
 
@@ -383,7 +383,7 @@
   font-weight: 600;
   margin: 0;
   font-size: min(5svh, 3em);
-  margin: 0;
+  margin: 0 0 20px 0;
   background-image: linear-gradient(to bottom, #fff, #6f6fbe);
   background-size: 1em 1.5em;
   -webkit-text-fill-color: transparent;
@@ -394,7 +394,7 @@
 .pc-details p {
   font-weight: 600;
   position: relative;
-  top: -12px;
+  top: -20px;
   white-space: nowrap;
   font-size: 16px;
   margin: 0 auto;

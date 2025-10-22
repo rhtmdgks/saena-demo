@@ -2,7 +2,6 @@ import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/hero";
 import { ProductsSection } from "@/components/products-section";
 import { SaenaFeatures } from "@/components/saena-features";
-import { ScrollStackSection } from "@/components/scroll-stack-section";
 import { UseCasesSwap } from "@/components/use-cases-swap";
 import { TeamSection } from "@/components/team-section";
 import { Pricing } from "@/components/pricing";
@@ -91,7 +90,6 @@ export default function Page() {
         <Hero />
         <ProductsSection />
         <SaenaFeatures />
-        <ScrollStackSection />
         <UseCasesSwap />
         <TeamSection />
         <Pricing />
