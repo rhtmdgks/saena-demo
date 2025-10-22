@@ -30,6 +30,7 @@ export function LoadingSpinner({
 
   const content = (
     <div className="flex flex-col items-center gap-4">
+      {/* @ts-ignore - Custom web component from ldrs */}
       <l-bouncy
         size={size}
         speed={speed}
