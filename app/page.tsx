@@ -91,7 +91,7 @@ export default function Page() {
         <Hero />
         <ProductsSection />
         <SaenaFeatures />
-        {/* <ScrollStackSection /> */}
+        <ScrollStackSection />
         <UseCasesSwap />
         <TeamSection />
         <Pricing />
