@@ -1,10 +1,14 @@
 import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/hero";
-import { Features } from "@/components/features";
-import { LogoMarquee } from "@/components/logo-marquee";
+import { ProductsSection } from "@/components/products-section";
+import { SaenaFeatures } from "@/components/saena-features";
+import { FeaturesScroll } from "@/components/features-scroll";
+import { UseCasesSwap } from "@/components/use-cases-swap";
+import { TeamSection } from "@/components/team-section";
 import { Pricing } from "@/components/pricing";
 import { AppverseFooter } from "@/components/appverse-footer";
 import Script from "next/script";
+import "./paperlogy-fonts.css";
 
 // ✅ Force static generation for low TTFB
 export const dynamic = "force-static";
@@ -82,11 +86,14 @@ export default function Page() {
 
   return (
     <>
-      <main className="min-h-[100dvh] text-white">
+      <main className="min-h-[100dvh] text-white" style={{ fontFamily: 'Paperlogy, sans-serif' }}>
         <SiteHeader />
         <Hero />
-        <Features />
-        <LogoMarquee />
+        <ProductsSection />
+        <SaenaFeatures />
+        <FeaturesScroll />
+        <UseCasesSwap />
+        <TeamSection />
         <Pricing />
         <AppverseFooter />
       </main>
