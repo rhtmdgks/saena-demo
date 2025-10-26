@@ -14,22 +14,23 @@ interface BreadcrumbItem {
 }
 
 const pageNames: Record<string, string> = {
-  "/admin/prototype": "Home",
-  "/admin/prototype/search": "Search",
-  "/admin/prototype/industry": "Industry",
-  "/admin/prototype/topic": "Topic",
-  "/admin/prototype/model": "Model",
-  "/admin/prototype/citation": "Citation",
-  "/admin/prototype/improve": "Improve",
-  "/admin/prototype/marketing": "Marketing Strategy",
-  "/admin/prototype/stp": "STP Insight",
-  "/admin/prototype/cvi": "CVI",
-  "/admin/prototype/shopping": "Shopping",
-  "/admin/prototype/analytics/overview": "Analytics Overview",
-  "/admin/prototype/analytics/brand": "Analytics Brand",
-  "/admin/prototype/analytics/website": "Analytics Website",
-  "/admin/prototype/analytics/conversations": "Analytics Conversations",
-  "/admin/prototype/analytics/copilot": "Analytics Copilot",
+  "/prototype": "Home",
+  "/prototype/search": "Search",
+  "/prototype/industry": "Industry",
+  "/prototype/topic": "Topic",
+  "/prototype/model": "Model",
+  "/prototype/citation": "Citation",
+  "/prototype/improve": "Improve",
+  "/prototype/marketing": "Marketing Strategy",
+  "/prototype/stp": "STP Insight",
+  "/prototype/cvi": "CVI",
+  "/prototype/shopping": "Shopping",
+  "/prototype/4p": "4P",
+  "/prototype/analytics/overview": "Analytics Overview",
+  "/prototype/analytics/brand": "Analytics Brand",
+  "/prototype/analytics/website": "Analytics Website",
+  "/prototype/analytics/conversations": "Analytics Conversations",
+  "/prototype/analytics/copilot": "Analytics Copilot",
 }
 
 export default function TopNav() {
@@ -37,26 +38,26 @@ export default function TopNav() {
   const currentPage = pageNames[pathname] || "Dashboard"
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: "SAENA", href: "/admin/prototype" },
+    { label: "SAENA", href: "/prototype" },
     { label: "Answer Engine Insights" },
     { label: currentPage },
   ]
 
   return (
     <nav className="px-3 sm:px-6 flex items-center justify-between bg-white dark:bg-[#0F0F12] border-b border-gray-200 dark:border-[#1F1F23] h-full">
-      <div className="font-medium text-sm hidden sm:flex items-center space-x-1 truncate max-w-[300px]">
+      <div className="font-medium text-sm hidden sm:flex items-center space-x-1 flex-1 min-w-0">
         {breadcrumbs.map((item, index) => (
-          <div key={item.label} className="flex items-center">
-            {index > 0 && <ChevronRight className="h-4 w-4 text-gray-500 dark:text-gray-400 mx-1" />}
+          <div key={item.label} className="flex items-center flex-shrink-0">
+            {index > 0 && <ChevronRight className="h-4 w-4 text-gray-500 dark:text-gray-400 mx-1 flex-shrink-0" />}
             {item.href ? (
               <Link
                 href={item.href}
-                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors whitespace-nowrap"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-gray-900 dark:text-gray-100">{item.label}</span>
+              <span className="text-gray-900 dark:text-gray-100 whitespace-nowrap">{item.label}</span>
             )}
           </div>
         ))}

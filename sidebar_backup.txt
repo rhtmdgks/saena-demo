@@ -127,40 +127,43 @@ export default function Sidebar() {
                   Answer Engine Insights
                 </div>
                 <div className="space-y-1">
-                  <NavItem href="/prototype" icon={Home}>
+                  <NavItem href="/admin/prototype" icon={Home}>
                     Home
                   </NavItem>
-                  <NavItem href="/prototype/search" icon={BarChart2}>
+                  <NavItem href="/admin/prototype/search" icon={BarChart2}>
                     Search
                   </NavItem>
-                  <NavItem href="/prototype/industry" icon={Building2}>
+                  <NavItem href="/admin/prototype/industry" icon={Building2}>
                     Industry
                   </NavItem>
-                  <NavItem href="/prototype/topic" icon={MessagesSquare}>
+                  <NavItem href="/admin/prototype/topic" icon={MessagesSquare}>
                     Topic
                   </NavItem>
-                  <NavItem href="/prototype/model" icon={Folder}>
+                  <NavItem href="/admin/prototype/model" icon={Folder}>
                     Model
                   </NavItem>
-                  <NavItem href="/prototype/citation" icon={CreditCard}>
+                  <NavItem href="/admin/prototype/citation" icon={CreditCard}>
                     Citation
                   </NavItem>
-                  <NavItem href="/prototype/improve" icon={Video}>
+                  <NavItem href="/admin/prototype/improve" icon={Video}>
                     Improve
                   </NavItem>
-                  <NavItem href="/prototype/marketing" icon={TrendingUp}>
+                  <NavItem href="/admin/prototype/marketing" icon={TrendingUp}>
                     Marketing Strategy
                   </NavItem>
-                  <NavItem href="/prototype/stp" icon={Users2}>
+                  <NavItem href="/admin/prototype/stp" icon={Users2}>
                     STP Insight
                   </NavItem>
-                  <NavItem href="/prototype/cvi" icon={Shield}>
+                  <NavItem href="/admin/prototype/cvi" icon={Shield}>
                     CVI
+                  </NavItem>
+                  <NavItem href="/admin/prototype/presentation" icon={Presentation}>
+                    Presentation
                   </NavItem>
                 </div>
               </div>
 
-              <div className="border-t border-gray-300 dark:border-gray-600 pt-6">
+              <div className="border-t border-gray-200 dark:border-[#1F1F23] pt-6">
                 <div className="space-y-1">
                   <NavItem
                     icon={TrendingUp}
@@ -181,7 +184,7 @@ export default function Sidebar() {
             </div>
           </div>
 
-          <div className="px-4 py-4 border-t border-gray-300 dark:border-gray-600">
+          <div className="px-4 py-4 border-t border-gray-200 dark:border-[#1F1F23]">
             <div className="space-y-1">
               <NavItem href="#" icon={Settings}>
                 Settings
@@ -222,53 +225,74 @@ export default function Sidebar() {
                   Analytics
                 </div>
                 <div className="space-y-1">
-                  <NavItem href="/prototype/analytics/overview" icon={Home}>
+                  <NavItem
+                    href="/admin/prototype/analytics/overview"
+                    icon={Home}
+                  >
                     Overview
                   </NavItem>
-                  <NavItem href="/prototype/analytics/brand" icon={CreditCard}>
+                  <NavItem
+                    href="/admin/prototype/analytics/brand"
+                    icon={CreditCard}
+                  >
                     Brand
                   </NavItem>
-                  <NavItem href="/prototype/analytics/website" icon={Building2}>
+                  <NavItem
+                    href="/admin/prototype/analytics/website"
+                    icon={Building2}
+                  >
                     Website
                   </NavItem>
                   <NavItem
-                    href="/prototype/analytics/conversations"
+                    href="/admin/prototype/analytics/conversations"
                     icon={MessagesSquare}
                   >
                     Conversations
                   </NavItem>
-                  <NavItem href="/prototype/analytics/copilot" icon={Video}>
+                  <NavItem
+                    href="/admin/prototype/analytics/copilot"
+                    icon={Video}
+                  >
                     Copilot
                   </NavItem>
-                  <NavItem href="/prototype/analytics/uceg" icon={TrendingUp}>
+                  <NavItem
+                    href="/admin/prototype/analytics/uceg"
+                    icon={TrendingUp}
+                  >
                     UCEG
                   </NavItem>
-                  <NavItem href="/prototype/analytics/aida" icon={BarChart2}>
+                  <NavItem
+                    href="/admin/prototype/analytics/aida"
+                    icon={BarChart2}
+                  >
                     AIDA+
                   </NavItem>
                   <NavItem
-                    href="/prototype/analytics/eda"
+                    href="/admin/prototype/analytics/eda"
                     icon={MessagesSquare}
                   >
                     EDA+
                   </NavItem>
-                  <NavItem href="/prototype/analytics/pja" icon={Folder}>
+                  <NavItem href="/admin/prototype/analytics/pja" icon={Folder}>
                     PJA
                   </NavItem>
-                  <NavItem href="/prototype/analytics/bhi" icon={Shield}>
+                  <NavItem href="/admin/prototype/analytics/bhi" icon={Shield}>
                     BHI
                   </NavItem>
-                  <NavItem href="/prototype/analytics/behavioral" icon={Users2}>
+                  <NavItem
+                    href="/admin/prototype/analytics/behavioral"
+                    icon={Users2}
+                  >
                     Behavioral
                   </NavItem>
                   <NavItem
-                    href="/prototype/analytics/internal-pulse"
+                    href="/admin/prototype/analytics/internal-pulse"
                     icon={Building2}
                   >
                     Internal Pulse
                   </NavItem>
                   <NavItem
-                    href="/prototype/analytics/auto-weight"
+                    href="/admin/prototype/analytics/auto-weight"
                     icon={Settings}
                   >
                     Auto-Weight
@@ -308,14 +332,17 @@ export default function Sidebar() {
                   Shopping
                 </div>
                 <div className="space-y-1">
-                  <NavItem href="/prototype/shopping" icon={ShoppingCart}>
+                  <NavItem href="/admin/prototype/shopping" icon={ShoppingCart}>
                     Overview
                   </NavItem>
-                  <NavItem href="/prototype/shopping/products" icon={Package}>
+                  <NavItem
+                    href="/admin/prototype/shopping/products"
+                    icon={Package}
+                  >
                     Products
                   </NavItem>
                   <NavItem
-                    href="/prototype/shopping/platforms"
+                    href="/admin/prototype/shopping/platforms"
                     icon={Building2}
                   >
                     Platforms

@@ -29,20 +29,22 @@ export default function Layout({ children }: LayoutProps) {
         <header className="h-16 border-b border-gray-200 dark:border-[#1F1F23]">
           <TopNav />
         </header>
-        <main className="flex-1 overflow-auto p-8 bg-white dark:bg-[#0F0F12] relative">
-          {/* Linear Gradient Background - Dark mode only */}
-          {theme === "dark" && (
-            <div 
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: 'linear-gradient(135deg, rgba(78, 73, 221, 0.15) 0%, rgba(78, 73, 221, 0) 50%, rgba(120, 119, 198, 0.30) 100%)',
-              }}
-            />
-          )}
-          
-          {/* Content */}
-          <div className="relative z-10">
-            {children}
+        <main className="flex-1 overflow-auto bg-white dark:bg-[#0F0F12] relative">
+          <div className="min-h-full p-8 relative">
+            {/* Linear Gradient Background - Dark mode only */}
+            {theme === "dark" && (
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(78, 73, 221, 0.15) 0%, rgba(78, 73, 221, 0) 50%, rgba(120, 119, 198, 0.30) 100%)',
+                }}
+              />
+            )}
+            
+            {/* Content */}
+            <div className="relative z-10">
+              {children}
+            </div>
           </div>
         </main>
       </div>

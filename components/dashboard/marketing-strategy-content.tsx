@@ -552,39 +552,39 @@ export default function MarketingStrategyContent() {
                   </p>
 
                   {/* Circular Progress */}
-                  <div className="relative w-28 h-28 mx-auto">
-                    <svg className="transform -rotate-90 w-28 h-28">
+                  <div className="relative w-32 h-32 mx-auto">
+                    <svg className="transform -rotate-90 w-32 h-32">
                       <circle
-                        cx="56"
-                        cy="56"
-                        r="50"
+                        cx="64"
+                        cy="64"
+                        r="56"
                         stroke="currentColor"
                         strokeWidth="8"
                         fill="none"
                         className="text-gray-200 dark:text-gray-800"
                       />
                       <circle
-                        cx="56"
-                        cy="56"
-                        r="50"
+                        cx="64"
+                        cy="64"
+                        r="56"
                         stroke={data.color}
                         strokeWidth="8"
                         fill="none"
-                        strokeDasharray={`${2 * Math.PI * 50}`}
+                        strokeDasharray={`${2 * Math.PI * 56}`}
                         strokeDashoffset={`${
-                          2 * Math.PI * 50 * (1 - data.score / 100)
+                          2 * Math.PI * 56 * (1 - data.score / 100)
                         }`}
                         strokeLinecap="round"
                         style={{
-                          filter: `drop-shadow(0 0 6px ${data.color}80)`,
+                          filter: `drop-shadow(0 0 8px ${data.color}80)`,
                         }}
                       />
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white leading-none">
                         {data.score}
                       </span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         Score
                       </span>
                     </div>

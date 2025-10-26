@@ -29,6 +29,38 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
     role: "",
     goals: ""
   })
+  
+  const [errors, setErrors] = useState({
+    name: "",
+    email: ""
+  })
+  
+  const [currentStep, setCurrentStep] = useState(1)
+
+  const validateStep = (step: number): boolean => {
+    if (step === 2) {
+      const newErrors = { name: "", email: "" }
+      let isValid = true
+      
+      if (!formData.name.trim()) {
+        newErrors.name = "이름을 입력해주세요"
+        isValid = false
+      }
+      
+      if (!formData.email.trim()) {
+        newErrors.email = "이메일을 입력해주세요"
+        isValid = false
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = "올바른 이메일 형식을 입력해주세요"
+        isValid = false
+      }
+      
+      setErrors(newErrors)
+      return isValid
+    }
+    
+    return true
+  }
 
   const handleComplete = () => {
     console.log("User data:", formData)
@@ -92,7 +124,14 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
                 <Stepper
                   initialStep={1}
                   onStepChange={(step) => {
-                    console.log("Current step:", step)
+                    setCurrentStep(step)
+                    setErrors({ name: "", email: "" })
+                  }}
+                  onBeforeStepChange={(current, next) => {
+                    if (current === 2) {
+                      return validateStep(2)
+                    }
+                    return true
                   }}
                   onFinalStepCompleted={handleComplete}
                   backButtonText="이전"
@@ -122,11 +161,19 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
                           <Input
                             id="name"
                             value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            onChange={(e) => {
+                              setFormData({ ...formData, name: e.target.value })
+                              if (errors.name) setErrors({ ...errors, name: "" })
+                            }}
                             placeholder="홍길동"
-                            className="bg-[#1a1a1a] border-neutral-700 text-white"
+                            className={`bg-[#1a1a1a] text-white ${
+                              errors.name ? "border-red-500/70" : "border-neutral-700"
+                            }`}
                             required
                           />
+                          {errors.name && (
+                            <p className="text-red-400/90 text-sm">{errors.name}</p>
+                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="email" className="text-neutral-200">
@@ -136,11 +183,19 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
                             id="email"
                             type="email"
                             value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            onChange={(e) => {
+                              setFormData({ ...formData, email: e.target.value })
+                              if (errors.email) setErrors({ ...errors, email: "" })
+                            }}
                             placeholder="example@company.com"
-                            className="bg-[#1a1a1a] border-neutral-700 text-white"
+                            className={`bg-[#1a1a1a] text-white ${
+                              errors.email ? "border-red-500/70" : "border-neutral-700"
+                            }`}
                             required
                           />
+                          {errors.email && (
+                            <p className="text-red-400/90 text-sm">{errors.email}</p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -202,19 +257,23 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
                       <p className="text-neutral-400">
                         모든 정보가 입력되었습니다. 이제 SAENA 데모를 체험해보세요!
                       </p>
-                      <div className="bg-[#1a1a1a] border border-neutral-700 rounded-lg p-4 space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-neutral-400">이름:</span>
-                          <span className="text-white">{formData.name || "-"}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-neutral-400">이메일:</span>
-                          <span className="text-white">{formData.email || "-"}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-neutral-400">회사:</span>
-                          <span className="text-white">{formData.company || "-"}</span>
-                        </div>
+                      <div className="bg-[#1a1a1a] border border-neutral-700 rounded-lg p-4 space-y-3 w-full">
+                        <table className="w-full table-auto">
+                          <tbody>
+                            <tr>
+                              <td className="text-neutral-400 whitespace-nowrap pr-12">이름:</td>
+                              <td className="text-white text-right whitespace-nowrap w-full">{formData.name || "-"}</td>
+                            </tr>
+                            <tr>
+                              <td className="text-neutral-400 whitespace-nowrap pr-12 pt-3">이메일:</td>
+                              <td className="text-white text-right whitespace-nowrap w-full pt-3">{formData.email || "-"}</td>
+                            </tr>
+                            <tr>
+                              <td className="text-neutral-400 whitespace-nowrap pr-12 pt-3">회사:</td>
+                              <td className="text-white text-right whitespace-nowrap w-full pt-3">{formData.company || "-"}</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </Step>

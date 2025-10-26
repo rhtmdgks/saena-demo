@@ -5,7 +5,7 @@ export function Hero() {
   const buttonNew = (
     <Button
       asChild
-      className="rounded-full bg-lime-400 px-6 text-black hover:bg-lime-300"
+      className="rounded-full bg-lime-400 px-6 text-black hover:bg-lime-300 transition-all duration-300 hover:drop-shadow-[0_0_40px_rgba(132,204,22,0.8)]"
     >
       <a href="/prototype">
         SAENA 데모 이용해보기
