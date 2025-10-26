@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "environment": "production",
+  "ig_engine": {
+    "tau_novel": 0.82,
+    "threshold_novel": 0.35,
+    "threshold_evidence": 0.25,
+    "threshold_score": 0.40,
+    "weights": {
+      "novel": 0.55,
+      "evidence": 0.25,
+      "exclusive": 0.20
+    },
+    "top_k_serp": 10
+  },
+  "snippet_bandit": {
+    "alpha_init": 1,
+    "beta_init": 1,
+    "update_interval_days": 7,
+    "min_impressions": 200,
+    "max_variants": 6,
+    "prune_threshold": 0.30,
+    "clickbait_forbidden": [
+      "shocking",
+      "unbelievable",
+      "you won't believe",
+      "doctors hate",
+      "one weird trick"
+    ]
+  },
+  "link_graph": {
+    "lambda": 0.65,
+    "damping": 0.85,
+    "budget_min": 6,
+    "budget_max": 14,
+    "budget_base": 6,
+    "budget_scale": 4,
+    "max_same_anchor": 2,
+    "max_same_target": 3
+  },
+  "indexation": {
+    "sitemap_max_urls": 50000,
+    "tau_canonical": 0.82,
+    "priority_ema_alpha": 0.6,
+    "fetch_freq_window_days": 30
+  },
+  "cwv": {
+    "lcp_threshold_ms": 2000,
+    "cls_threshold": 0.1,
+    "inp_threshold_ms": 200,
+    "lcp_lab_target_ms": 1800,
+    "cls_lab_target": 0.08,
+    "js_initial_budget_kb": 160,
+    "hero_image_max_pixels": 256000,
+    "percentile": 75
+  },
+  "authority": {
+    "min_referring_domains": 5,
+    "anchor_diversity_min": 0.6,
+    "dofollow_ratio_target": 0.4
+  },
+  "eeat": {
+    "require_author": true,
+    "require_organization": true,
+    "require_date_modified": true,
+    "require_editorial_policy": true
+  },
+  "quality_gate": {
+    "fail_on_ig_below_threshold": true,
+    "fail_on_cwv_violation": true,
+    "fail_on_broken_links": true,
+    "fail_on_schema_errors": true
+  }
+}

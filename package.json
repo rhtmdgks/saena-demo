@@ -6,7 +6,11 @@
     "build": "next build",
     "dev": "next dev --turbopack",
     "lint": "eslint .",
-    "start": "next start"
+    "start": "next start",
+    "seo:audit": "tsx scripts/seo_audit.ts",
+    "seo:metrics": "curl http://localhost:3000/api/seo/metrics",
+    "lighthouse:ci": "lhci autorun",
+    "optimize:images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -76,14 +80,19 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.14.0",
     "@tailwindcss/postcss": "^4.1.9",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.180.0",
+    "glob": "^11.0.0",
     "postcss": "^8.5",
+    "sharp": "^0.33.5",
     "tailwindcss": "^4.1.9",
+    "tsx": "^4.19.2",
     "tw-animate-css": "1.3.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "web-vitals": "^4.2.4"
   }
 }
