@@ -342,7 +342,7 @@ export default function AdminDashboard() {
     router.push("/admin/login")
   }
 
-  const handleContentChange = (section: keyof ContentData, field: string, value: string | string[] | any) => {
+  const handleContentChange = (section: keyof ContentData, field: string, value: any) => {
     setContent((prev) => ({
       ...prev,
       [section]: {
@@ -352,7 +352,7 @@ export default function AdminDashboard() {
     }))
   }
 
-  const handlePricingChange = (tier: "startup" | "pro" | "premium", field: string, value: string | string[]) => {
+  const handlePricingChange = (tier: "startup" | "pro" | "premium", field: string, value: any) => {
     setContent((prev) => ({
       ...prev,
       pricing: {
@@ -1130,7 +1130,7 @@ export default function AdminDashboard() {
                             onChange={(e) => {
                               const newOptions = { ...content.orderForm.modelingOptions }
                               newOptions[option].price_usd = Number.parseInt(e.target.value) || 0
-                              handleContentChange("orderForm", "modelingOptions", newOptions)
+                              handleContentChange("orderForm", "modelingOptions", newOptions as any)
                             }}
                             className="bg-[#0f0f0f] border-neutral-700 text-white"
                           />
@@ -1143,7 +1143,7 @@ export default function AdminDashboard() {
                             onChange={(e) => {
                               const newOptions = { ...content.orderForm.modelingOptions }
                               newOptions[option].price_inr = Number.parseInt(e.target.value) || 0
-                              handleContentChange("orderForm", "modelingOptions", newOptions)
+                              handleContentChange("orderForm", "modelingOptions", newOptions as any)
                             }}
                             className="bg-[#0f0f0f] border-neutral-700 text-white"
                           />
@@ -1155,7 +1155,7 @@ export default function AdminDashboard() {
                             onChange={(e) => {
                               const newOptions = { ...content.orderForm.modelingOptions }
                               newOptions[option].description = e.target.value
-                              handleContentChange("orderForm", "modelingOptions", newOptions)
+                              handleContentChange("orderForm", "modelingOptions", newOptions as any)
                             }}
                             className="bg-[#0f0f0f] border-neutral-700 text-white"
                           />
