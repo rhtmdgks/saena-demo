@@ -6,6 +6,7 @@ import Layout from "@/components/dashboard/layout"
 import Content from "@/components/dashboard/content"
 import { OnboardingModal, UserData } from "@/components/onboarding-modal"
 import { motion } from "motion/react"
+import "../paperlogy-fonts.css"
 
 export default function PrototypeDashboard() {
   const [showOnboarding, setShowOnboarding] = useState(false)

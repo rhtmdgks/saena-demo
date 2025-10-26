@@ -349,6 +349,16 @@ body:has(html:not(:last-child)) {
     @apply text-foreground;
     background: #000000;
   }
+  
+  /* Hide scrollbar for all elements */
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
 }
 
 @layer utilities {

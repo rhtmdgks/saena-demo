@@ -23,6 +23,7 @@ interface StepperProps extends HTMLAttributes<HTMLDivElement> {
   backButtonText?: string;
   nextButtonText?: string;
   disableStepIndicators?: boolean;
+  hideFooterOnLastStep?: boolean;
   dynamicWidth?: boolean;
   renderStepIndicator?: (props: {
     step: number;
@@ -47,6 +48,7 @@ export default function Stepper({
   nextButtonText = "Continue",
   disableStepIndicators = false,
   dynamicWidth = false,
+  hideFooterOnLastStep = false,
   renderStepIndicator,
   ...rest
 }: StepperProps) {
@@ -91,7 +93,7 @@ export default function Stepper({
 
   return (
     <div
-      className="flex min-h-full flex-1 flex-col items-center justify-center p-4 sm:aspect-[4/3] md:aspect-[2/1]"
+      className="w-full"
       style={{ fontFamily: "Paperlogy, sans-serif" }}
       {...rest}
     >
@@ -100,7 +102,7 @@ export default function Stepper({
         style={{
           border: "1px solid #333",
           width: "100%",
-          maxWidth: isLastStep ? "min(95vw, 1000px)" : "448px",
+          maxWidth: isLastStep ? "min(95vw, 1000px)" : currentStep === 4 ? "600px" : "448px",
         }}
       >
         <div
@@ -148,7 +150,7 @@ export default function Stepper({
           {stepsArray[currentStep - 1]}
         </StepContentWrapper>
 
-        {!isCompleted && (
+        {!isCompleted && !(hideFooterOnLastStep && isLastStep) && (
           <div className={`px-8 pb-8 ${footerClassName}`}>
             <div
               className={`mt-10 flex ${
@@ -168,13 +170,24 @@ export default function Stepper({
                   {backButtonText}
                 </button>
               )}
-              <button
-                onClick={isLastStep ? handleComplete : handleNext}
-                className="flex items-center justify-center rounded-full bg-lime-400 py-1.5 px-3.5 font-medium tracking-tight text-black transition-all duration-200 hover:bg-lime-300 hover:drop-shadow-[0_0_20px_rgba(132,204,22,0.6)] active:bg-lime-500 cursor-pointer"
-                {...nextButtonProps}
-              >
-                {isLastStep ? "완료" : nextButtonText}
-              </button>
+              <div className="flex gap-3">
+                {isLastStep && (
+                  <button
+                    onClick={() => window.location.href = '/waitlist'}
+                    className="flex items-center justify-center rounded-full bg-transparent border border-white/30 py-1.5 px-3 font-medium text-sm tracking-tight text-white/80 transition-all duration-200 hover:bg-white/8 hover:border-white/50 hover:text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#0f0f0f]"
+                  >
+                    Waitlist 참여하기
+                  </button>
+                )}
+                <button
+                  onClick={isLastStep ? handleComplete : handleNext}
+                  data-stepper-next
+                  className="flex items-center justify-center rounded-full bg-lime-400 py-1.5 px-3.5 font-semibold tracking-tight text-black transition-all duration-200 hover:bg-lime-300 hover:drop-shadow-[0_0_20px_rgba(132,204,22,0.6)] active:bg-lime-500 cursor-pointer focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-[#0f0f0f]"
+                  {...nextButtonProps}
+                >
+                  {isLastStep ? "데모로 이동" : nextButtonText}
+                </button>
+              </div>
             </div>
           </div>
         )}
