@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { supabaseServer, isSupabaseServerConfigured } from '@/lib/supabase/server';
 
 export async function POST(request: NextRequest) {
   try {
     // Check if Supabase is configured
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseServerConfigured()) {
       return NextResponse.json(
         { success: false, error: 'Service temporarily unavailable' },
         { status: 503 }
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || '';
 
     // Insert into Supabase
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('waitlist')
       .insert({
         email: email.toLowerCase().trim(),
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Check if Supabase is configured
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseServerConfigured()) {
       return NextResponse.json(
         { success: false, error: 'Service temporarily unavailable' },
         { status: 503 }
@@ -102,7 +102,7 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0');
     const status = searchParams.get('status');
 
-    let query = supabase
+    let query = supabaseServer
       .from('waitlist')
       .select('*', { count: 'exact' })
       .order('created_at', { ascending: false })
