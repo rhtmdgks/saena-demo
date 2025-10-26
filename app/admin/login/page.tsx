@@ -30,26 +30,21 @@ export default function AdminLogin() {
 
     // Simple client-side authentication
     // Note: In production, this should be replaced with proper server-side authentication
-    const isPrototype =
-      email === "prototype@the-saena.ai" && password === "1234";
     const isAdmin =
       (email === "admin@the-saena.ai" && password === "1234") ||
       (email === "Edmond@the-saena.ai" && password === "ahskflwk1!");
 
-    if (isPrototype || isAdmin) {
-      const sessionType = isPrototype ? "prototype-session" : "admin-session";
-      const redirectPath = isPrototype ? "/admin/prototype" : "/admin";
-
+    if (isAdmin) {
       const expiryDate = new Date();
       expiryDate.setTime(expiryDate.getTime() + 24 * 60 * 60 * 1000);
 
       // Set secure cookie with SameSite
-      document.cookie = `${sessionType}=authenticated; path=/; expires=${expiryDate.toUTCString()}; SameSite=Strict${
+      document.cookie = `admin-session=authenticated; path=/; expires=${expiryDate.toUTCString()}; SameSite=Strict${
         window.location.protocol === "https:" ? "; Secure" : ""
       }`;
 
       setIsLoading(false);
-      router.push(redirectPath);
+      router.push("/admin");
       return;
     }
 

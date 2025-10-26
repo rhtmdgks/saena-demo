@@ -7,12 +7,8 @@ export function Hero() {
       asChild
       className="rounded-full bg-lime-400 px-6 text-black hover:bg-lime-300"
     >
-      <a
-        href="https://wa.link/rc25na"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Chat With Us
+      <a href="/prototype">
+        SAENA 데모 이용해보기
       </a>
     </Button>
   );

@@ -34,11 +34,22 @@ export default function WaitlistPage() {
             try {
               const email = data.get("email");
 
-              // Here you would normally send to your backend/database
-              console.log("Email submitted:", email);
+              const response = await fetch("/api/waitlist", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+              });
 
-              // Simulate API delay
-              await new Promise((resolve) => setTimeout(resolve, 1000));
+              const result = await response.json();
+
+              if (!response.ok || !result.success) {
+                return {
+                  success: false,
+                  error: result.error || "Failed to join waitlist",
+                };
+              }
 
               return { success: true };
             } catch (error) {
