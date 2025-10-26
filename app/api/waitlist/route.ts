@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase/client';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      return NextResponse.json(
+        { success: false, error: 'Service temporarily unavailable' },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     const { email } = body;
 
@@ -78,6 +86,14 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      return NextResponse.json(
+        { success: false, error: 'Service temporarily unavailable' },
+        { status: 503 }
+      );
+    }
+
     // This endpoint is for admin dashboard
     // TODO: Add authentication check here
 
