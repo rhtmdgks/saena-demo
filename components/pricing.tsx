@@ -35,26 +35,26 @@ type Currency = "INR" | "USD";
 const PRICES: Record<
   Currency,
   {
-    awareness: { monthly: string; yearly: string };
-    growth: { monthly: string; yearly: string };
-    scaleup: { monthly: string; yearly: string };
+    starter: { monthly: string; yearly: string };
+    basic: { monthly: string; yearly: string };
+    professional: { monthly: string; yearly: string };
     enterprise: string;
     save: string;
   }
 > = {
   INR: {
-    awareness: { monthly: "₹0", yearly: "₹0" },
-    growth: { monthly: "₹12,500/-", yearly: "₹1,25,000/-" },
-    scaleup: { monthly: "₹33,500/-", yearly: "₹3,35,000/-" },
+    starter: { monthly: "₹0", yearly: "₹0" },
+    basic: { monthly: "₹12,500/-", yearly: "₹10,000/-" },
+    professional: { monthly: "₹41,500/-", yearly: "₹34,250/-" },
     enterprise: "Custom",
-    save: "Save Flat ₹1,500/-",
+    save: "Save 20%",
   },
   USD: {
-    awareness: { monthly: "$0", yearly: "$0" },
-    growth: { monthly: "$149", yearly: "$124.17" },
-    scaleup: { monthly: "$399", yearly: "$332.50" },
+    starter: { monthly: "$0", yearly: "$0" },
+    basic: { monthly: "$149", yearly: "$119" },
+    professional: { monthly: "$499", yearly: "$411" },
     enterprise: "Custom",
-    save: "Save $20",
+    save: "Save 20%",
   },
 };
 
@@ -110,11 +110,11 @@ const premiumVideos = [
 
 export function Pricing() {
   const [openPlan, setOpenPlan] = useState<
-    null | "Awareness" | "Growth" | "ScaleUp" | "Enterprise"
+    null | "Starter" | "Basic" | "Professional" | "Enterprise"
   >(null);
   const [currency, setCurrency] = useState<Currency>("USD");
-  const [isYearlyGrowth, setIsYearlyGrowth] = useState(false);
-  const [isYearlyScaleup, setIsYearlyScaleup] = useState(false);
+  const [isYearlyBasic, setIsYearlyBasic] = useState(false);
+  const [isYearlyProfessional, setIsYearlyProfessional] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -184,32 +184,25 @@ export function Pricing() {
         </div>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
-          {/* Awareness */}
+          {/* Starter */}
           <Card
             className="relative overflow-hidden rounded-2xl liquid-glass shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
             itemScope
             itemType="https://schema.org/Offer"
           >
-            <div
-              className="absolute right-4 top-11 rounded-full px-2 py-0.5 text-[10px]"
-              style={{ backgroundColor: "#1f1f1f", color: "#d4d4d4" }}
-            >
-              {PRICES[currency].save}
-            </div>
-
             <CardHeader className="space-y-3 pb-4">
               <div
                 className="text-sm font-semibold text-neutral-200"
                 itemProp="name"
               >
-                Awareness
+                Starter
               </div>
               <div className="flex items-end gap-1 text-neutral-100">
                 <div
                   className="text-xl font-bold tracking-tight"
                   itemProp="price"
                 >
-                  {PRICES[currency].awareness.monthly}
+                  {PRICES[currency].starter.monthly}
                 </div>
                 <span className="pb-0.5 text-[11px] text-neutral-400">
                   /month
@@ -217,28 +210,13 @@ export function Pricing() {
                 <meta itemProp="priceCurrency" content={currency} />
               </div>
               <div className="h-[2rem]"></div>
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  onClick={() => setOpenPlan("Awareness")}
-                  onTouchStart={() => setOpenPlan("Awareness")}
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                  style={{
-                    backgroundColor: "#0a0a0a",
-                    color: "#ffffff",
-                    border: "1px solid #333",
-                  }}
-                >
-                  자세히 보기
-                </Button>
-                <Button
-                  asChild
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
-                  style={{ backgroundColor: ACCENT }}
-                >
-                  <Link href="/waitlist">선택하기</Link>
-                </Button>
-              </div>
+              <Button
+                asChild
+                className="w-full rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
+                style={{ backgroundColor: ACCENT }}
+              >
+                <Link href="/waitlist">선택하기</Link>
+              </Button>
             </CardHeader>
 
             <CardContent className="pt-0">
@@ -258,7 +236,7 @@ export function Pricing() {
             <CardFooter />
           </Card>
 
-          {/* Growth */}
+          {/* Basic */}
           <Card
             className="relative overflow-hidden rounded-2xl liquid-glass shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
             itemScope
@@ -269,7 +247,7 @@ export function Pricing() {
                 className="text-sm font-semibold text-neutral-200"
                 itemProp="name"
               >
-                Growth
+                Basic
               </div>
               <div className="flex items-end gap-1 text-neutral-100 transition-all duration-300">
                 <div
@@ -278,13 +256,13 @@ export function Pricing() {
                 >
                   <span>{currency === "USD" ? "$" : "₹"}</span>
                   <SlotCounter
-                    value={(isYearlyGrowth
-                      ? PRICES[currency].growth.yearly
-                      : PRICES[currency].growth.monthly
+                    value={(isYearlyBasic
+                      ? PRICES[currency].basic.yearly
+                      : PRICES[currency].basic.monthly
                     ).replace(/[$₹]/g, "")}
                     duration={0.5}
                     animateOnVisible={false}
-                    direction={isYearlyGrowth ? "bottom-up" : "top-down"}
+                    direction={isYearlyBasic ? "bottom-up" : "top-down"}
                     startValueOnce={false}
                     autoAnimationStart={true}
                   />
@@ -296,48 +274,33 @@ export function Pricing() {
               </div>
               <div className="flex items-center gap-2 mb-3">
                 <button
-                  onClick={() => setIsYearlyGrowth(!isYearlyGrowth)}
+                  onClick={() => setIsYearlyBasic(!isYearlyBasic)}
                   className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-                    isYearlyGrowth ? "bg-lime-400" : "bg-neutral-600"
+                    isYearlyBasic ? "bg-lime-400" : "bg-neutral-600"
                   }`}
                 >
                   <span
                     className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${
-                      isYearlyGrowth ? "translate-x-5" : "translate-x-0.5"
+                      isYearlyBasic ? "translate-x-5" : "translate-x-0.5"
                     }`}
                   />
                 </button>
                 <span className="text-neutral-400 text-xs">Billed yearly</span>
               </div>
 
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  onClick={() => setOpenPlan("Growth")}
-                  onTouchStart={() => setOpenPlan("Growth")}
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                  style={{
-                    backgroundColor: "#0a0a0a",
-                    color: "#ffffff",
-                    border: "1px solid #333",
-                  }}
-                >
-                  자세히 보기
-                </Button>
-                <Button
-                  asChild
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
-                  style={{ backgroundColor: ACCENT }}
-                >
-                  <Link href="/waitlist">선택하기</Link>
-                </Button>
-              </div>
+              <Button
+                asChild
+                className="w-full rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
+                style={{ backgroundColor: ACCENT }}
+              >
+                <Link href="/waitlist">선택하기</Link>
+              </Button>
             </CardHeader>
 
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "10개 이상 LLM 모니터링",
+                  "9개 LLM 모니터링",
                   "일일 리포트",
                   "경쟁사 비교 분석",
                   "실시간 알림",
@@ -351,7 +314,7 @@ export function Pricing() {
             <CardFooter />
           </Card>
 
-          {/* Scale-up */}
+          {/* Professional */}
           <Card
             className="relative overflow-hidden rounded-2xl liquid-glass shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
             itemScope
@@ -362,7 +325,7 @@ export function Pricing() {
                 className="text-sm font-semibold text-neutral-200"
                 itemProp="name"
               >
-                Scale-up
+                Professional
               </div>
               <div className="flex items-end gap-1 text-neutral-100 transition-all duration-300">
                 <div
@@ -371,13 +334,13 @@ export function Pricing() {
                 >
                   <span>{currency === "USD" ? "$" : "₹"}</span>
                   <SlotCounter
-                    value={(isYearlyScaleup
-                      ? PRICES[currency].scaleup.yearly
-                      : PRICES[currency].scaleup.monthly
+                    value={(isYearlyProfessional
+                      ? PRICES[currency].professional.yearly
+                      : PRICES[currency].professional.monthly
                     ).replace(/[$₹]/g, "")}
                     duration={0.5}
                     animateOnVisible={false}
-                    direction={isYearlyScaleup ? "bottom-up" : "top-down"}
+                    direction={isYearlyProfessional ? "bottom-up" : "top-down"}
                     startValueOnce={false}
                     autoAnimationStart={true}
                   />
@@ -389,42 +352,27 @@ export function Pricing() {
               </div>
               <div className="flex items-center gap-2 mb-3">
                 <button
-                  onClick={() => setIsYearlyScaleup(!isYearlyScaleup)}
+                  onClick={() => setIsYearlyProfessional(!isYearlyProfessional)}
                   className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-                    isYearlyScaleup ? "bg-lime-400" : "bg-neutral-600"
+                    isYearlyProfessional ? "bg-lime-400" : "bg-neutral-600"
                   }`}
                 >
                   <span
                     className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${
-                      isYearlyScaleup ? "translate-x-5" : "translate-x-0.5"
+                      isYearlyProfessional ? "translate-x-5" : "translate-x-0.5"
                     }`}
                   />
                 </button>
                 <span className="text-neutral-400 text-xs">Billed yearly</span>
               </div>
 
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  onClick={() => setOpenPlan("ScaleUp")}
-                  onTouchStart={() => setOpenPlan("ScaleUp")}
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                  style={{
-                    backgroundColor: "#0a0a0a",
-                    color: "#ffffff",
-                    border: "1px solid #333",
-                  }}
-                >
-                  자세히 보기
-                </Button>
-                <Button
-                  asChild
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
-                  style={{ backgroundColor: ACCENT }}
-                >
-                  <Link href="/waitlist">선택하기</Link>
-                </Button>
-              </div>
+              <Button
+                asChild
+                className="w-full rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
+                style={{ backgroundColor: ACCENT }}
+              >
+                <Link href="/waitlist">선택하기</Link>
+              </Button>
             </CardHeader>
 
             <CardContent className="pt-0">
@@ -467,28 +415,13 @@ export function Pricing() {
                 <meta itemProp="priceCurrency" content={currency} />
               </div>
               <div className="h-[2rem]"></div>
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  onClick={() => setOpenPlan("Enterprise")}
-                  onTouchStart={() => setOpenPlan("Enterprise")}
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                  style={{
-                    backgroundColor: "#0a0a0a",
-                    color: "#ffffff",
-                    border: "1px solid #333",
-                  }}
-                >
-                  자세히 보기
-                </Button>
-                <Button
-                  asChild
-                  className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
-                  style={{ backgroundColor: ACCENT }}
-                >
-                  <Link href="/waitlist">선택하기</Link>
-                </Button>
-              </div>
+              <Button
+                asChild
+                className="w-full rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
+                style={{ backgroundColor: ACCENT }}
+              >
+                <Link href="/waitlist">선택하기</Link>
+              </Button>
             </CardHeader>
 
             <CardContent className="relative pt-0">
@@ -518,31 +451,31 @@ export function Pricing() {
 
       {/* Modals */}
       <ExamplesDialog
-        open={openPlan === "Awareness"}
-        onOpenChange={(v) => setOpenPlan(v ? "Awareness" : null)}
-        planName="Awareness Plan"
-        price={PRICES[currency].awareness.monthly}
+        open={openPlan === "Starter"}
+        onOpenChange={(v) => setOpenPlan(v ? "Starter" : null)}
+        planName="Starter Plan"
+        price={PRICES[currency].starter.monthly}
         videoIds={startupVideos}
       />
       <ExamplesDialog
-        open={openPlan === "Growth"}
-        onOpenChange={(v) => setOpenPlan(v ? "Growth" : null)}
-        planName="Growth Plan"
+        open={openPlan === "Basic"}
+        onOpenChange={(v) => setOpenPlan(v ? "Basic" : null)}
+        planName="Basic Plan"
         price={
-          isYearlyGrowth
-            ? PRICES[currency].growth.yearly
-            : PRICES[currency].growth.monthly
+          isYearlyBasic
+            ? PRICES[currency].basic.yearly
+            : PRICES[currency].basic.monthly
         }
         videoIds={proVideos}
       />
       <ExamplesDialog
-        open={openPlan === "ScaleUp"}
-        onOpenChange={(v) => setOpenPlan(v ? "ScaleUp" : null)}
-        planName="Scale-up Plan"
+        open={openPlan === "Professional"}
+        onOpenChange={(v) => setOpenPlan(v ? "Professional" : null)}
+        planName="Professional Plan"
         price={
-          isYearlyScaleup
-            ? PRICES[currency].scaleup.yearly
-            : PRICES[currency].scaleup.monthly
+          isYearlyProfessional
+            ? PRICES[currency].professional.yearly
+            : PRICES[currency].professional.monthly
         }
         videoIds={premiumVideos}
       />

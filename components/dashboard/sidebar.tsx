@@ -311,15 +311,6 @@ export default function Sidebar() {
                   <NavItem href="/prototype/shopping" icon={ShoppingCart}>
                     Overview
                   </NavItem>
-                  <NavItem href="/prototype/shopping/products" icon={Package}>
-                    Products
-                  </NavItem>
-                  <NavItem
-                    href="/prototype/shopping/platforms"
-                    icon={Building2}
-                  >
-                    Platforms
-                  </NavItem>
                 </div>
               </div>
             </div>
