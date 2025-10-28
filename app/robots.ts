@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
           '/admin/',
           '/_next/',
           '/private/',
-          '/*.json$',
+          '/*.json',
           '/*?*utm_*', // UTM 파라미터 크롤 방지
         ],
       },

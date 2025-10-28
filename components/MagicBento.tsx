@@ -32,39 +32,39 @@ const MOBILE_BREAKPOINT = 768;
 const cardData: BentoCardProps[] = [
   {
     color: '#060010',
-    title: 'Analytics',
-    description: 'Track user behavior',
-    label: 'Insights'
+    title: 'Real-time Monitoring',
+    description: 'Track AI mentions across 10+ LLMs instantly',
+    label: '실시간 추적'
   },
   {
     color: '#060010',
-    title: 'Dashboard',
-    description: 'Centralized data view',
-    label: 'Overview'
+    title: 'Brand Analytics',
+    description: 'Measure your AI visibility with Answer Visibility Index',
+    label: '브랜드 분석'
   },
   {
     color: '#060010',
-    title: 'Collaboration',
-    description: 'Work together seamlessly',
-    label: 'Teamwork'
+    title: 'Competitor Insights',
+    description: 'Compare your AI presence against competitors',
+    label: '경쟁사 분석'
   },
   {
     color: '#060010',
-    title: 'Automation',
-    description: 'Streamline workflows',
-    label: 'Efficiency'
+    title: 'Citation Tracking',
+    description: 'See how AI agents cite your content',
+    label: '인용 추적'
   },
   {
     color: '#060010',
-    title: 'Integration',
-    description: 'Connect favorite tools',
-    label: 'Connectivity'
+    title: 'Custom Alerts',
+    description: 'Get notified when your brand is mentioned',
+    label: '맞춤 알림'
   },
   {
     color: '#060010',
-    title: 'Security',
-    description: 'Enterprise-grade protection',
-    label: 'Protection'
+    title: 'API Access',
+    description: 'Integrate SAENA data into your workflow',
+    label: 'API 연동'
   }
 ];
 

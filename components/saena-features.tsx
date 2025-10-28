@@ -10,7 +10,7 @@ export function SaenaFeatures() {
           Powerful Features
         </h2>
         <p className="mt-4 text-lg text-gray-400">
-          Everything you need to dominate the AI-powered search landscape
+          AI 검색 환경을 장악하는 데 필요한 모든 기능
         </p>
       </div>
       

@@ -61,7 +61,7 @@ export function SiteHeader() {
                          hover:bg-lime-300 hover:shadow-md hover:scale-[1.02]
                          transition-all"
             >
-              <Link href="/waitlist">Get a Demo</Link>
+              <Link href="/waitlist">Join Waitlist</Link>
             </Button>
           </div>
 
@@ -130,7 +130,7 @@ export function SiteHeader() {
                                hover:bg-lime-300 hover:shadow-md hover:scale-[1.02]
                                transition-all"
                   >
-                    <Link href="/waitlist">Get a Demo</Link>
+                    <Link href="/waitlist">Join Waitlist</Link>
                   </Button>
                 </div>
               </SheetContent>

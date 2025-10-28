@@ -5,34 +5,21 @@ export default function AboutPage() {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Skitbit International",
-    url: "https://theskitbit.com",
-    logo: "https://theskitbit.com/logo.png",
+    name: "SAENA by GOODWILL(KE)",
+    url: "https://the-saena.ai",
+    logo: "https://the-saena.ai/icons/goodwill_white.svg",
     description:
-      "Skitbit International is a 3D product animation agency serving clients in Miami, Los Angeles, New York, Canada, and the UK.",
+      "SAENA is an AI brand presence monitoring platform that tracks how AI engines like GPT, Claude, and Perplexity mention and perceive your brand.",
     sameAs: [
-      "https://www.instagram.com/skitbit",
-      "https://www.linkedin.com/company/skitbit",
+      "https://twitter.com/saena_ai",
+      "https://linkedin.com/company/saena-ai",
     ],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Miami",
-      addressRegion: "FL",
-      addressCountry: "US",
-    },
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+1-555-555-5555",
+        email: "support@the-saena.ai",
         contactType: "customer service",
       },
-    ],
-    areaServed: [
-      { "@type": "Place", name: "Miami" },
-      { "@type": "Place", name: "Los Angeles" },
-      { "@type": "Place", name: "New York" },
-      { "@type": "Place", name: "Canada" },
-      { "@type": "Place", name: "United Kingdom" },
     ],
   };
 
@@ -49,10 +36,10 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative bg-black text-white py-20 px-6 md:px-12 lg:px-20 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-6">
-          About Skitbit International
+          About SAENA
         </h1>
         <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-80">
-          Pioneering the future of 3D product animation for global brands.
+          Pioneering AI brand presence monitoring for the next generation of digital marketing.
         </p>
       </section>
 
@@ -61,28 +48,28 @@ export default function AboutPage() {
         <div className="grid gap-12 md:grid-cols-3">
           {[
             {
-              title: "3D Product Animation",
-              desc: "Photo-realistic animations that showcase your products in stunning detail.",
+              title: "Real-time AI Monitoring",
+              desc: "Track how GPT, Claude, Perplexity and 10+ LLMs mention your brand in real-time.",
             },
             {
-              title: "Global Reach",
-              desc: "Serving Miami, LA, New York, Canada, and the UK with world-class visuals.",
+              title: "Answer Visibility Index",
+              desc: "Measure your brand's visibility in AI-generated responses with our proprietary AVI metric.",
             },
             {
-              title: "Cutting-edge Technology",
-              desc: "Using the latest rendering engines and motion design tools.",
+              title: "Competitor Analysis",
+              desc: "Compare your AI presence against competitors and identify opportunities.",
             },
             {
-              title: "Brand Storytelling",
-              desc: "Helping brands communicate their vision through immersive 3D visuals.",
+              title: "Citation Tracking",
+              desc: "See exactly how AI agents cite your content and which sources they trust.",
             },
             {
-              title: "Collaborative Workflow",
-              desc: "Work directly with our creative team for maximum efficiency.",
+              title: "Custom Alerts",
+              desc: "Get instant notifications when your brand is mentioned or when trends shift.",
             },
             {
-              title: "SEO & Marketing Focus",
-              desc: "Optimized content to enhance your visibility on search engines.",
+              title: "API Integration",
+              desc: "Seamlessly integrate SAENA data into your existing marketing workflows.",
             },
           ].map((feature, index) => (
             <div
@@ -99,16 +86,16 @@ export default function AboutPage() {
       {/* CTA Section */}
       <section className="py-20 bg-black text-center text-white px-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">
-          Ready to Elevate Your Brand?
+          Ready to Dominate the AI Era?
         </h2>
         <p className="text-lg opacity-80 mb-8">
-          Let Skitbit International bring your products to life.
+          Let SAENA help you track and optimize your brand's AI presence.
         </p>
         <a
-          href="/contact"
-          className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-neutral-200 transition-all"
+          href="/waitlist"
+          className="bg-lime-400 text-black px-6 py-3 rounded-full font-semibold hover:bg-lime-300 transition-all"
         >
-          Get in Touch
+          Join Waitlist
         </a>
       </section>
     </>

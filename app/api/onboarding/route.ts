@@ -5,11 +5,14 @@ export async function POST(request: NextRequest) {
   try {
     // Check if Supabase is configured
     if (!isSupabaseServerConfigured()) {
+      console.error('Supabase not configured - missing environment variables');
       return NextResponse.json(
         { success: false, error: 'Service temporarily unavailable' },
         { status: 503 }
       );
     }
+
+    console.log('Onboarding POST request received');
 
     const body = await request.json();
     const { name, email, company, role, goals } = body;
@@ -72,12 +75,14 @@ export async function POST(request: NextRequest) {
       }
 
       console.error('Supabase error:', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
       return NextResponse.json(
         { success: false, error: 'Failed to save onboarding data' },
         { status: 500 }
       );
     }
 
+    console.log('Onboarding data saved successfully:', data?.id);
     return NextResponse.json(
       { success: true, data },
       { status: 201 }

@@ -5,27 +5,27 @@ import CardSwap, { Card } from './CardSwap';
 const useCases = [
   {
     title: 'Marketing Teams',
-    description: 'Monitor brand mentions in AI responses and optimize your content strategy',
+    description: 'AI 응답에서 브랜드 언급을 모니터링하고 콘텐츠 전략을 최적화하세요',
     icon: '📱',
-    stats: 'Track 10+ LLMs',
+    stats: '10개 이상의 LLM 추적',
   },
   {
     title: 'E-commerce Brands',
-    description: 'Ensure your products appear in AI shopping recommendations',
+    description: 'AI 쇼핑 추천에서 당신의 제품이 노출되도록 보장하세요',
     icon: '🛍️',
-    stats: 'Boost visibility',
+    stats: '가시성 향상',
   },
   {
     title: 'Agencies',
-    description: 'Manage multiple client brands with comprehensive AI analytics',
+    description: '포괄적인 AI 분석으로 여러 클라이언트 브랜드를 관리하세요',
     icon: '🏢',
-    stats: 'Multi-brand support',
+    stats: '멀티 브랜드 지원',
   },
   {
     title: 'Enterprise',
-    description: 'Custom models, dedicated infrastructure, and SLA guarantees',
+    description: '커스텀 모델, 전용 인프라, SLA 보장을 제공해요',
     icon: '🚀',
-    stats: 'Enterprise-grade',
+    stats: '엔터프라이즈급',
   },
 ];
 
@@ -40,7 +40,7 @@ export function UseCasesSwap() {
               Built for Every Team
             </h2>
             <p className="mt-4 text-lg text-gray-400">
-              From startups to enterprises, SAENA adapts to your needs
+              스타트업부터 엔터프라이즈까지, 세나는 당신의 니즈에 맞춰 조정돼요
             </p>
             
             <div className="mt-8 space-y-4">

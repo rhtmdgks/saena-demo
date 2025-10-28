@@ -1,6 +1,6 @@
-# GOODWILL(KE) - 3D Animation Platform
+# SAENA - AI Brand Presence Monitoring Platform
 
-고품질 3D 애니메이션 서비스를 제공하는 Next.js 기반 웹 플랫폼입니다.
+AI 시대의 브랜드 가시성을 추적하고 최적화하는 Next.js 기반 웹 플랫폼입니다.
 
 ## 🚀 빠른 시작
 
@@ -46,11 +46,13 @@ npm run dev
 
 ## 🛠️ 주요 기능
 
-- ✅ 3D 애니메이션 포트폴리오 쇼케이스
-- ✅ 가격 플랜 및 견적 시스템
+- ✅ 실시간 AI 브랜드 모니터링 (GPT, Claude, Perplexity 등)
+- ✅ Answer Visibility Index (AVI) 측정
+- ✅ 경쟁사 비교 분석
+- ✅ 인용 추적 및 소스 링크 분석
+- ✅ 맞춤형 알림 시스템
 - ✅ 관리자 대시보드
 - ✅ 반응형 디자인
-- ✅ 다크 모드 지원
 - ✅ SEO 최적화
 - ✅ 성능 최적화
 - ✅ 접근성 준수 (WCAG 2.1 AA)
@@ -115,9 +117,10 @@ npm run lint
 
 ## 📞 연락처
 
-- 웹사이트: [https://theskitbit.com](https://theskitbit.com)
+- 웹사이트: [https://the-saena.ai](https://the-saena.ai)
 - 이메일: support@the-saena.ai
-- Twitter: [@theskitbit](https://twitter.com/theskitbit)
+- Twitter: [@saena_ai](https://twitter.com/saena_ai)
+- LinkedIn: [SAENA](https://linkedin.com/company/saena-ai)
 
 ## 🙏 감사의 말
 

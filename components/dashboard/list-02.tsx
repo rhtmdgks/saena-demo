@@ -1,101 +1,101 @@
 import { cn } from "@/lib/utils"
 import {
-  ArrowUpRight,
-  ArrowDownLeft,
-  Wallet,
-  ShoppingCart,
-  CreditCard,
+  TrendingUp,
+  TrendingDown,
+  MessageSquare,
+  Star,
+  Globe,
   type LucideIcon,
   ArrowRight,
 } from "lucide-react"
 
-interface Transaction {
+interface Activity {
   id: string
   title: string
-  amount: string
-  type: "incoming" | "outgoing"
+  value: string
+  type: "positive" | "negative"
   category: string
   icon: LucideIcon
   timestamp: string
-  status: "completed" | "pending" | "failed"
+  status: "completed" | "pending" | "alert"
 }
 
 interface List02Props {
-  transactions?: Transaction[]
+  activities?: Activity[]
   className?: string
 }
 
 const categoryStyles = {
-  shopping: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  food: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  transport: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  entertainment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  mention: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  sentiment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  visibility: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  platform: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
 }
 
-const TRANSACTIONS: Transaction[] = [
+const ACTIVITIES: Activity[] = [
   {
     id: "1",
-    title: "Apple Store Purchase",
-    amount: "$999.00",
-    type: "outgoing",
-    category: "shopping",
-    icon: ShoppingCart,
+    title: "ChatGPT Mentions Increased",
+    value: "+15%",
+    type: "positive",
+    category: "mention",
+    icon: MessageSquare,
     timestamp: "Today, 2:45 PM",
     status: "completed",
   },
   {
     id: "2",
-    title: "Salary Deposit",
-    amount: "$4,500.00",
-    type: "incoming",
-    category: "transport",
-    icon: Wallet,
+    title: "Positive Sentiment Spike",
+    value: "+8.5%",
+    type: "positive",
+    category: "sentiment",
+    icon: Star,
     timestamp: "Today, 9:00 AM",
     status: "completed",
   },
   {
     id: "3",
-    title: "Netflix Subscription",
-    amount: "$15.99",
-    type: "outgoing",
-    category: "entertainment",
-    icon: CreditCard,
+    title: "Perplexity Coverage",
+    value: "92%",
+    type: "positive",
+    category: "platform",
+    icon: Globe,
     timestamp: "Yesterday",
     status: "pending",
   },
   {
     id: "4",
-    title: "Apple Store Purchase",
-    amount: "$999.00",
-    type: "outgoing",
-    category: "shopping",
-    icon: ShoppingCart,
-    timestamp: "Today, 2:45 PM",
+    title: "Brand Visibility Score",
+    value: "+12.3%",
+    type: "positive",
+    category: "visibility",
+    icon: TrendingUp,
+    timestamp: "2 days ago",
     status: "completed",
   },
   {
     id: "5",
-    title: "Supabase Subscription",
-    amount: "$15.99",
-    type: "outgoing",
-    category: "entertainment",
-    icon: CreditCard,
-    timestamp: "Yesterday",
-    status: "pending",
+    title: "Claude Mentions",
+    value: "+6.2%",
+    type: "positive",
+    category: "mention",
+    icon: MessageSquare,
+    timestamp: "3 days ago",
+    status: "completed",
   },
   {
     id: "6",
-    title: "Vercel Subscription",
-    amount: "$15.99",
-    type: "outgoing",
-    category: "entertainment",
-    icon: CreditCard,
-    timestamp: "Yesterday",
-    status: "pending",
+    title: "Gemini Coverage",
+    value: "88%",
+    type: "positive",
+    category: "platform",
+    icon: Globe,
+    timestamp: "4 days ago",
+    status: "completed",
   },
 ]
 
-export default function List02({ transactions = TRANSACTIONS, className }: List02Props) {
+export default function List02({ activities = ACTIVITIES, className }: List02Props) {
   return (
     <div
       className={cn(
@@ -110,15 +110,15 @@ export default function List02({ transactions = TRANSACTIONS, className }: List0
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             Recent Activity
-            <span className="text-xs font-normal text-zinc-600 dark:text-zinc-400 ml-1">(23 transactions)</span>
+            <span className="text-xs font-normal text-zinc-600 dark:text-zinc-400 ml-1">(Last 7 days)</span>
           </h2>
-          <span className="text-xs text-zinc-600 dark:text-zinc-400">This Month</span>
+          <span className="text-xs text-zinc-600 dark:text-zinc-400">This Week</span>
         </div>
 
         <div className="space-y-1">
-          {transactions.map((transaction) => (
+          {activities.map((activity) => (
             <div
-              key={transaction.id}
+              key={activity.id}
               className={cn(
                 "group flex items-center gap-3",
                 "p-2 rounded-lg",
@@ -133,31 +133,30 @@ export default function List02({ transactions = TRANSACTIONS, className }: List0
                   "border border-zinc-200 dark:border-zinc-700",
                 )}
               >
-                <transaction.icon className="w-4 h-4 text-zinc-900 dark:text-zinc-100" />
+                <activity.icon className="w-4 h-4 text-zinc-900 dark:text-zinc-100" />
               </div>
 
               <div className="flex-1 flex items-center justify-between min-w-0">
                 <div className="space-y-0.5">
-                  <h3 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{transaction.title}</h3>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{transaction.timestamp}</p>
+                  <h3 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{activity.title}</h3>
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{activity.timestamp}</p>
                 </div>
 
                 <div className="flex items-center gap-1.5 pl-3">
                   <span
                     className={cn(
                       "text-xs font-medium",
-                      transaction.type === "incoming"
+                      activity.type === "positive"
                         ? "text-emerald-600 dark:text-emerald-400"
                         : "text-red-600 dark:text-red-400",
                     )}
                   >
-                    {transaction.type === "incoming" ? "+" : "-"}
-                    {transaction.amount}
+                    {activity.value}
                   </span>
-                  {transaction.type === "incoming" ? (
-                    <ArrowDownLeft className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  {activity.type === "positive" ? (
+                    <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   ) : (
-                    <ArrowUpRight className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
+                    <TrendingDown className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
                   )}
                 </div>
               </div>
@@ -187,7 +186,7 @@ export default function List02({ transactions = TRANSACTIONS, className }: List0
             "focus:ring-offset-2 dark:focus:ring-offset-zinc-900",
           )}
         >
-          <span>View All Transactions</span>
+          <span>View All Activities</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>

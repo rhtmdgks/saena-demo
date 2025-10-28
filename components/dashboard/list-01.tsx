@@ -1,59 +1,59 @@
 import { cn } from "@/lib/utils"
-import { ArrowUpRight, ArrowDownLeft, Wallet, SendHorizontal, QrCode, Plus, ArrowRight, CreditCard } from "lucide-react"
+import { TrendingUp, TrendingDown, Star, Package, Globe, Plus, ArrowRight, Target } from "lucide-react"
 
-interface AccountItem {
+interface MetricItem {
   id: string
   title: string
   description?: string
-  balance: string
-  type: "savings" | "checking" | "investment" | "debt"
+  value: string
+  type: "visibility" | "mentions" | "sentiment" | "ranking"
 }
 
 interface List01Props {
-  totalBalance?: string
-  accounts?: AccountItem[]
+  totalScore?: string
+  metrics?: MetricItem[]
   className?: string
 }
 
-const ACCOUNTS: AccountItem[] = [
+const METRICS: MetricItem[] = [
   {
     id: "1",
-    title: "Main Savings",
-    description: "Personal savings",
-    balance: "$8,459.45",
-    type: "savings",
+    title: "Brand Visibility",
+    description: "AI mention rate",
+    value: "89.8%",
+    type: "visibility",
   },
   {
     id: "2",
-    title: "Checking Account",
-    description: "Daily expenses",
-    balance: "$2,850.00",
-    type: "checking",
+    title: "Total Mentions",
+    description: "Across all LLMs",
+    value: "7,400",
+    type: "mentions",
   },
   {
     id: "3",
-    title: "Investment Portfolio",
-    description: "Stock & ETFs",
-    balance: "$15,230.80",
-    type: "investment",
+    title: "Positive Sentiment",
+    description: "User reviews",
+    value: "83%",
+    type: "sentiment",
   },
   {
     id: "4",
-    title: "Credit Card",
-    description: "Pending charges",
-    balance: "$1,200.00",
-    type: "debt",
+    title: "Industry Rank",
+    description: "Among competitors",
+    value: "#2",
+    type: "ranking",
   },
   {
     id: "5",
-    title: "Savings Account",
-    description: "Emergency fund",
-    balance: "$3,000.00",
-    type: "savings",
+    title: "Platform Coverage",
+    description: "Active LLMs",
+    value: "10+",
+    type: "mentions",
   },
 ]
 
-export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNTS, className }: List01Props) {
+export default function List01({ totalScore = "89.8", metrics = METRICS, className }: List01Props) {
   return (
     <div
       className={cn(
@@ -64,22 +64,22 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
         className,
       )}
     >
-      {/* Total Balance Section */}
+      {/* Total Score Section */}
       <div className="p-4 border-b border-zinc-100 dark:border-zinc-800">
-        <p className="text-xs text-zinc-600 dark:text-zinc-400">Total Balance</p>
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">{totalBalance}</h1>
+        <p className="text-xs text-zinc-600 dark:text-zinc-400">Overall Brand Score</p>
+        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">{totalScore}</h1>
       </div>
 
-      {/* Accounts List */}
+      {/* Metrics List */}
       <div className="p-3">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">Your Accounts</h2>
+          <h2 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">Key Metrics</h2>
         </div>
 
         <div className="space-y-1">
-          {accounts.map((account) => (
+          {metrics.map((metric) => (
             <div
-              key={account.id}
+              key={metric.id}
               className={cn(
                 "group flex items-center justify-between",
                 "p-2 rounded-lg",
@@ -90,37 +90,38 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               <div className="flex items-center gap-2">
                 <div
                   className={cn("p-1.5 rounded-lg", {
-                    "bg-emerald-100 dark:bg-emerald-900/30": account.type === "savings",
-                    "bg-blue-100 dark:bg-blue-900/30": account.type === "checking",
-                    "bg-purple-100 dark:bg-purple-900/30": account.type === "investment",
+                    "bg-emerald-100 dark:bg-emerald-900/30": metric.type === "visibility",
+                    "bg-blue-100 dark:bg-blue-900/30": metric.type === "mentions",
+                    "bg-purple-100 dark:bg-purple-900/30": metric.type === "sentiment",
+                    "bg-amber-100 dark:bg-amber-900/30": metric.type === "ranking",
                   })}
                 >
-                  {account.type === "savings" && (
-                    <Wallet className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  {metric.type === "visibility" && (
+                    <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   )}
-                  {account.type === "checking" && <QrCode className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />}
-                  {account.type === "investment" && (
-                    <ArrowUpRight className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                  {metric.type === "mentions" && <Package className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />}
+                  {metric.type === "sentiment" && (
+                    <Star className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                   )}
-                  {account.type === "debt" && <CreditCard className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />}
+                  {metric.type === "ranking" && <Target className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />}
                 </div>
                 <div>
-                  <h3 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{account.title}</h3>
-                  {account.description && (
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{account.description}</p>
+                  <h3 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{metric.title}</h3>
+                  {metric.description && (
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{metric.description}</p>
                   )}
                 </div>
               </div>
 
               <div className="text-right">
-                <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{account.balance}</span>
+                <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{metric.value}</span>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Updated footer with four buttons */}
+      {/* Updated footer with action buttons */}
       <div className="p-2 border-t border-zinc-100 dark:border-zinc-800">
         <div className="grid grid-cols-4 gap-2">
           <button
@@ -137,7 +138,7 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
             )}
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>Add</span>
+            <span>Track</span>
           </button>
           <button
             type="button"
@@ -152,8 +153,8 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               "transition-all duration-200",
             )}
           >
-            <SendHorizontal className="w-3.5 h-3.5" />
-            <span>Send</span>
+            <Globe className="w-3.5 h-3.5" />
+            <span>Export</span>
           </button>
           <button
             type="button"
@@ -168,8 +169,8 @@ export default function List01({ totalBalance = "$26,540.25", accounts = ACCOUNT
               "transition-all duration-200",
             )}
           >
-            <ArrowDownLeft className="w-3.5 h-3.5" />
-            <span>Top-up</span>
+            <TrendingUp className="w-3.5 h-3.5" />
+            <span>Analyze</span>
           </button>
           <button
             type="button"

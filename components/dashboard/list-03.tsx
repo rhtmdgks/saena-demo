@@ -6,9 +6,9 @@ import {
   CheckCircle2,
   Timer,
   AlertCircle,
-  PiggyBank,
+  Target,
   TrendingUp,
-  CreditCard,
+  Star,
 } from "lucide-react"
 import React from "react"
 
@@ -20,7 +20,7 @@ interface ListItem {
   iconStyle: string
   date: string
   time?: string
-  amount?: string
+  metric?: string
   status: "pending" | "in-progress" | "completed"
   progress?: number
 }
@@ -31,9 +31,9 @@ interface List03Props {
 }
 
 const iconStyles = {
-  savings: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  investment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  debt: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  visibility: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  sentiment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
+  ranking: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
 }
 
 const statusConfig = {
@@ -57,36 +57,36 @@ const statusConfig = {
 const ITEMS: ListItem[] = [
   {
     id: "1",
-    title: "Emergency Fund",
-    subtitle: "3 months of expenses saved",
-    icon: PiggyBank,
-    iconStyle: "savings",
+    title: "Brand Visibility Goal",
+    subtitle: "Reach 95% visibility across top LLMs",
+    icon: Target,
+    iconStyle: "visibility",
     date: "Target: Dec 2024",
-    amount: "$15,000",
+    metric: "95%",
     status: "in-progress",
-    progress: 65,
+    progress: 89,
   },
   {
     id: "2",
-    title: "Stock Portfolio",
-    subtitle: "Tech sector investment plan",
-    icon: TrendingUp,
-    iconStyle: "investment",
-    date: "Target: Jun 2024",
-    amount: "$50,000",
-    status: "pending",
-    progress: 30,
+    title: "Sentiment Improvement",
+    subtitle: "Increase positive sentiment to 90%",
+    icon: Star,
+    iconStyle: "sentiment",
+    date: "Target: Jun 2025",
+    metric: "90%",
+    status: "in-progress",
+    progress: 83,
   },
   {
     id: "3",
-    title: "Debt Repayment",
-    subtitle: "Student loan payoff plan",
-    icon: CreditCard,
-    iconStyle: "debt",
+    title: "Industry Ranking",
+    subtitle: "Achieve #1 position in K-beauty sunscreen",
+    icon: TrendingUp,
+    iconStyle: "ranking",
     date: "Target: Mar 2025",
-    amount: "$25,000",
+    metric: "#1",
     status: "in-progress",
-    progress: 45,
+    progress: 75,
   },
 ]
 
@@ -145,9 +145,9 @@ export default function List03({ items = ITEMS, className }: List03Props) {
                 </div>
               )}
 
-              {item.amount && (
+              {item.metric && (
                 <div className="flex items-center gap-1.5">
-                  <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{item.amount}</span>
+                  <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{item.metric}</span>
                   <span className="text-xs text-zinc-600 dark:text-zinc-400">target</span>
                 </div>
               )}

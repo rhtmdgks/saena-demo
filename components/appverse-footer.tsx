@@ -58,13 +58,12 @@ export function AppverseFooter() {
           <div className="relative grid items-center gap-8 md:grid-cols-2">
             {/* Left copy */}
             <div>
-              <p className="mb-2 text-[11px] tracking-widest text-lime-300">STREAMLINE YOUR LAUNCHES</p>
+              <p className="mb-2 text-[11px] tracking-widest text-lime-300">MONITOR YOUR AI PRESENCE</p>
               <h3 className="text-2xl font-bold leading-tight text-white sm:text-3xl">
-                Preview &amp; approve high-end 3D visuals from anywhere
+                Track how AI engines mention your brand in real-time
               </h3>
               <p className="mt-2 max-w-prose text-sm text-neutral-400">
-                Review renders, leave timestamped comments, and approve scenes from anywhere. Using our revision &amp;
-                collaboration tools
+                Monitor brand visibility across GPT, Claude, Perplexity and more. Get instant alerts and actionable insights to optimize your AI presence.
               </p>
             </div>
 

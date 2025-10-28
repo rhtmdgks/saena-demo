@@ -156,7 +156,7 @@ export function Pricing() {
             className="mx-auto mb-4 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
             style={{ backgroundColor: "rgba(198,255,58,0.12)", color: ACCENT }}
           >
-            Our Pricing and Packages
+            가격 플랜
           </div>
           <h2
             className="text-4xl font-extrabold tracking-tight sm:text-5xl"
@@ -168,7 +168,7 @@ export function Pricing() {
             className="mx-auto mt-2 max-w-xl text-sm text-neutral-400"
             itemProp="description"
           >
-            No hidden fees. Just world-class animation that fits your budget.
+            숨겨진 비용 없이, 당신의 비즈니스에 맞는 AI 브랜드 모니터링 솔루션
           </p>
           <div className="mt-6">
             <Button
@@ -176,8 +176,8 @@ export function Pricing() {
               className="rounded-full px-5 text-neutral-900 hover:brightness-95"
               style={{ backgroundColor: "#f2f2f2" }}
             >
-              <Link href="https://wa.link/rc25na" target="_blank">
-                Contact now
+              <Link href="/waitlist">
+                지금 시작하기
               </Link>
             </Button>
           </div>
@@ -229,14 +229,14 @@ export function Pricing() {
                     border: "1px solid #333",
                   }}
                 >
-                  View Example
+                  자세히 보기
                 </Button>
                 <Button
                   asChild
                   className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
                   style={{ backgroundColor: ACCENT }}
                 >
-                  <Link href="/checkout?plan=awareness">Select</Link>
+                  <Link href="/waitlist">선택하기</Link>
                 </Button>
               </div>
             </CardHeader>
@@ -244,12 +244,12 @@ export function Pricing() {
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "10–15s Reel/Teaser (1 SKU)",
-                  "Simple background + lighting",
-                  "1 revision",
-                  "Delivered in 10 days",
-                  "Social reel/ad-ready visuals",
-                  "3D Modelling - Included",
+                  "5개 LLM 모니터링",
+                  "주간 리포트",
+                  "기본 브랜드 추적",
+                  "이메일 알림",
+                  "대시보드 접근",
+                  "커뮤니티 지원",
                 ].map((f, i) => (
                   <FeatureItem key={i} text={f} />
                 ))}
@@ -322,14 +322,14 @@ export function Pricing() {
                     border: "1px solid #333",
                   }}
                 >
-                  View Example
+                  자세히 보기
                 </Button>
                 <Button
                   asChild
                   className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
                   style={{ backgroundColor: ACCENT }}
                 >
-                  <Link href="/checkout?plan=growth">Select</Link>
+                  <Link href="/waitlist">선택하기</Link>
                 </Button>
               </div>
             </CardHeader>
@@ -337,12 +337,12 @@ export function Pricing() {
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "20–25s Animation (1 SKU)",
-                  "Fixed Shot-list (no surprises)",
-                  "Creative background + pro graphics",
-                  "2 structured revisions",
-                  "Delivered in 3 weeks",
-                  "3D Modelling - Included",
+                  "10개 이상 LLM 모니터링",
+                  "일일 리포트",
+                  "경쟁사 비교 분석",
+                  "실시간 알림",
+                  "API 접근",
+                  "우선 지원",
                 ].map((f, i) => (
                   <FeatureItem key={i} text={f} />
                 ))}
@@ -415,14 +415,14 @@ export function Pricing() {
                     border: "1px solid #333",
                   }}
                 >
-                  View Example
+                  자세히 보기
                 </Button>
                 <Button
                   asChild
                   className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
                   style={{ backgroundColor: ACCENT }}
                 >
-                  <Link href="/checkout?plan=scaleup">Select</Link>
+                  <Link href="/waitlist">선택하기</Link>
                 </Button>
               </div>
             </CardHeader>
@@ -430,12 +430,12 @@ export function Pricing() {
             <CardContent className="pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "30–40s Animation (up to 3 SKUs)",
-                  "Advanced storyboard + shot design",
-                  "Delivered in 4 weeks",
-                  "Lighting, Camera Animation, Depth effects",
-                  "Up to 3 structured revisions",
-                  "3D Modelling - Included",
+                  "무제한 LLM 모니터링",
+                  "실시간 리포트",
+                  "고급 분석 및 인사이트",
+                  "커스텀 알림 설정",
+                  "전용 API 및 웹훅",
+                  "전담 계정 매니저",
                 ].map((f, i) => (
                   <FeatureItem key={i} text={f} />
                 ))}
@@ -479,14 +479,14 @@ export function Pricing() {
                     border: "1px solid #333",
                   }}
                 >
-                  View Example
+                  자세히 보기
                 </Button>
                 <Button
                   asChild
                   className="flex-1 rounded-full px-4 py-2 text-sm font-medium text-black shadow transition-[box-shadow,transform,filter] active:translate-y-[1px]"
                   style={{ backgroundColor: ACCENT }}
                 >
-                  <Link href="/checkout?plan=enterprise">Select</Link>
+                  <Link href="/waitlist">선택하기</Link>
                 </Button>
               </div>
             </CardHeader>
@@ -494,12 +494,12 @@ export function Pricing() {
             <CardContent className="relative pt-0">
               <ul className="grid gap-2" itemProp="description">
                 {[
-                  "60s+ Animation (up to 10 SKUs)",
-                  "Full production pipeline",
-                  "Delivered in 6-8 weeks",
-                  "Premium lighting, VFX, Post-production",
-                  "Unlimited revisions",
-                  "3D Modelling - Included",
+                  "엔터프라이즈급 모니터링",
+                  "커스텀 통합",
+                  "온프레미스 옵션",
+                  "SLA 보장",
+                  "무제한 사용자",
+                  "전담 기술 지원",
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckCircle2

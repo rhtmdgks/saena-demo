@@ -9,37 +9,37 @@ const inter = Inter({ subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
   title: {
-    default: "GOODWILL(KE) | 3D Animation Made Simple, Reliable & Scalable",
-    template: "%s | GOODWILL(KE)"
+    default: "SAENA | AI Brand Presence Monitoring Platform",
+    template: "%s | SAENA"
   },
   description:
-    "From product launches to full-scale campaigns, GOODWILL(KE) delivers 3D animation that's fast, consistent, and built to wow your audience.",
-  keywords: ["3D animation", "product animation", "brand animation", "3D modeling", "animation services"],
-  authors: [{ name: "GOODWILL(KE)" }],
-  creator: "GOODWILL(KE)",
-  publisher: "GOODWILL(KE)",
+    "Track and optimize how AI engines like GPT, Claude, and Perplexity perceive and mention your brand. Real-time monitoring, analytics, and insights for the AI era.",
+  keywords: ["AI monitoring", "brand visibility", "LLM tracking", "AI analytics", "brand presence", "GPT monitoring", "Claude tracking", "Perplexity analytics"],
+  authors: [{ name: "SAENA by GOODWILL(KE)" }],
+  creator: "SAENA by GOODWILL(KE)",
+  publisher: "SAENA by GOODWILL(KE)",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://theskitbit.com'),
+  metadataBase: new URL('https://the-saena.ai'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: "GOODWILL(KE) | 3D Animation Made Simple, Reliable & Scalable",
-    description: "From product launches to full-scale campaigns, GOODWILL(KE) delivers 3D animation that's fast, consistent, and built to wow your audience.",
-    url: 'https://theskitbit.com',
-    siteName: 'GOODWILL(KE)',
+    title: "SAENA | AI Brand Presence Monitoring Platform",
+    description: "Track and optimize how AI engines like GPT, Claude, and Perplexity perceive and mention your brand. Real-time monitoring, analytics, and insights for the AI era.",
+    url: 'https://the-saena.ai',
+    siteName: 'SAENA',
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "GOODWILL(KE) | 3D Animation Made Simple, Reliable & Scalable",
-    description: "From product launches to full-scale campaigns, GOODWILL(KE) delivers 3D animation that's fast, consistent, and built to wow your audience.",
-    creator: '@theskitbit',
+    title: "SAENA | AI Brand Presence Monitoring Platform",
+    description: "Track and optimize how AI engines like GPT, Claude, and Perplexity perceive and mention your brand. Real-time monitoring, analytics, and insights for the AI era.",
+    creator: '@saena_ai',
   },
   robots: {
     index: true,

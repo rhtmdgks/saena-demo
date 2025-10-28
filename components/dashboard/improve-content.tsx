@@ -1,49 +1,49 @@
 import { CheckCircle2 } from "lucide-react"
 
 export default function ImproveContent() {
-  // Reportly-based improvement suggestions
+  // Improvement suggestions for Shuello sunscreen brand
   const improvements = [
     {
-      title: "Strengthen partnerships with fintech-focused review platforms",
+      title: "Strengthen presence on beauty review platforms and retail sites",
       impact: "High impact",
       effort: "Low effort",
       description:
-        "Platforms like NerdWallet and FitSmallBusiness are highly cited by AI models, indicating their influence in fintech decision-making. Optimizing presence on these platforms will drive credibility and improve AI visibility scores by an estimated 15-20 points.",
+        "Platforms like Olive Young Global, YesStyle, and StyleKorean are highly cited by AI models for K-beauty recommendations. Optimizing product listings and encouraging reviews on these platforms will improve AI visibility scores by an estimated 15-20 points.",
       steps: [
-        "Create comprehensive company profiles on NerdWallet, FitSmallBusiness, and Capterra",
-        "Encourage satisfied customers to leave detailed reviews highlighting specific features",
-        "Respond to all reviews within 24 hours to demonstrate active engagement",
-        "Publish case studies and success stories on these platforms",
+        "Enhance product descriptions on Olive Young Global with detailed ingredient breakdowns",
+        "Encourage verified purchasers to leave reviews highlighting no white cast and PA++++ benefits",
+        "Respond to all reviews within 24 hours in both Korean and English",
+        "Create comparison guides showing advantages over Beauty of Joseon and Round Lab",
       ],
-      links: ["nerdwallet.com", "fitsmallbusiness.com", "capterra.com"],
+      links: ["global.oliveyoung.com", "yesstyle.com", "stylekorean.com"],
     },
     {
-      title: "Enhance customer support content and visibility",
+      title: "Expand educational content on PA++++ and UVA protection",
       impact: "High impact",
       effort: "Medium effort",
       description:
-        "Customer support category scored 72 points, significantly below the industry average of 78 points. AI models rarely mention your brand in support-related queries. Improving this area will boost overall score and competitive positioning.",
+        "AI models show gaps in understanding PA++++ ratings and UVA protection differences. Creating authoritative educational content will position Shuello as a trusted source and improve citation rates in sunscreen-related queries.",
       steps: [
-        "Create a comprehensive knowledge base with detailed FAQs and troubleshooting guides",
-        "Publish customer success stories highlighting support experiences",
-        "Develop video tutorials and webinars on common customer challenges",
-        "Partner with customer service review sites to increase visibility",
+        "Publish comprehensive guides explaining PA++++ vs SPF ratings on owned blog",
+        "Create infographics comparing Korean vs Western sunscreen standards",
+        "Develop video tutorials on proper sunscreen application and reapplication",
+        "Partner with dermatologists for expert-backed content on sensitive skin protection",
       ],
-      links: ["trustpilot.com", "g2.com"],
+      links: ["blog.suelo.kr", "suelo.kr/education"],
     },
     {
-      title: "Leverage high-authority media coverage for thought leadership",
+      title: "Secure features in beauty editorial and influencer content",
       impact: "Medium impact",
       effort: "High effort",
       description:
-        "Forbes.com and TechCrunch have high citation volumes in AI responses. Securing more thought leadership content and PR placements on these platforms will enhance brand authority and improve citation scores.",
+        "Vogue, Allure, and Byrdie have high citation volumes in AI beauty recommendations. Securing product features and expert quotes in these publications will enhance brand authority and improve visibility in makeup-friendly sunscreen queries.",
       steps: [
-        "Develop a media outreach strategy targeting Forbes, TechCrunch, and Business Insider",
-        "Publish executive thought leadership articles on fintech trends, AI in finance, and automation",
-        "Participate in industry podcasts and webinars as expert speakers",
-        "Create data-driven reports and studies that media outlets can reference",
+        "Develop PR outreach strategy targeting Vogue, Allure, Byrdie, and Into The Gloss",
+        "Pitch seasonal stories: 'Best No White Cast Sunscreens' and 'Makeup Artists' Favorite Primers'",
+        "Send product samples to beauty editors with detailed PA++++ education materials",
+        "Collaborate with K-beauty focused influencers for authentic review content",
       ],
-      links: ["forbes.com", "techcrunch.com", "businessinsider.com"],
+      links: ["vogue.com", "allure.com", "byrdie.com"],
     },
   ]
 
