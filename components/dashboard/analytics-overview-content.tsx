@@ -36,7 +36,7 @@ const professionalMetrics = {
     { channel: "ChatGPT", visibility: 95, volume: 38.2, quality: 94, efficiency: 92 },
     { channel: "Perplexity", visibility: 92, volume: 25.8, quality: 90, efficiency: 88 },
     { channel: "Claude", visibility: 91, volume: 21.5, quality: 92, efficiency: 90 },
-    { channel: "Gemini", visibility: 88, volume: 14.5, quality: 89, efficiency: 85 }
+    { channel: "Google AI Overviews", visibility: 88, volume: 14.5, quality: 89, efficiency: 85 }
   ],
   
   // Trend Analysis

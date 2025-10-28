@@ -64,11 +64,11 @@
 1. ChatGPT (OpenAI): 95% visibility, 94% accuracy, 1,450 mentions (↑8.5%)
 2. Claude (Anthropic): 91% visibility, 92% accuracy, 1,280 mentions (↑7.2%)
 3. Perplexity: 90% visibility, 87% accuracy, 1,210 mentions (↑6.1%)
-4. Gemini (Google): 88% visibility, 89% accuracy, 1,170 mentions (↑5.6%)
-5. Bing Copilot (Microsoft): 86% visibility, 86% accuracy, 900 mentions (↑4.7%)
-6. You.com: 80% visibility, 82% accuracy, 710 mentions (↑3.9%)
-7. Grok (xAI): 73% visibility, 78% accuracy, 400 mentions (↓2.1%)
-8. Pi (Inflection): 71% visibility, 79% accuracy, 279 mentions (↓3.2%)
+4. Google AI Overviews: 88% visibility, 89% accuracy, 1,170 mentions (↑5.6%)
+5. Copilot (Microsoft): 86% visibility, 86% accuracy, 900 mentions (↑4.7%)
+6. Grok (xAI): 80% visibility, 82% accuracy, 710 mentions (↑3.9%)
+7. Amazon Rufus: 73% visibility, 78% accuracy, 400 mentions (↑2.1%)
+8. Meta AI: 71% visibility, 79% accuracy, 279 mentions (↑3.2%)
 
 ### 9. Industry Content (산업 벤치마킹) ✅
 

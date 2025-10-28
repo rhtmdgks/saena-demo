@@ -64,9 +64,9 @@ const brandData = {
     { name: "ChatGPT", visibility: 95, mentions: 1450, sentiment: 0.94, growth: 8.5 },
     { name: "Perplexity", visibility: 92, mentions: 1210, sentiment: 0.90, growth: 6.1 },
     { name: "Claude", visibility: 91, mentions: 1280, sentiment: 0.92, growth: 7.2 },
-    { name: "Gemini", visibility: 88, mentions: 1170, sentiment: 0.89, growth: 5.6 },
-    { name: "Bing Copilot", visibility: 86, mentions: 900, sentiment: 0.86, growth: 4.7 },
-    { name: "You.com", visibility: 80, mentions: 710, sentiment: 0.82, growth: 3.9 }
+    { name: "Google AI Overviews", visibility: 88, mentions: 1170, sentiment: 0.89, growth: 5.6 },
+    { name: "Copilot", visibility: 86, mentions: 900, sentiment: 0.86, growth: 4.7 },
+    { name: "Grok", visibility: 80, mentions: 710, sentiment: 0.82, growth: 3.9 }
   ],
   regions: [
     { region: "North America", visibility: 92, mentions: 3200, growth: 15 },

@@ -38,9 +38,9 @@ const copilotData = {
     { platform: "ChatGPT", visibility: 95, mentions: 1450 },
     { platform: "Perplexity", visibility: 90, mentions: 1210 },
     { platform: "Claude", visibility: 91, mentions: 1280 },
-    { platform: "Gemini", visibility: 88, mentions: 1170 },
-    { platform: "Bing Copilot", visibility: 86, mentions: 900 },
-    { platform: "You.com", visibility: 80, mentions: 710 }
+    { platform: "Google AI Overviews", visibility: 88, mentions: 1170 },
+    { platform: "Copilot", visibility: 86, mentions: 900 },
+    { platform: "Grok", visibility: 80, mentions: 710 }
   ],
   topQueries: [
     { query: "best Korean sunscreen for office workers", count: 45, intent: "product_inquiry" },
@@ -78,7 +78,7 @@ export default function AnalyticsCopilotContent() {
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Copilot Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Microsoft Copilot (Bing Copilot) specific performance metrics
+          Microsoft Copilot specific performance metrics
         </p>
       </div>
 

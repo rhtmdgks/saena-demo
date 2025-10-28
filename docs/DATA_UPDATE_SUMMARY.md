@@ -91,7 +91,7 @@ components/dashboard/home-content.tsx
 - ChatGPT: 95%
 - Perplexity: 92%
 - Claude: 90%
-- Gemini: 88%
+- Google AI Overviews: 88%
 
 ## 다음 단계
 

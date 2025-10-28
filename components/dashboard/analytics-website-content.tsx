@@ -60,7 +60,7 @@ const websiteData = {
       citations: 98,
       authority: 45,
       contentType: "educational",
-      platforms: ["ChatGPT", "Gemini", "Perplexity"]
+      platforms: ["ChatGPT", "Google AI Overviews", "Perplexity"]
     },
     {
       url: "/products/sensitive-skin-sunscreen",
@@ -84,7 +84,7 @@ const websiteData = {
       citations: 65,
       authority: 40,
       contentType: "educational",
-      platforms: ["Gemini", "Claude"]
+      platforms: ["Google AI Overviews", "Claude"]
     },
     {
       url: "/faq/white-cast-prevention",
@@ -100,7 +100,7 @@ const websiteData = {
       citations: 52,
       authority: 46,
       contentType: "product",
-      platforms: ["ChatGPT", "Gemini"]
+      platforms: ["ChatGPT", "Google AI Overviews"]
     },
     {
       url: "/blog/korean-vs-western-sunscreen",
@@ -116,7 +116,7 @@ const websiteData = {
       citations: 42,
       authority: 39,
       contentType: "educational",
-      platforms: ["Gemini", "ChatGPT"]
+      platforms: ["Google AI Overviews", "ChatGPT"]
     },
     {
       url: "/reviews/customer-testimonials",
@@ -139,7 +139,7 @@ const websiteData = {
     { platform: "ChatGPT", citations: 485, percentage: 37.1 },
     { platform: "Perplexity", citations: 342, percentage: 26.2 },
     { platform: "Claude", citations: 268, percentage: 20.5 },
-    { platform: "Gemini", citations: 185, percentage: 14.2 },
+    { platform: "Google AI Overviews", citations: 185, percentage: 14.2 },
     { platform: "Others", citations: 40, percentage: 3.1 }
   ],
   recommendations: [

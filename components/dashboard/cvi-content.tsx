@@ -1,12 +1,12 @@
 "use client"
 
 const modelData = [
-  { model: 'GPT-4', language: 'EN', visibility: 0.89, consistency: 0.92, penetration: 0.87 },
-  { model: 'GPT-4', language: 'KO', visibility: 0.85, consistency: 0.88, penetration: 0.82 },
+  { model: 'ChatGPT', language: 'EN', visibility: 0.89, consistency: 0.92, penetration: 0.87 },
+  { model: 'ChatGPT', language: 'KO', visibility: 0.85, consistency: 0.88, penetration: 0.82 },
   { model: 'Claude', language: 'EN', visibility: 0.82, consistency: 0.85, penetration: 0.79 },
   { model: 'Claude', language: 'KO', visibility: 0.78, consistency: 0.81, penetration: 0.75 },
-  { model: 'Gemini', language: 'EN', visibility: 0.76, consistency: 0.79, penetration: 0.73 },
-  { model: 'Gemini', language: 'KO', visibility: 0.72, consistency: 0.75, penetration: 0.68 },
+  { model: 'Google AI Overviews', language: 'EN', visibility: 0.76, consistency: 0.79, penetration: 0.73 },
+  { model: 'Google AI Overviews', language: 'KO', visibility: 0.72, consistency: 0.75, penetration: 0.68 },
 ]
 
 export default function CVIContent() {
@@ -121,7 +121,7 @@ export default function CVIContent() {
             <div className="flex-1">
               <div className="text-sm font-medium text-gray-900 dark:text-white">Source Definition</div>
               <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                GPT-4 (v1.2), Claude (v3.5), Gemini (v1.5) | EN, KO
+                ChatGPT (GPT-5), Claude (v3.5), Google AI Overviews | EN, KO
               </div>
             </div>
           </div>

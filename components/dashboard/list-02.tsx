@@ -85,7 +85,7 @@ const ACTIVITIES: Activity[] = [
   },
   {
     id: "6",
-    title: "Gemini Coverage",
+    title: "Google AI Overviews Coverage",
     value: "88%",
     type: "positive",
     category: "platform",

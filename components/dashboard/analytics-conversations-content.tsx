@@ -51,7 +51,7 @@ const conversationsData = {
     },
     {
       id: "conv-005",
-      platform: "Gemini",
+      platform: "Google AI Overviews",
       timestamp: "2025-10-18T10:45:00Z",
       userQuery: "Best sunscreen for oily acne-prone skin",
       aiResponse: "For oily, acne-prone skin, look for: oil-free, non-comedogenic, lightweight formulas. Top recommendations: **Suelo Daily PA++++** (water-gel texture, sebum control), La Roche-Posay Anthelios (mattifying), and COSRX Aloe Soothing Sun Cream (calming). Avoid heavy, greasy formulas and look for ingredients like niacinamide and centella.",
@@ -180,7 +180,7 @@ export default function AnalyticsConversationsContent() {
             <option value="ChatGPT">ChatGPT</option>
             <option value="Claude">Claude</option>
             <option value="Perplexity">Perplexity</option>
-            <option value="Gemini">Gemini</option>
+            <option value="Google AI Overviews">Google AI Overviews</option>
           </select>
           <select
             value={filterIntent}

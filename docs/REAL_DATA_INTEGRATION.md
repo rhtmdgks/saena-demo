@@ -219,8 +219,8 @@ API_SECRET_KEY=your-secret-key
 - ChatGPT: 95%
 - Perplexity: 92%
 - Claude: 90%
-- Gemini: 88%
-- Bing Copilot: 86%
+- Google AI Overviews: 88%
+- Copilot: 86%
 
 ### 5. Marketing Strategy (4P/4E) ✅
 

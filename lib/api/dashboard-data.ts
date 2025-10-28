@@ -219,13 +219,12 @@ export async function getHomeContentData(): Promise<HomeContentData> {
       { platformName: "ChatGPT", coveragePercent: 95, isActive: true },
       { platformName: "Perplexity", coveragePercent: 92, isActive: true },
       { platformName: "Claude", coveragePercent: 90, isActive: true },
-      { platformName: "Gemini", coveragePercent: 88, isActive: true },
-      { platformName: "Bing Copilot", coveragePercent: 86, isActive: true },
-      { platformName: "You.com", coveragePercent: 80, isActive: true },
-      { platformName: "Poe", coveragePercent: 78, isActive: true },
-      { platformName: "Pi", coveragePercent: 74, isActive: false },
-      { platformName: "Grok", coveragePercent: 71, isActive: false },
-      { platformName: "Kimi", coveragePercent: 68, isActive: false }
+      { platformName: "Google AI Overviews", coveragePercent: 88, isActive: true },
+      { platformName: "Copilot", coveragePercent: 86, isActive: true },
+      { platformName: "Grok", coveragePercent: 80, isActive: true },
+      { platformName: "Amazon Rufus", coveragePercent: 78, isActive: true },
+      { platformName: "Meta AI", coveragePercent: 74, isActive: true },
+      { platformName: "Deepseek", coveragePercent: 71, isActive: true }
     ]
   };
 }
@@ -531,12 +530,12 @@ export async function getModelContentData(): Promise<ModelContentData> {
     models: [
       { name: "ChatGPT", provider: "OpenAI", visibility: 95, accuracy: 94, sentiment: "positive", mentions: 1450, trend: "up", change: 8.5 },
       { name: "Claude", provider: "Anthropic", visibility: 91, accuracy: 92, sentiment: "positive", mentions: 1280, trend: "up", change: 7.2 },
-      { name: "Gemini", provider: "Google", visibility: 88, accuracy: 89, sentiment: "neutral", mentions: 1170, trend: "up", change: 5.6 },
+      { name: "Google AI Overviews", provider: "Google", visibility: 88, accuracy: 89, sentiment: "neutral", mentions: 1170, trend: "up", change: 5.6 },
       { name: "Perplexity", provider: "Perplexity", visibility: 90, accuracy: 87, sentiment: "positive", mentions: 1210, trend: "up", change: 6.1 },
-      { name: "Bing Copilot", provider: "Microsoft", visibility: 86, accuracy: 86, sentiment: "neutral", mentions: 900, trend: "up", change: 4.7 },
-      { name: "You.com", provider: "You.com", visibility: 80, accuracy: 82, sentiment: "neutral", mentions: 710, trend: "up", change: 3.9 },
-      { name: "Grok", provider: "xAI", visibility: 73, accuracy: 78, sentiment: "neutral", mentions: 400, trend: "down", change: -2.1 },
-      { name: "Pi", provider: "Inflection", visibility: 71, accuracy: 79, sentiment: "neutral", mentions: 279, trend: "down", change: -3.2 }
+      { name: "Copilot", provider: "Microsoft", visibility: 86, accuracy: 86, sentiment: "neutral", mentions: 900, trend: "up", change: 4.7 },
+      { name: "Grok", provider: "xAI", visibility: 80, accuracy: 82, sentiment: "neutral", mentions: 710, trend: "up", change: 3.9 },
+      { name: "Amazon Rufus", provider: "Amazon", visibility: 73, accuracy: 78, sentiment: "neutral", mentions: 400, trend: "up", change: 2.1 },
+      { name: "Meta AI", provider: "Meta", visibility: 71, accuracy: 79, sentiment: "neutral", mentions: 279, trend: "up", change: 3.2 }
     ]
   };
 }
