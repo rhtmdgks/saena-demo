@@ -134,40 +134,30 @@ export default function AnalyticsConversationsContent() {
         </p>
       </div>
 
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
-          <div className="flex items-center gap-2 mb-2">
-            <MessageSquare className="h-5 w-5 text-accent-green" />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Total Conversations</span>
+      {/* Stats Overview - Enhanced */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { icon: MessageSquare, label: "Total Conversations", value: "1,200", change: "+18% this week", color: "from-blue-500/20 to-blue-500/10" },
+          { icon: Star, label: "Avg Sentiment", value: "0.86", change: "+0.08 improvement", color: "from-yellow-500/20 to-yellow-500/10" },
+          { icon: TrendingUp, label: "Brand Mentions", value: "1,450", change: "+22% increase", color: "from-accent-green/20 to-accent-green/10" },
+          { icon: AlertCircle, label: "Positive Rate", value: "86%", change: "+4% improvement", color: "from-purple-500/20 to-purple-500/10" }
+        ].map((stat, index) => (
+          <div key={index} className="group relative bg-gradient-to-br from-white to-gray-50 dark:from-[#0F0F12] dark:to-[#1A1A1F] rounded-2xl p-5 border border-gray-200/50 dark:border-[#1F1F23] hover:border-accent-green/50 transition-all duration-300 hover:shadow-xl hover:shadow-accent-green/10 hover:-translate-y-1 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-green/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-3">
+                <div className={`p-2 bg-gradient-to-br ${stat.color} rounded-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <stat.icon className="h-5 w-5 text-accent-green" />
+                </div>
+                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">{stat.label}</span>
+              </div>
+              <p className="text-3xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-1">
+                {stat.value}
+              </p>
+              <p className="text-xs font-medium text-accent-green">{stat.change}</p>
+            </div>
           </div>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">1,200</p>
-          <p className="text-xs text-accent-green-glow mt-1">+18% this week</p>
-        </div>
-        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
-          <div className="flex items-center gap-2 mb-2">
-            <Star className="h-5 w-5 text-accent-green" />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Avg Sentiment</span>
-          </div>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">0.86</p>
-          <p className="text-xs text-accent-green-glow mt-1">+0.08 improvement</p>
-        </div>
-        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
-          <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="h-5 w-5 text-accent-green" />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Brand Mentions</span>
-          </div>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">1,450</p>
-          <p className="text-xs text-accent-green-glow mt-1">+22% increase</p>
-        </div>
-        <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
-          <div className="flex items-center gap-2 mb-2">
-            <AlertCircle className="h-5 w-5 text-accent-green" />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Positive Rate</span>
-          </div>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">86%</p>
-          <p className="text-xs text-accent-green-glow mt-1">+4% improvement</p>
-        </div>
+        ))}
       </div>
 
       {/* Filters & Search */}
