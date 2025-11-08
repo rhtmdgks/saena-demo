@@ -8,7 +8,7 @@ This specification defines the requirements for implementing comprehensive analy
 
 - **System**: The analytics dashboard component of the Shuello brand monitoring platform
 - **User**: Marketing team members or brand managers viewing analytics
-- **AI Platform**: ChatGPT, Claude, Perplexity, Gemini, etc.
+- **AI Platform**: ChatGPT, Claude, Perplexity, Google AI Overviews, Copilot, Grok, Amazon Rufus, Meta AI, Deepseek, etc.
 - **Visibility Score**: Percentage metric indicating how often the brand appears in AI responses
 - **Citation**: A mention or reference to the brand in AI-generated content
 - **Sentiment Score**: Numerical value (-1 to 1) representing positive/negative tone
@@ -127,7 +127,7 @@ I need to implement the [PAGE_NAME] analytics page for the Shuello (suelo) K-bea
 - Industry: K-beauty, specifically sunscreen/SPF products
 - Main competitors: Beauty of Joseon, Round Lab, Aestura, La Roche-Posay, Anessa
 - Key product features: PA++++, no white cast, sensitive skin friendly, makeup compatible
-- Target platforms: ChatGPT, Claude, Perplexity, Gemini, Bing Copilot
+- Target platforms: ChatGPT, Claude, Perplexity, Google AI Overviews, Copilot, Grok, Amazon Rufus, Meta AI, Deepseek
 
 **Page Requirements:**
 [Paste specific acceptance criteria from requirements.md]
@@ -183,7 +183,7 @@ I need to implement the Analytics Overview page for the Shuello (suelo) K-beauty
 **Page Requirements:**
 1. Display 4-6 key performance indicator cards (visibility score, total citations, sentiment score, platform coverage, growth rate, market position)
 2. Show time-series chart with overall visibility trend (last 30 days)
-3. Display platform breakdown (ChatGPT, Claude, Perplexity, Gemini, Bing Copilot)
+3. Display platform breakdown (ChatGPT, Claude, Perplexity, Google AI Overviews, Copilot, Grok, Amazon Rufus, Meta AI, Deepseek)
 4. Show top performing topics/keywords
 5. Display recent significant changes or alerts
 6. Include time range selector (7d, 15d, 30d, custom)
@@ -257,7 +257,7 @@ Please create realistic conversations about K-beauty sunscreen products.
 I need to implement the Copilot Analytics page for the Shuello (suelo) K-beauty sunscreen brand.
 
 **Context:**
-- Focus: Microsoft Copilot (Bing Copilot) specific analytics
+- Focus: Microsoft Copilot specific analytics
 - Enterprise context: Business users researching products
 - Copilot features: Shopping integration, web search, citations
 
@@ -336,16 +336,18 @@ Please create realistic URLs and content for a K-beauty sunscreen brand.
 When creating mock data for any analytics page:
 
 ### ✅ DO USE:
+
 - Shuello/suelo brand name
 - K-beauty sunscreen context
 - Competitors: Beauty of Joseon, Round Lab, Aestura, La Roche-Posay, Anessa, COSRX, SKIN1004, Innisfree
 - Product features: PA++++, SPF50+, no white cast, sensitive skin, makeup compatible, water-resistant
 - Keywords: sunscreen, UV protection, UVA/UVB, niacinamide, centella, hyaluronic acid
-- Platforms: ChatGPT, Claude, Perplexity, Gemini, Bing Copilot, You.com
+- Platforms: ChatGPT, Claude, Perplexity, Google AI Overviews, Copilot, Grok, Amazon Rufus, Meta AI, Deepseek
 - Domains: global.oliveyoung.com, yesstyle.com, stylekorean.com, vogue.com, allure.com, byrdie.com
 - User intents: product inquiry, comparison, ingredient question, application how-to, skin type recommendation
 
 ### ❌ DO NOT USE:
+
 - Business banking, fintech, corporate cards, expense management
 - Startup, SMB, enterprise software
 - Payment processing, accounts payable
