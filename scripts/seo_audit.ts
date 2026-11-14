@@ -4,13 +4,13 @@
  * R1-OS 품질 게이트 자동 점검
  */
 
-import { readFileSync } from 'fs';
-import { calculateIGScore, generateDocumentEmbeddings, fetchSERPEmbeddings } from '../lib/seo/ig';
+import { format } from 'node:util';
+const printStatus = (...values: unknown[]) => process.stdout.write(format(...values) + '\n');
 import { validateLinkGraph } from '../lib/seo/link-graph';
 import { validateJSONLD } from '../lib/seo/eeat';
 import { detectViolations } from '../lib/seo/cwv-autotuner';
 import seoPolicy from '../configs/seo.policy.json';
-import type { SEOPolicy, CWVMetrics } from '../lib/seo/types';
+import type { CWVMetrics } from '../lib/seo/types';
 
 interface AuditResult {
   passed: boolean;
@@ -27,7 +27,7 @@ interface AuditResult {
  * IG 임계값 체크
  */
 async function auditIGThreshold(): Promise<{ passed: boolean; errors: string[] }> {
-  console.log('🔍 Checking IG thresholds...');
+  printStatus('🔍 Checking IG thresholds...');
   
   const errors: string[] = [];
   
@@ -60,7 +60,7 @@ async function auditIGThreshold(): Promise<{ passed: boolean; errors: string[] }
  * CWV 위반 체크
  */
 async function auditCWV(): Promise<{ passed: boolean; errors: string[] }> {
-  console.log('⚡ Checking Core Web Vitals...');
+  printStatus('⚡ Checking Core Web Vitals...');
   
   const errors: string[] = [];
   
@@ -109,7 +109,7 @@ async function auditCWV(): Promise<{ passed: boolean; errors: string[] }> {
  * 내부 링크 그래프 검증
  */
 async function auditLinkGraph(): Promise<{ passed: boolean; errors: string[] }> {
-  console.log('🔗 Checking internal link graph...');
+  printStatus('🔗 Checking internal link graph...');
   
   const errors: string[] = [];
   
@@ -147,7 +147,7 @@ async function auditLinkGraph(): Promise<{ passed: boolean; errors: string[] }> 
  * JSON-LD 스키마 검증
  */
 async function auditSchema(): Promise<{ passed: boolean; errors: string[] }> {
-  console.log('📋 Checking JSON-LD schemas...');
+  printStatus('📋 Checking JSON-LD schemas...');
   
   const errors: string[] = [];
   
@@ -196,7 +196,7 @@ async function auditSchema(): Promise<{ passed: boolean; errors: string[] }> {
  * Sitemap 유효성 검증
  */
 async function auditSitemap(): Promise<{ passed: boolean; errors: string[] }> {
-  console.log('🗺️  Checking sitemap...');
+  printStatus('🗺️  Checking sitemap...');
   
   const errors: string[] = [];
   
@@ -216,7 +216,7 @@ async function auditSitemap(): Promise<{ passed: boolean; errors: string[] }> {
  * 메인 감사 실행
  */
 async function runAudit(): Promise<AuditResult> {
-  console.log('🚀 Starting SEO Audit (R1-OS)...\n');
+  printStatus('🚀 Starting SEO Audit (R1-OS)...\n');
   
   const checks = [
     auditIGThreshold(),
@@ -242,22 +242,22 @@ async function runAudit(): Promise<AuditResult> {
   
   const passed = allErrors.length === 0;
   
-  console.log('\n' + '='.repeat(60));
-  console.log('📊 Audit Summary');
-  console.log('='.repeat(60));
-  console.log(`Total Checks: ${checks.length}`);
-  console.log(`Passed: ${passedChecks}`);
-  console.log(`Failed: ${checks.length - passedChecks}`);
-  console.log(`Status: ${passed ? '✅ PASSED' : '❌ FAILED'}`);
+  printStatus('\n' + '='.repeat(60));
+  printStatus('📊 Audit Summary');
+  printStatus('='.repeat(60));
+  printStatus(`Total Checks: ${checks.length}`);
+  printStatus(`Passed: ${passedChecks}`);
+  printStatus(`Failed: ${checks.length - passedChecks}`);
+  printStatus(`Status: ${passed ? '✅ PASSED' : '❌ FAILED'}`);
   
   if (allErrors.length > 0) {
-    console.log('\n❌ Errors:');
-    allErrors.forEach(error => console.log(`  - ${error}`));
+    printStatus('\n❌ Errors:');
+    allErrors.forEach(error => printStatus(`  - ${error}`));
   }
   
   if (warnings.length > 0) {
-    console.log('\n⚠️  Warnings:');
-    warnings.forEach(warning => console.log(`  - ${warning}`));
+    printStatus('\n⚠️  Warnings:');
+    warnings.forEach(warning => printStatus(`  - ${warning}`));
   }
   
   return {

@@ -3,7 +3,7 @@ import nextTypescript from "eslint-config-next/typescript";
 
 // ESLint 9 and Next build must share native flat config.
 // Preserve the existing .eslintrc.json rules without weakening them.
-export default [
+const config = [
   ...nextVitals.map(config => config.name === "next"
     ? { ...config, files: ["**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}"] }
     : config),
@@ -43,3 +43,5 @@ export default [
     "jsx-a11y/role-supports-aria-props": "error"
 } },
 ];
+
+export default config;

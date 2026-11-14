@@ -144,3 +144,20 @@ review found no new blocker. This supersedes the earlier unresolved-lint checkpo
 
 No real browser hydration/form/animation interaction QA, production IdP login,
 customer observations, live AI citation lift measurement, or deployment is claimed.
+
+## Scoped warning cleanup
+
+The owner requested warning cleanup without changing the original UI. Animation
+files were subsequently excluded as a whole after a scope safety rejection; no
+attempt was made to bypass that rejection. Counter, SimpleCounter, ScrollStack,
+ProfileCard, plasma and liquid-ether remain byte-identical to `ef3b17c`.
+
+Lint now has 0 errors and 62 warnings, all in those six excluded files (5, 5, 2,
+5, 3 and 42 respectively), down from 222. All other files have zero warnings.
+Rules and dependencies remain unchanged. Concrete callback/API/metadata types,
+unused bindings and debug-only logs were cleaned up; CLI diagnostic stdout is
+preserved with Node formatting. Three baseline API-response comparisons and four
+shared regression tests cover error semantics, excluded-file identity, metadata,
+async errors and CLI output. These synthetic/source checks are not browser QA.
+No visual layout or animation rewrite, deployment or production data measurement
+was performed as part of this cleanup.

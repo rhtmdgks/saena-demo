@@ -243,10 +243,10 @@ export function optimizeTitle(title: string, maxLength: number = 60): string {
 /**
  * 구조화된 데이터 검증
  */
-export function validateStructuredData(data: any): boolean {
+export function validateStructuredData(data: unknown): boolean {
   try {
     // 기본 필수 필드 체크
-    if (!data['@context'] || !data['@type']) {
+    if (!data || typeof data !== 'object' || !('@context' in data) || !('@type' in data) || !data['@context'] || !data['@type']) {
       return false;
     }
     

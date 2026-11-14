@@ -198,7 +198,7 @@ export function generateHowToSchema(
 /**
  * JSON-LD 컴포넌트
  */
-export function JSONLD({ data }: { data: any }) {
+export function JSONLD({ data }: { data: unknown }) {
   return (
     <script
       type="application/ld+json"
@@ -251,7 +251,7 @@ export function createDefaultEEATMetadata(): EEATMetadata {
 /**
  * JSON-LD 유효성 검증
  */
-export function validateJSONLD(data: any): { valid: boolean; errors: string[] } {
+export function validateJSONLD(data: Record<string, unknown>): { valid: boolean; errors: string[] } {
   const errors: string[] = [];
   
   // @context 체크

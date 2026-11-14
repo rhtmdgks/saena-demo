@@ -106,7 +106,7 @@ function generateLCPFixes(metrics: CWVMetrics, config: CWVConfig): string[] {
 /**
  * CLS 개선 제안 생성
  */
-function generateCLSFixes(metrics: CWVMetrics, config: CWVConfig): string[] {
+function generateCLSFixes(_metrics: CWVMetrics, _config: CWVConfig): string[] {
   const fixes: string[] = [];
 
   fixes.push("모든 이미지/비디오에 명시적 width/height 속성 추가");
@@ -153,8 +153,7 @@ export function generateFixPR(
   violations: CWVViolation[],
   template: string
 ): string {
-  const metrics = violations.map((v) => v.metric).join(", ");
-  const prTitle = `feat(cwv): ${metrics} 최적화 - ${template}`;
+
 
   const prBody = `
 ## CWV 위반 감지
@@ -283,23 +282,23 @@ const QUALITY = 80;
 async function optimizeImage(filePath: string) {
   const image = sharp(filePath);
   const metadata = await image.metadata();
-  
+
   if (!metadata.width || !metadata.height) return;
-  
+
   const pixels = metadata.width * metadata.height;
-  
+
   if (pixels > MAX_PIXELS) {
     const scale = Math.sqrt(MAX_PIXELS / pixels);
     const newWidth = Math.round(metadata.width * scale);
     const newHeight = Math.round(metadata.height * scale);
-    
+
     console.log(\`Resizing \${filePath}: \${metadata.width}x\${metadata.height} → \${newWidth}x\${newHeight}\`);
-    
+
     await image
       .resize(newWidth, newHeight)
       .avif({ quality: QUALITY })
       .toFile(filePath.replace(/\\.[^.]+$/, '.avif'));
-    
+
     await image
       .resize(newWidth, newHeight)
       .webp({ quality: QUALITY })
@@ -309,11 +308,11 @@ async function optimizeImage(filePath: string) {
 
 async function main() {
   const images = await glob('public/**/*.{jpg,jpeg,png}');
-  
+
   for (const image of images) {
     await optimizeImage(image);
   }
-  
+
   console.log(\`Optimized \${images.length} images\`);
 }
 

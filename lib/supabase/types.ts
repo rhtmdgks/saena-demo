@@ -6,7 +6,7 @@ export interface WaitlistEntry {
   created_at: string;
   status: WaitlistStatus;
   source: string;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 export interface Database {

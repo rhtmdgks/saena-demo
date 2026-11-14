@@ -63,10 +63,10 @@ export function createErrorResponse(
 /**
  * Async error handler wrapper for API routes
  */
-export function asyncHandler<T extends (...args: any[]) => Promise<any>>(
-  handler: T
-): T {
-  return (async (...args: Parameters<T>) => {
+export function asyncHandler<Args extends unknown[], Result>(
+  handler: (...args: Args) => Promise<Result>
+): (...args: Args) => Promise<Result> {
+  return (async (...args: Args) => {
     try {
       return await handler(...args);
     } catch (error) {
@@ -77,7 +77,7 @@ export function asyncHandler<T extends (...args: any[]) => Promise<any>>(
         errorResponse.error.code
       );
     }
-  }) as T;
+  });
 }
 
 /**

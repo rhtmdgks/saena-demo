@@ -4,6 +4,8 @@
  * CWV Autotuner - 이미지 자동 최적화
  */
 
+import { format } from 'node:util';
+const printStatus = (...values: unknown[]) => process.stdout.write(format(...values) + '\n');
 import sharp from 'sharp';
 import { writeFileSync, readdirSync, statSync } from 'fs';
 import { join, basename, extname, dirname } from 'path';
@@ -61,7 +63,7 @@ async function optimizeImage(filePath: string): Promise<OptimizationResult | nul
       result.optimizedDimensions = { width: targetWidth, height: targetHeight };
       result.pixelReduction = ((pixels - (targetWidth * targetHeight)) / pixels) * 100;
       
-      console.log(`📐 Resizing ${basename(filePath)}: ${metadata.width}x${metadata.height} → ${targetWidth}x${targetHeight}`);
+      printStatus(`📐 Resizing ${basename(filePath)}: ${metadata.width}x${metadata.height} → ${targetWidth}x${targetHeight}`);
     }
     
     const dir = dirname(filePath);
@@ -165,7 +167,7 @@ function findImages(dir: string, extensions: string[]): string[] {
         }
       }
     }
-  } catch (error) {
+  } catch {
     // 디렉토리가 없으면 무시
   }
   
@@ -176,17 +178,17 @@ function findImages(dir: string, extensions: string[]): string[] {
  * 메인 실행
  */
 async function main() {
-  console.log('🚀 Starting image optimization...\n');
-  console.log(`Max pixels: ${MAX_PIXELS.toLocaleString()}`);
-  console.log(`Quality: ${QUALITY}\n`);
+  printStatus('🚀 Starting image optimization...\n');
+  printStatus(`Max pixels: ${MAX_PIXELS.toLocaleString()}`);
+  printStatus(`Quality: ${QUALITY}\n`);
   
   // public 디렉토리의 이미지 찾기
   const allImages = findImages('public', SUPPORTED_FORMATS);
   
-  console.log(`Found ${allImages.length} images to optimize\n`);
+  printStatus(`Found ${allImages.length} images to optimize\n`);
   
   if (allImages.length === 0) {
-    console.log('✅ No images to optimize');
+    printStatus('✅ No images to optimize');
     return;
   }
   
@@ -200,7 +202,7 @@ async function main() {
       batch.map(async (image) => {
         const result = await optimizeImage(image);
         if (result) {
-          console.log(`✅ Optimized ${basename(image)}`);
+          printStatus(`✅ Optimized ${basename(image)}`);
         }
         return result;
       })
@@ -211,19 +213,19 @@ async function main() {
   
   // 리포트 생성 및 출력
   const report = generateReport(results);
-  console.log(report);
+  printStatus(report);
   
   // 리포트 파일 저장
   const reportPath = 'optimization-report.txt';
   writeFileSync(reportPath, report);
-  console.log(`📄 Report saved to ${reportPath}`);
+  printStatus(`📄 Report saved to ${reportPath}`);
 }
 
 // CLI 실행
 if (require.main === module) {
   main()
     .then(() => {
-      console.log('\n✨ Image optimization complete!');
+      printStatus('\n✨ Image optimization complete!');
       process.exit(0);
     })
     .catch(error => {

@@ -3,7 +3,7 @@
  * 상위 SERP 대비 새로움/정밀 근거/독점 데이터 정량화
  */
 
-import type { IGResult, DocumentEmbedding, EvidenceMetrics, IGConfig } from './types';
+import type { IGResult, EvidenceMetrics, IGConfig } from './types';
 
 /**
  * 코사인 유사도 계산
@@ -135,7 +135,7 @@ export function calculateEvidence(metrics: EvidenceMetrics): number {
 /**
  * 독점 데이터 소스 감지
  */
-export function detectExclusiveData(content: string, metadata?: Record<string, any>): boolean {
+export function detectExclusiveData(content: string, metadata?: Record<string, unknown>): boolean {
   // 자사 데이터 키워드
   const exclusiveKeywords = [
     'saena dataset',
@@ -164,7 +164,7 @@ export function calculateIGScore(
   serpDocsParagraphs: number[][][],
   content: string,
   config: IGConfig,
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 ): IGResult {
   // 1. 새로움 계산
   const igNovel = calculateNovelty(newDocParagraphs, serpDocsParagraphs, config.tau_novel);
@@ -222,8 +222,8 @@ export function calculateIGScore(
  * SERP 문서 임베딩 가져오기 (실제 구현 시 OpenAI/Cohere API 사용)
  */
 export async function fetchSERPEmbeddings(
-  keyword: string,
-  topK: number = 10
+  _keyword: string,
+  _topK: number = 10
 ): Promise<number[][][]> {
   // TODO: 실제 구현
   // 1. Google Search API로 상위 k개 URL 가져오기
@@ -239,7 +239,7 @@ export async function fetchSERPEmbeddings(
  * 문서 임베딩 생성 (실제 구현 시 OpenAI/Cohere API 사용)
  */
 export async function generateDocumentEmbeddings(
-  content: string
+  _content: string
 ): Promise<number[][]> {
   // TODO: 실제 구현
   // 1. 문단 분할

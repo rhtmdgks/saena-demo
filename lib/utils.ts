@@ -11,13 +11,13 @@ export function cn(...inputs: ClassValue[]) {
 /**
  * Debounce function to limit the rate at which a function can fire
  */
-export function debounce<T extends (...args: any[]) => any>(
-  func: T,
+export function debounce<Args extends unknown[], Result>(
+  func: (...args: Args) => Result,
   wait: number
-): (...args: Parameters<T>) => void {
+): (...args: Args) => void {
   let timeout: NodeJS.Timeout | null = null;
   
-  return function executedFunction(...args: Parameters<T>) {
+  return function executedFunction(...args: Args) {
     const later = () => {
       timeout = null;
       func(...args);
@@ -31,13 +31,13 @@ export function debounce<T extends (...args: any[]) => any>(
 /**
  * Throttle function to ensure a function is called at most once in a specified time period
  */
-export function throttle<T extends (...args: any[]) => any>(
-  func: T,
+export function throttle<Args extends unknown[], Result>(
+  func: (...args: Args) => Result,
   limit: number
-): (...args: Parameters<T>) => void {
+): (...args: Args) => void {
   let inThrottle: boolean;
   
-  return function executedFunction(...args: Parameters<T>) {
+  return function executedFunction(...args: Args) {
     if (!inThrottle) {
       func(...args);
       inThrottle = true;
