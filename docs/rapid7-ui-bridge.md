@@ -95,3 +95,29 @@ though Node createPublicKey could derive a public key from it. Core 43/43 pass.
 ## Integrator checkpoint
 
 Server core 43 tests, actual session-route 1 test, frontend adapter/regression 19 tests passed independently in the integration checkout. TypeScript noEmit passed. Next production compilation and static generation (45 routes) completed, but the pre-existing ESLint 9 / eslint-config-next 16 versus Next 15 legacy configuration reports a circular-config error. This is NOT a clean full quality-gate pass; lint is unresolved. Existing build configuration skips type checks, so TypeScript was run separately. No live IdP, signed customer observation collection, browser screenshot QA, or deployment performed. The original missing dirname import in scripts/optimize-images.ts was corrected to restore standalone type checking.
+
+## Actual cross-language local verification (supersedes endpoint blocker above)
+
+The owner subsequently waived the local signed-Action-Contract prerequisite for
+this specific development unit. The backend author implemented the observation
+endpoint in the isolated `w7-13-ui-observations` checkout. No requirement was
+silently bypassed by the UI bridge. The earlier blocked state is historical.
+
+`tests/rapid7/live-local-contract.test.mjs` starts an actual ephemeral-port uvicorn
+server on 127.0.0.1, builds real hash-bound catalog entries from temporary synthetic
+JSON, and calls it through the actual Node dashboard BFF using generated RSA/JWT.
+It asserts Python app/store module paths point into the requested new checkout,
+sets PYTHONDONTWRITEBYTECODE=1, and terminates the child server in finally. No existing
+port/service is replaced; no customer credentials, observations or deployment.
+
+Run with RAPID7_TEST_CHECKOUT pointing to the backend checkout and
+RAPID7_TEST_PYTHON to its compatible existing environment, then
+`node --test tests/rapid7/live-local-contract.test.mjs`.
+Without these explicit variables the test is skipped, not counted as verified.
+The original repository Python lacked PyJWT; the existing integration environment
+provided it without installation. New-checkout source precedence is asserted.
+
+Actual run passed 1/1: positive citation occurrences, measured zero citations,
+missing expected observations, backend reader denial and cross-tenant denial.
+This proves the synthetic cross-language data path, not live AI measurement,
+production IdP, real customer rollout or causal citation improvement.
