@@ -46,15 +46,10 @@ export async function POST(request: NextRequest) {
     // TODO: 데이터베이스에 저장
     // 권장: TimescaleDB, InfluxDB, 또는 Google Analytics Data API
     
-    // 예시: 콘솔 로깅 (실제로는 DB 저장)
-    console.log('[RUM]', {
-      metric: data.name,
-      value: data.value,
-      rating: data.rating,
-      url: data.url,
-      timestamp: new Date(data.timestamp).toISOString()
-    });
-    
+    // Preserve the existing invalid-timestamp rejection without logging raw URLs.
+    new Date(data.timestamp).toISOString();
+    // Raw page URLs are not written to debug output; persistence remains TODO.
+
     // TODO: 임계값 초과 시 알림
     if (data.rating === 'poor') {
       console.warn(`[RUM Alert] ${data.name} is poor on ${data.url}: ${data.value}`);

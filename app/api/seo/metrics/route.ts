@@ -16,9 +16,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const metric = searchParams.get('metric') || 'all';
-  const startDate = searchParams.get('start_date');
-  const endDate = searchParams.get('end_date');
-  const url = searchParams.get('url');
+  // Date and URL filters await the real metrics source implementation.
   
   try {
     // TODO: 실제 데이터베이스/GSC API에서 데이터 가져오기
@@ -93,12 +91,8 @@ export async function POST(request: NextRequest) {
     // - 시계열 데이터베이스 (InfluxDB, TimescaleDB)
     // - 또는 Google Analytics Data API
     
-    console.log('RUM data received:', {
-      metric: data.name,
-      value: data.value,
-      url: data.url,
-      timestamp: data.timestamp
-    });
+    // Do not expose raw page URLs in debug logs; persistence remains TODO.
+
     
     return NextResponse.json({ success: true });
     

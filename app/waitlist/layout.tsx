@@ -17,6 +17,9 @@ export const metadata = {
     "Join our waitlist and be among the first to experience our 3D animation services",
 };
 
+// Preserve the font loader/preload registration without altering visual classes.
+void geistSans;
+
 export const viewport: Viewport = {
   maximumScale: 1, // Disable auto-zoom on mobile Safari
 };

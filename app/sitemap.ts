@@ -15,7 +15,7 @@ import seoPolicy from '@/configs/seo.policy.json';
 /**
  * 모든 페이지 URL 수집
  */
-async function getAllPages(): Promise<Array<{ url: string; lastModified: Date; metadata?: any }>> {
+async function getAllPages(): Promise<Array<{ url: string; lastModified: Date; metadata?: { priority: number; changefreq: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]> } }>> {
   // TODO: 실제 구현
   // 1. 데이터베이스/CMS에서 동적 페이지 가져오기
   // 2. 파일 시스템에서 정적 페이지 스캔

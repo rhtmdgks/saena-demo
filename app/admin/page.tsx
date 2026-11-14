@@ -289,7 +289,7 @@ export default function AdminDashboard() {
   const [saveMessage, setSaveMessage] = useState("")
   const [activityItems, setActivityItems] = useState<ActivityItem[]>(initialActivity)
   const [activityPage, setActivityPage] = useState(0)
-  const [analyticsData, setAnalyticsData] = useState([
+  const [analyticsData] = useState([
     { metric: "Page Views", value: "12,543", change: "+15.2%", trend: "up" },
     { metric: "Unique Visitors", value: "8,921", change: "+8.7%", trend: "up" },
     { metric: "Bounce Rate", value: "23.4%", change: "-5.1%", trend: "down" },
@@ -297,7 +297,7 @@ export default function AdminDashboard() {
   ])
   const [videoToAdd, setVideoToAdd] = useState("")
   const [featureToAdd, setFeatureToAdd] = useState("")
-  const [currentPricingTier, setCurrentPricingTier] = useState<"startup" | "pro" | "premium">("startup")
+  const [, setCurrentPricingTier] = useState<"startup" | "pro" | "premium">("startup")
   const contentRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
 
@@ -337,7 +337,7 @@ export default function AdminDashboard() {
     router.push("/admin/login")
   }
 
-  const handleContentChange = (section: keyof ContentData, field: string, value: any) => {
+  const handleContentChange = <Section extends keyof ContentData, Field extends keyof ContentData[Section]>(section: Section, field: Field, value: ContentData[Section][Field]) => {
     setContent((prev) => ({
       ...prev,
       [section]: {
@@ -347,7 +347,7 @@ export default function AdminDashboard() {
     }))
   }
 
-  const handlePricingChange = (tier: "startup" | "pro" | "premium", field: string, value: any) => {
+  const handlePricingChange = <Field extends keyof ContentData["pricing"]["startup"]>(tier: "startup" | "pro" | "premium", field: Field, value: ContentData["pricing"]["startup"][Field]) => {
     setContent((prev) => ({
       ...prev,
       pricing: {
@@ -441,7 +441,7 @@ export default function AdminDashboard() {
 
       // Clear success message after 3 seconds
       setTimeout(() => setSaveMessage(""), 3000)
-    } catch (error) {
+    } catch {
       setSaveMessage("Error saving changes. Please try again.")
     }
 
@@ -1124,7 +1124,7 @@ export default function AdminDashboard() {
                             onChange={(e) => {
                               const newOptions = { ...content.orderForm.modelingOptions }
                               newOptions[option].price_usd = Number.parseInt(e.target.value) || 0
-                              handleContentChange("orderForm", "modelingOptions", newOptions as any)
+                              handleContentChange("orderForm", "modelingOptions", newOptions)
                             }}
                             className="bg-[#0f0f0f] border-neutral-700 text-white"
                           />
@@ -1137,7 +1137,7 @@ export default function AdminDashboard() {
                             onChange={(e) => {
                               const newOptions = { ...content.orderForm.modelingOptions }
                               newOptions[option].price_inr = Number.parseInt(e.target.value) || 0
-                              handleContentChange("orderForm", "modelingOptions", newOptions as any)
+                              handleContentChange("orderForm", "modelingOptions", newOptions)
                             }}
                             className="bg-[#0f0f0f] border-neutral-700 text-white"
                           />
@@ -1149,7 +1149,7 @@ export default function AdminDashboard() {
                             onChange={(e) => {
                               const newOptions = { ...content.orderForm.modelingOptions }
                               newOptions[option].description = e.target.value
-                              handleContentChange("orderForm", "modelingOptions", newOptions as any)
+                              handleContentChange("orderForm", "modelingOptions", newOptions)
                             }}
                             className="bg-[#0f0f0f] border-neutral-700 text-white"
                           />

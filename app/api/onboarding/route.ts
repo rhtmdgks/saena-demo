@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('Onboarding POST request received');
 
     const body = await request.json();
     const { name, email, company, role, goals } = body;
@@ -82,7 +81,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('Onboarding data saved successfully:', data?.id);
     return NextResponse.json(
       { success: true, data },
       { status: 201 }
