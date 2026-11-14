@@ -140,7 +140,7 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
                 transition={{ delay: 0.2 }}
                 className="text-center space-y-6"
               >
-                {/* @ts-ignore - Custom web component from ldrs */}
+                {/* Custom web component registered by ldrs. */}
                 <l-bouncy size="45" speed="1.75" color="rgb(198, 255, 58)" />
                 <div className="space-y-1">
                   <motion.h2

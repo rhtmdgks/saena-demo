@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMemo, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -18,23 +18,18 @@ const defaultContent: FooterContent = {
   copyright: "© 2025 — GOODWILL(KE)",
 }
 
-export function AppverseFooter() {
-  const [content, setContent] = useState<FooterContent>(defaultContent)
+const subscribeContent = (notify: () => void) => {
+  window.addEventListener("storage", notify)
+  return () => window.removeEventListener("storage", notify)
+}
+const contentSnapshot = () => localStorage.getItem("skitbit-content")
 
-  useEffect(() => {
-    // Load content from localStorage
-    const savedContent = localStorage.getItem("skitbit-content")
-    if (savedContent) {
-      try {
-        const parsed = JSON.parse(savedContent)
-        if (parsed.footer) {
-          setContent(parsed.footer)
-        }
-      } catch (error) {
-        console.error("Error parsing saved content:", error)
-      }
-    }
-  }, [])
+export function AppverseFooter() {
+  const storedContent = useSyncExternalStore(subscribeContent, contentSnapshot, () => null)
+  const content = useMemo(() => {
+    try { return storedContent ? JSON.parse(storedContent).footer ?? defaultContent : defaultContent }
+    catch { return defaultContent }
+  }, [storedContent])
 
   return (
     <section className="text-white">

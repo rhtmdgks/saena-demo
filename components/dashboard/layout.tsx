@@ -4,7 +4,7 @@ import type { ReactNode } from "react"
 import Sidebar from "./sidebar"
 import TopNav from "./top-nav"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useHydrated } from "./use-hydrated"
 
 interface LayoutProps {
   children: ReactNode
@@ -12,11 +12,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useHydrated()
 
   if (!mounted) {
     return null

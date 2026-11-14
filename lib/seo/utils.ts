@@ -4,6 +4,7 @@
  */
 
 import type { SEOPolicy } from './types';
+import defaultPolicy from '@/configs/seo.policy.json';
 
 /**
  * 안전한 코사인 유사도 (0-division 방어)
@@ -107,18 +108,12 @@ export function tokenize(text: string, locale: 'ko' | 'en' = 'ko'): string[] {
 /**
  * SEO 정책 로드 (환경별)
  */
+// Only the default policy is bundled today. Add explicit static imports here
+// when an environment-specific policy is introduced; unknown names retain fallback.
+const environmentPolicies = new Map<string, SEOPolicy>();
 export function loadSEOPolicy(environment?: string): SEOPolicy {
   const env = environment || process.env.NODE_ENV || 'production';
-  
-  try {
-    // 환경별 정책 파일 시도
-    const envPolicy = require(`@/configs/seo.policy.${env}.json`);
-    return envPolicy;
-  } catch {
-    // 기본 정책 사용
-    const defaultPolicy = require('@/configs/seo.policy.json');
-    return defaultPolicy;
-  }
+  return environmentPolicies.get(env) ?? defaultPolicy;
 }
 
 /**

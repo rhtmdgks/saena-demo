@@ -2,9 +2,11 @@
 
 import type React from "react";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+const subscribeMounted = () => () => {};
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,13 +17,9 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(subscribeMounted, () => true, () => false);
   const router = useRouter();
 
-  useEffect(() => {
-    setMounted(true);
-    console.log("Component mounted!");
-  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,7 +66,7 @@ export default function AdminLogin() {
       {/* Left side - only visible on desktop */}
       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-purple-600 to-blue-600 p-12 flex-col justify-between">
         <div>
-          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer">
             <Image
               src="/icons/goodwill_white.svg"
               alt="GOODWILL(KE) logo"
@@ -79,7 +77,7 @@ export default function AdminLogin() {
             <span className="text-2xl font-semibold text-white">
               GOODWILL(KE)
             </span>
-          </a>
+          </Link>
           <h1 className="text-4xl font-bold text-white mt-12">
             Welcome to GOODWILL(KE) Admin
           </h1>
@@ -100,7 +98,7 @@ export default function AdminLogin() {
       {/* Right side - login form */}
       <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12">
         {/* Mobile header - only visible on mobile */}
-        <a href="/" className="flex md:hidden items-center gap-3 mb-8 w-full hover:opacity-80 transition-opacity cursor-pointer">
+        <Link href="/" className="flex md:hidden items-center gap-3 mb-8 w-full hover:opacity-80 transition-opacity cursor-pointer">
           <Image
             src="/icons/goodwill_white.svg"
             alt="GOODWILL(KE) logo"
@@ -111,7 +109,7 @@ export default function AdminLogin() {
           <span className="text-2xl font-semibold text-white">
             GOODWILL(KE)
           </span>
-        </a>
+        </Link>
 
         <div className="w-full max-w-md">
           <div className="text-center mb-8">

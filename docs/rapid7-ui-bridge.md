@@ -121,3 +121,26 @@ Actual run passed 1/1: positive citation occurrences, measured zero citations,
 missing expected observations, backend reader denial and cross-tenant denial.
 This proves the synthetic cross-language data path, not live AI measurement,
 production IdP, real customer rollout or causal citation improvement.
+
+## ESLint resolution and final local regression checkpoint
+
+The owner authorized fixing the ESLint configuration conflict and the source
+errors revealed by it. Native `eslint.config.mjs` now resolves the installed
+ESLint 9 / eslint-config-next 16 presets without legacy circular serialization.
+The original `.eslintrc.json`, package manifest and lockfile remain unchanged;
+its explicit rule settings are preserved and tested, not relaxed.
+
+Targeted source fixes address JSX escaping/keys, stable component identity,
+hydration subscriptions, event-owned request reset, derived state, deterministic
+rendering, ESM imports and React 19 custom-element types. Original visual classes
+and product layout are retained. localStorage denial falls back safely.
+
+Final local verification: `npm run lint` exits successfully with **0 errors and
+222 warnings** (warnings are not claimed resolved); standalone TypeScript noEmit
+passes; 74 dashboard/server/config tests plus 1 actual session-route test pass;
+Next production build completes including static generation. The actual ephemeral
+Python API-to-Node BFF synthetic contract test also passes 1/1. Independent source
+review found no new blocker. This supersedes the earlier unresolved-lint checkpoint.
+
+No real browser hydration/form/animation interaction QA, production IdP login,
+customer observations, live AI citation lift measurement, or deployment is claimed.

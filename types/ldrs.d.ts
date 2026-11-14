@@ -66,3 +66,12 @@ declare global {
 }
 
 export {}
+
+// React 19 owns JSX types in the React module rather than the global namespace.
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'l-bouncy': { size?: string | number; speed?: string | number; color?: string };
+    }
+  }
+}

@@ -1,14 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useHydrated } from "./use-hydrated"
 import { Package, DollarSign, MapPin, Megaphone } from "lucide-react"
 
 export default function FourPContent() {
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    setIsLoading(false)
-  }, [])
+  const isLoading = !useHydrated()
 
   if (isLoading) {
     return (

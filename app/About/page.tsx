@@ -89,7 +89,7 @@ export default function AboutPage() {
           Ready to Dominate the AI Era?
         </h2>
         <p className="text-lg opacity-80 mb-8">
-          Let SAENA help you track and optimize your brand's AI presence.
+          Let SAENA help you track and optimize your brand&apos;s AI presence.
         </p>
         <a
           href="/waitlist"

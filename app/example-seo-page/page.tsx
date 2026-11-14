@@ -4,9 +4,10 @@
  */
 
 import { Metadata } from 'next';
-import { 
-  JSONLD, 
-  EEATMetaTags, 
+import Link from 'next/link';
+import {
+  JSONLD,
+  EEATMetaTags,
   createDefaultEEATMetadata,
   generateArticleSchema,
   generateFAQSchema,
@@ -17,7 +18,7 @@ import { generateMetaTags } from '@/lib/seo/utils';
 // 메타데이터 생성
 export async function generateMetadata(): Promise<Metadata> {
   const url = 'https://the-saena.ai/example-seo-page';
-  
+
   return generateMetaTags({
     title: 'SAENA AI Platform - Complete Guide 2025',
     description: 'Learn how to build intelligent applications with SAENA AI Platform. Comprehensive guide with code examples, benchmarks, and best practices.',
@@ -34,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function ExampleSEOPage() {
   // EEAT 메타데이터
   const eeatMetadata = createDefaultEEATMetadata();
-  
+
   // Article 스키마
   const articleSchema = generateArticleSchema(eeatMetadata, {
     headline: 'SAENA AI Platform - Complete Guide 2025',
@@ -43,7 +44,7 @@ export default function ExampleSEOPage() {
     image: 'https://the-saena.ai/og-image.png',
     keywords: ['saena ai', 'ai platform', 'machine learning']
   });
-  
+
   // FAQ 스키마
   const faqSchema = generateFAQSchema([
     {
@@ -59,40 +60,40 @@ export default function ExampleSEOPage() {
       answer: 'SAENA offers flexible pricing plans including a free tier for developers, professional plans for teams, and enterprise solutions for large organizations.'
     }
   ]);
-  
+
   // Breadcrumb 스키마
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: 'https://the-saena.ai' },
     { name: 'Guides', url: 'https://the-saena.ai/guides' },
     { name: 'Complete Guide', url: 'https://the-saena.ai/example-seo-page' }
   ]);
-  
+
   return (
     <>
       {/* EEAT 메타 태그 */}
       <EEATMetaTags metadata={eeatMetadata} />
-      
+
       {/* JSON-LD 스키마 */}
       <JSONLD data={articleSchema} />
       <JSONLD data={faqSchema} />
       <JSONLD data={breadcrumbSchema} />
-      
+
       <article className="max-w-4xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
         <nav className="mb-8 text-sm text-gray-600">
-          <a href="/" className="hover:text-gray-900">Home</a>
+          <Link href="/" className="hover:text-gray-900">Home</Link>
           {' / '}
           <a href="/guides" className="hover:text-gray-900">Guides</a>
           {' / '}
           <span className="text-gray-900">Complete Guide</span>
         </nav>
-        
+
         {/* Hero */}
         <header className="mb-12">
           <h1 className="text-4xl font-bold mb-4">
             SAENA AI Platform - Complete Guide 2025
           </h1>
-          
+
           <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
             <span>By {eeatMetadata.author.name}</span>
             <span>•</span>
@@ -102,14 +103,14 @@ export default function ExampleSEOPage() {
             <span>•</span>
             <span>15 min read</span>
           </div>
-          
+
           <p className="text-xl text-gray-700 leading-relaxed">
-            Learn how to build intelligent applications with SAENA AI Platform. 
-            This comprehensive guide includes code examples, performance benchmarks, 
+            Learn how to build intelligent applications with SAENA AI Platform.
+            This comprehensive guide includes code examples, performance benchmarks,
             and best practices based on our internal research.
           </p>
         </header>
-        
+
         {/* Table of Contents */}
         <nav className="mb-12 p-6 bg-gray-50 rounded-lg">
           <h2 className="text-lg font-semibold mb-4">Table of Contents</h2>
@@ -122,17 +123,17 @@ export default function ExampleSEOPage() {
             <li><a href="#faq" className="text-blue-600 hover:underline">6. FAQ</a></li>
           </ul>
         </nav>
-        
+
         {/* Content */}
         <div className="prose prose-lg max-w-none">
           <section id="introduction" className="mb-12">
             <h2 className="text-3xl font-bold mb-4">1. Introduction</h2>
             <p>
-              SAENA AI Platform represents a breakthrough in accessible artificial intelligence. 
-              Our platform combines state-of-the-art machine learning models with an intuitive 
+              SAENA AI Platform represents a breakthrough in accessible artificial intelligence.
+              Our platform combines state-of-the-art machine learning models with an intuitive
               developer experience, enabling teams to build intelligent applications faster than ever.
             </p>
-            
+
             {/* 증거: 표 */}
             <div className="my-8">
               <h3 className="text-xl font-semibold mb-4">Platform Comparison</h3>
@@ -171,10 +172,10 @@ export default function ExampleSEOPage() {
               </p>
             </div>
           </section>
-          
+
           <section id="getting-started" className="mb-12">
             <h2 className="text-3xl font-bold mb-4">2. Getting Started</h2>
-            
+
             {/* 증거: 코드 샘플 */}
             <div className="my-8">
               <h3 className="text-xl font-semibold mb-4">Quick Start Example</h3>
@@ -191,7 +192,7 @@ async function generateText(prompt: string) {
     prompt: prompt,
     maxTokens: 100
   });
-  
+
   return response.text;
 }
 
@@ -201,39 +202,39 @@ console.log(result);`}</code>
               </pre>
             </div>
           </section>
-          
+
           <section id="benchmarks" className="mb-12">
             <h2 className="text-3xl font-bold mb-4">4. Performance Benchmarks</h2>
             <p>
-              Based on our exclusive dataset of 10,000+ production deployments, 
+              Based on our exclusive dataset of 10,000+ production deployments,
               SAENA demonstrates superior performance across key metrics.
             </p>
-            
+
             {/* 독점 데이터 명시 */}
             <div className="my-8 p-6 bg-blue-50 border-l-4 border-blue-500">
               <p className="font-semibold">📊 SAENA Dataset</p>
               <p className="text-sm text-gray-700 mt-2">
-                This benchmark is based on proprietary data collected from SAENA's 
-                production infrastructure between August-October 2025. 
+                This benchmark is based on proprietary data collected from SAENA&apos;s
+                production infrastructure between August-October 2025.
                 <a href="/datasets/benchmark-2025" className="text-blue-600 hover:underline ml-1">
                   View full dataset →
                 </a>
               </p>
             </div>
           </section>
-          
+
           <section id="faq" className="mb-12">
             <h2 className="text-3xl font-bold mb-4">6. Frequently Asked Questions</h2>
-            
+
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-semibold mb-2">What is SAENA AI Platform?</h3>
                 <p>
-                  SAENA is an advanced AI platform that enables developers to build 
+                  SAENA is an advanced AI platform that enables developers to build
                   intelligent applications with state-of-the-art machine learning models.
                 </p>
               </div>
-              
+
               <div>
                 <h3 className="text-xl font-semibold mb-2">How do I get started with SAENA?</h3>
                 <p>
@@ -244,18 +245,18 @@ console.log(result);`}</code>
                   {' '}and accessing our comprehensive documentation.
                 </p>
               </div>
-              
+
               <div>
                 <h3 className="text-xl font-semibold mb-2">What are the pricing options?</h3>
                 <p>
-                  SAENA offers flexible pricing plans including a free tier for developers, 
+                  SAENA offers flexible pricing plans including a free tier for developers,
                   professional plans for teams, and enterprise solutions for large organizations.
                 </p>
               </div>
             </div>
           </section>
         </div>
-        
+
         {/* Footer */}
         <footer className="mt-12 pt-8 border-t border-gray-200">
           <div className="text-sm text-gray-600">

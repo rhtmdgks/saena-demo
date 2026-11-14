@@ -1,8 +1,8 @@
-const {test}=require('node:test');
-const assert=require('node:assert/strict');
-const fs=require('node:fs');
-const vm=require('node:vm');
-const ts=require('typescript');
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import ts from 'typescript';
 const code=ts.transpileModule(fs.readFileSync('lib/api/dashboard-data.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
 function client(response){const context={exports:{},Response,fetch:async()=>response()};vm.runInNewContext(code,context);return context.exports}
 const envelope={schemaVersion:1,provider:'chatgpt-search',sections:{brandVisibility:{status:'unmeasured'}}};

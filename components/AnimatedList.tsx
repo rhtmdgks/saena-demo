@@ -68,7 +68,8 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
 }) => {
   const listRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(initialSelectedIndex);
-  const [keyboardNav, setKeyboardNav] = useState<boolean>(false);
+  const keyboardNav = useRef(false);
+  const [keyboardSequence, setKeyboardSequence] = useState(0);
   const [topGradientOpacity, setTopGradientOpacity] = useState<number>(0);
   const [bottomGradientOpacity, setBottomGradientOpacity] = useState<number>(1);
 
@@ -85,11 +86,13 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey)) {
         e.preventDefault();
-        setKeyboardNav(true);
+        keyboardNav.current = true;
+        setKeyboardSequence(sequence => sequence + 1);
         setSelectedIndex(prev => Math.min(prev + 1, items.length - 1));
       } else if (e.key === 'ArrowUp' || (e.key === 'Tab' && e.shiftKey)) {
         e.preventDefault();
-        setKeyboardNav(true);
+        keyboardNav.current = true;
+        setKeyboardSequence(sequence => sequence + 1);
         setSelectedIndex(prev => Math.max(prev - 1, 0));
       } else if (e.key === 'Enter') {
         if (selectedIndex >= 0 && selectedIndex < items.length) {
@@ -106,7 +109,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   }, [items, selectedIndex, onItemSelect, enableArrowNavigation]);
 
   useEffect(() => {
-    if (!keyboardNav || selectedIndex < 0 || !listRef.current) return;
+    if (!keyboardNav.current || selectedIndex < 0 || !listRef.current) return;
 
     const container = listRef.current;
     const selectedItem = container.querySelector(`[data-index="${selectedIndex}"]`) as HTMLElement | null;
@@ -128,8 +131,8 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
       }
     }
 
-    setKeyboardNav(false);
-  }, [selectedIndex, keyboardNav]);
+    keyboardNav.current = false;
+  }, [selectedIndex, keyboardSequence]);
 
   return (
     <div className={`relative w-full ${className}`}>
@@ -151,8 +154,9 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             key={index}
             delay={0.1}
             index={index}
-            onMouseEnter={() => setSelectedIndex(index)}
+            onMouseEnter={() => { keyboardNav.current = false; setSelectedIndex(index); }}
             onClick={() => {
+              keyboardNav.current = false;
               setSelectedIndex(index);
               if (onItemSelect) {
                 onItemSelect(item, index);

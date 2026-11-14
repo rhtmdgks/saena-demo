@@ -112,7 +112,6 @@ export function LoadingScreen({ onLoadingComplete, minDuration = 2000 }: Loading
       }
     }
     
-    setResourcesLoaded(true);
   }, []);
 
   useEffect(() => {
@@ -121,7 +120,9 @@ export function LoadingScreen({ onLoadingComplete, minDuration = 2000 }: Loading
     let isActive = true;
 
     // Start preloading resources
-    preloadResources();
+    preloadResources().then(() => {
+      if (isActive) setResourcesLoaded(true);
+    });
 
     const updateProgress = () => {
       if (!isActive) return;

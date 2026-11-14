@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 
 interface AccessibilityPreferences {
   prefersReducedMotion: boolean;
@@ -11,78 +11,25 @@ interface AccessibilityPreferences {
 /**
  * Hook to detect user accessibility preferences
  */
+const preferenceQueries = [
+  '(prefers-reduced-motion: reduce)', '(prefers-color-scheme: dark)',
+  '(prefers-color-scheme: light)', '(prefers-contrast: more)', '(prefers-contrast: less)',
+];
+function subscribePreferences(notify: () => void) {
+  const queries = preferenceQueries.map(query => window.matchMedia(query));
+  queries.forEach(query => query.addEventListener('change', notify));
+  return () => queries.forEach(query => query.removeEventListener('change', notify));
+}
+function preferencesSnapshot() {
+  return preferenceQueries.map(query => window.matchMedia(query).matches ? '1' : '0').join('');
+}
 export function useAccessibility(): AccessibilityPreferences {
-  const [preferences, setPreferences] = useState<AccessibilityPreferences>({
-    prefersReducedMotion: false,
-    prefersColorScheme: 'no-preference',
-    prefersContrast: 'no-preference',
-  });
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Check reduced motion preference
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPreferences((prev) => ({
-      ...prev,
-      prefersReducedMotion: reducedMotionQuery.matches,
-    }));
-
-    const handleReducedMotionChange = (e: MediaQueryListEvent) => {
-      setPreferences((prev) => ({
-        ...prev,
-        prefersReducedMotion: e.matches,
-      }));
-    };
-
-    reducedMotionQuery.addEventListener('change', handleReducedMotionChange);
-
-    // Check color scheme preference
-    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const lightModeQuery = window.matchMedia('(prefers-color-scheme: light)');
-    
-    const updateColorScheme = () => {
-      if (darkModeQuery.matches) {
-        setPreferences((prev) => ({ ...prev, prefersColorScheme: 'dark' }));
-      } else if (lightModeQuery.matches) {
-        setPreferences((prev) => ({ ...prev, prefersColorScheme: 'light' }));
-      } else {
-        setPreferences((prev) => ({ ...prev, prefersColorScheme: 'no-preference' }));
-      }
-    };
-
-    updateColorScheme();
-    darkModeQuery.addEventListener('change', updateColorScheme);
-    lightModeQuery.addEventListener('change', updateColorScheme);
-
-    // Check contrast preference
-    const moreContrastQuery = window.matchMedia('(prefers-contrast: more)');
-    const lessContrastQuery = window.matchMedia('(prefers-contrast: less)');
-
-    const updateContrast = () => {
-      if (moreContrastQuery.matches) {
-        setPreferences((prev) => ({ ...prev, prefersContrast: 'more' }));
-      } else if (lessContrastQuery.matches) {
-        setPreferences((prev) => ({ ...prev, prefersContrast: 'less' }));
-      } else {
-        setPreferences((prev) => ({ ...prev, prefersContrast: 'no-preference' }));
-      }
-    };
-
-    updateContrast();
-    moreContrastQuery.addEventListener('change', updateContrast);
-    lessContrastQuery.addEventListener('change', updateContrast);
-
-    return () => {
-      reducedMotionQuery.removeEventListener('change', handleReducedMotionChange);
-      darkModeQuery.removeEventListener('change', updateColorScheme);
-      lightModeQuery.removeEventListener('change', updateColorScheme);
-      moreContrastQuery.removeEventListener('change', updateContrast);
-      lessContrastQuery.removeEventListener('change', updateContrast);
-    };
-  }, []);
-
-  return preferences;
+  const snapshot = useSyncExternalStore(subscribePreferences, preferencesSnapshot, () => '00000');
+  return {
+    prefersReducedMotion: snapshot[0] === '1',
+    prefersColorScheme: snapshot[1] === '1' ? 'dark' : snapshot[2] === '1' ? 'light' : 'no-preference',
+    prefersContrast: snapshot[3] === '1' ? 'more' : snapshot[4] === '1' ? 'less' : 'no-preference',
+  };
 }
 
 /**

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useMemo, useSyncExternalStore } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -43,17 +43,15 @@ interface OrderState {
   } | null
 }
 
-export function OrderForm({ isOpen, onClose, selectedPackage }: OrderFormProps) {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [order, setOrder] = useState<OrderState>({
-    package: null,
-    has3DModel: null,
-    modelingAddOn: null,
-    needsRenders: null,
-    renderPackage: null,
-  })
-
-  const [orderConfig, setOrderConfig] = useState({
+const subscribeOrderConfig = (notify: () => void) => {
+  window.addEventListener("storage", notify)
+  return () => window.removeEventListener("storage", notify)
+}
+const orderConfigSnapshot = () => {
+  try { return localStorage.getItem("skitbit-content") }
+  catch { return null }
+}
+const defaultOrderConfig = {
     whatsappNumber: "+918384092211",
     modelingOptions: {
       simple: { price_usd: 35, price_inr: 3000, description: "Basic shapes, minimal details" },
@@ -65,17 +63,23 @@ export function OrderForm({ isOpen, onClose, selectedPackage }: OrderFormProps) 
       standard: { price_usd: 35, price_inr: 3000, quantity: 5 },
       premium: { price_usd: 60, price_inr: 5000, quantity: 10 },
     },
+  }
+
+export function OrderForm({ isOpen, onClose, selectedPackage }: OrderFormProps) {
+  const [currentStep, setCurrentStep] = useState(1)
+  const [order, setOrder] = useState<OrderState>({
+    package: isOpen ? selectedPackage : null,
+    has3DModel: null,
+    modelingAddOn: null,
+    needsRenders: null,
+    renderPackage: null,
   })
 
-  useEffect(() => {
-    const savedContent = localStorage.getItem("skitbit-content")
-    if (savedContent) {
-      const content = JSON.parse(savedContent)
-      if (content.orderForm) {
-        setOrderConfig(content.orderForm)
-      }
-    }
-  }, [])
+  const storedConfig = useSyncExternalStore(subscribeOrderConfig, orderConfigSnapshot, () => null)
+  const orderConfig = useMemo(() => {
+    try { return storedConfig ? JSON.parse(storedConfig).orderForm ?? defaultOrderConfig : defaultOrderConfig }
+    catch { return defaultOrderConfig }
+  }, [storedConfig])
 
   const modelingOptions = [
     {
@@ -125,19 +129,16 @@ export function OrderForm({ isOpen, onClose, selectedPackage }: OrderFormProps) 
     },
   ]
 
-  // Reset form when opened with new package
-  useEffect(() => {
+  // Reset owned form state when the parent changes the selected/open form.
+  // This conditional render adjustment avoids painting a stale package first.
+  const [previousSelection, setPreviousSelection] = useState({ isOpen, selectedPackage })
+  if (previousSelection.isOpen !== isOpen || previousSelection.selectedPackage !== selectedPackage) {
+    setPreviousSelection({ isOpen, selectedPackage })
     if (isOpen && selectedPackage) {
-      setOrder({
-        package: selectedPackage,
-        has3DModel: null,
-        modelingAddOn: null,
-        needsRenders: null,
-        renderPackage: null,
-      })
+      setOrder({ package: selectedPackage, has3DModel: null, modelingAddOn: null, needsRenders: null, renderPackage: null })
       setCurrentStep(1)
     }
-  }, [isOpen, selectedPackage])
+  }
 
   const calculateTotal = () => {
     let total = order.package?.priceValue || 0
@@ -289,7 +290,7 @@ export function OrderForm({ isOpen, onClose, selectedPackage }: OrderFormProps) 
             <div className="space-y-6">
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-white mb-2">Confirm Your Package</h3>
-                <p className="text-neutral-400">Let's make sure we have the right package for you</p>
+                <p className="text-neutral-400">Let&apos;s make sure we have the right package for you</p>
               </div>
 
               <Card className="glass-border-subtle border-neutral-800 bg-neutral-900/50">
@@ -315,7 +316,7 @@ export function OrderForm({ isOpen, onClose, selectedPackage }: OrderFormProps) 
                 <div className="space-y-4">
                   <h4 className="text-lg font-semibold text-white">Do you have a 3D model?</h4>
                   <p className="text-neutral-400">
-                    If you don't have a 3D model, we can create one for you at an additional cost.
+                    If you don&apos;t have a 3D model, we can create one for you at an additional cost.
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     <Button

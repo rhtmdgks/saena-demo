@@ -45,7 +45,7 @@ export default function SearchContent() {
                 {"--"} {"--"}%
               </span>
             </div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">"{"--"}"</h3>
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">&quot;{"--"}&quot;</h3>
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
@@ -78,10 +78,10 @@ export default function SearchContent() {
 
         <AnimatedList
           items={searchQueries.map((query) => (
-            <div className="flex items-center justify-between gap-4">
+            <div key={query.query} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2 flex-1 min-w-0">
                 <Search className="h-4 w-4 text-gray-400 flex-shrink-0" />
-                <span className="text-sm font-medium text-gray-900 dark:text-white truncate">"{"--"}"</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white truncate">&quot;{"--"}&quot;</span>
               </div>
               <div className="flex items-center gap-4 flex-shrink-0">
                 <span className="text-sm text-gray-900 dark:text-white w-20 text-right">

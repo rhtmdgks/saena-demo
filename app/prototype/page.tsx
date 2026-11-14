@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useSyncExternalStore } from "react"
 import { ThemeProvider } from "@/components/dashboard/theme-provider"
 import Layout from "@/components/dashboard/layout"
 import Content from "@/components/dashboard/content"
@@ -8,31 +8,28 @@ import { OnboardingModal, UserData } from "@/components/onboarding-modal"
 import { motion } from "motion/react"
 import "../paperlogy-fonts.css"
 
-export default function PrototypeDashboard() {
-  const [showOnboarding, setShowOnboarding] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
+const subscribeOnboarding = (notify: () => void) => {
+  window.addEventListener("storage", notify)
+  window.addEventListener("saena-onboarding-updated", notify)
+  return () => {
+    window.removeEventListener("storage", notify)
+    window.removeEventListener("saena-onboarding-updated", notify)
+  }
+}
+const onboardingSnapshot = () => localStorage.getItem("saena-onboarding-completed") ? "completed" : "pending"
 
-  useEffect(() => {
-    // Check if user has already completed onboarding
-    const hasCompletedOnboarding = localStorage.getItem("saena-onboarding-completed")
-    
-    if (!hasCompletedOnboarding) {
-      setShowOnboarding(true)
-    } else {
-      setIsCompleted(true)
-    }
-  }, [])
+export default function PrototypeDashboard() {
+  const onboarding = useSyncExternalStore(subscribeOnboarding, onboardingSnapshot, () => "loading")
+  const showOnboarding = onboarding === "pending"
 
   const handleOnboardingComplete = (data: UserData) => {
-    console.log("Onboarding completed with data:", data)
     
     // Save to localStorage (나중에 Supabase로 변경 가능)
     localStorage.setItem("saena-onboarding-completed", "true")
     localStorage.setItem("saena-user-data", JSON.stringify(data))
     
     // Close modal with animation
-    setShowOnboarding(false)
-    setIsCompleted(true)
+    window.dispatchEvent(new Event("saena-onboarding-updated"))
   }
 
   return (

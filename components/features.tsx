@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMemo, useSyncExternalStore } from "react"
 import Image from "next/image"
 import { Star } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,23 +15,18 @@ const defaultContent: FeaturesContent = {
   subtitle: "Discover our unique approach to 3D animation",
 }
 
-export function Features() {
-  const [content, setContent] = useState<FeaturesContent>(defaultContent)
+const subscribeContent = (notify: () => void) => {
+  window.addEventListener("storage", notify)
+  return () => window.removeEventListener("storage", notify)
+}
+const contentSnapshot = () => localStorage.getItem("skitbit-content")
 
-  useEffect(() => {
-    // Load content from localStorage
-    const savedContent = localStorage.getItem("skitbit-content")
-    if (savedContent) {
-      try {
-        const parsed = JSON.parse(savedContent)
-        if (parsed.features) {
-          setContent(parsed.features)
-        }
-      } catch (error) {
-        console.error("Error parsing saved content:", error)
-      }
-    }
-  }, [])
+export function Features() {
+  const storedContent = useSyncExternalStore(subscribeContent, contentSnapshot, () => null)
+  const content = useMemo(() => {
+    try { return storedContent ? JSON.parse(storedContent).features ?? defaultContent : defaultContent }
+    catch { return defaultContent }
+  }, [storedContent])
 
   return (
     <section id="features" className="container mx-auto px-4 py-16 sm:py-20">
@@ -77,7 +72,7 @@ export function Features() {
           <CardHeader>
             <p className="text-[11px] tracking-widest text-neutral-400">CLIENT LOVE</p>
             <CardTitle className="mt-1 text-xl text-white">
-              Their work didn't just look good, it moved the needle — our audience felt the difference instantly.
+              Their work didn&apos;t just look good, it moved the needle — our audience felt the difference instantly.
             </CardTitle>
           </CardHeader>
           <CardContent>

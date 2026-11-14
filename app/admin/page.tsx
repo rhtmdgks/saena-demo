@@ -281,7 +281,7 @@ export default function AdminDashboard() {
   const [selectedPage, setSelectedPage] = useState("home")
   const [content, setContent] = useState<ContentData>(defaultContent)
   const [originalContent, setOriginalContent] = useState<ContentData>(defaultContent)
-  const [hasChanges, setHasChanges] = useState(false)
+  const hasChanges = JSON.stringify(content) !== JSON.stringify(originalContent)
   const [isSaving, setIsSaving] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
@@ -331,11 +331,6 @@ export default function AdminDashboard() {
     checkAuth()
   }, [router])
 
-  // Check for changes whenever content is updated
-  useEffect(() => {
-    const hasContentChanged = JSON.stringify(content) !== JSON.stringify(originalContent)
-    setHasChanges(hasContentChanged)
-  }, [content, originalContent])
 
   const handleLogout = () => {
     document.cookie = "admin-session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
@@ -442,7 +437,6 @@ export default function AdminDashboard() {
 
       // Update original content to match current content
       setOriginalContent(JSON.parse(JSON.stringify(content)))
-      setHasChanges(false)
       setSaveMessage("Changes saved successfully!")
 
       // Clear success message after 3 seconds

@@ -48,7 +48,7 @@ export default function CitationContent() {
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Citation</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Percentage of AI-generated answers that cite your brand's domain or related sources
+          Percentage of AI-generated answers that cite your brand&apos;s domain or related sources
         </p>
       </div>
 

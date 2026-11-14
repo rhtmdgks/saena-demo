@@ -25,10 +25,55 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
+function NavItem({
+  href,
+  icon: Icon,
+  children,
+  hasSubmenu = false,
+  onClick,
+  onNavigate,
+}: {
+  href?: string;
+  icon: any;
+  children: React.ReactNode;
+  hasSubmenu?: boolean;
+  onClick?: () => void;
+  onNavigate: () => void;
+}) {
+  const pathname = usePathname();
+  const isActive = href && pathname === href;
+  const baseClassName =
+    "flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors";
+  const activeClassName = isActive
+    ? "bg-accent-green/10 text-accent-green dark:text-accent-green"
+    : "text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-50 dark:hover:bg-[#1F1F23]";
+  const className = `${baseClassName} ${activeClassName}`;
+
+  if (hasSubmenu) {
+    return (
+      <button onClick={onClick} className={`${className} w-full`}>
+        <div className="flex items-center">
+          <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
+          {children}
+        </div>
+        <ChevronRight className="h-4 w-4 flex-shrink-0" />
+      </button>
+    );
+  }
+
+  return (
+    <Link href={href || "#"} onClick={onNavigate} className={className}>
+      <div className="flex items-center">
+        <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
+        {children}
+      </div>
+    </Link>
+  );
+}
+
 export default function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
-  const pathname = usePathname();
 
   function handleNavigation() {
     setIsMobileMenuOpen(false);
@@ -42,48 +87,6 @@ export default function Sidebar() {
     setActiveSubmenu(null);
   }
 
-  function NavItem({
-    href,
-    icon: Icon,
-    children,
-    hasSubmenu = false,
-    onClick,
-  }: {
-    href?: string;
-    icon: any;
-    children: React.ReactNode;
-    hasSubmenu?: boolean;
-    onClick?: () => void;
-  }) {
-    const isActive = href && pathname === href;
-    const baseClassName =
-      "flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors";
-    const activeClassName = isActive
-      ? "bg-accent-green/10 text-accent-green dark:text-accent-green"
-      : "text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-50 dark:hover:bg-[#1F1F23]";
-    const className = `${baseClassName} ${activeClassName}`;
-
-    if (hasSubmenu) {
-      return (
-        <button onClick={onClick} className={`${className} w-full`}>
-          <div className="flex items-center">
-            <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
-            {children}
-          </div>
-          <ChevronRight className="h-4 w-4 flex-shrink-0" />
-        </button>
-      );
-    }
-
-    return (
-      <Link href={href || "#"} onClick={handleNavigation} className={className}>
-        <div className="flex items-center">
-          <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
-          {children}
-        </div>
-      </Link>
-    );
-  }
 
   return (
     <>
@@ -127,34 +130,34 @@ export default function Sidebar() {
                   Answer Engine Insights
                 </div>
                 <div className="space-y-1">
-                  <NavItem href="/prototype" icon={Home}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype" icon={Home}>
                     Home
                   </NavItem>
-                  <NavItem href="/prototype/search" icon={BarChart2}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/search" icon={BarChart2}>
                     Search
                   </NavItem>
-                  <NavItem href="/prototype/industry" icon={Building2}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/industry" icon={Building2}>
                     Industry
                   </NavItem>
-                  <NavItem href="/prototype/topic" icon={MessagesSquare}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/topic" icon={MessagesSquare}>
                     Topic
                   </NavItem>
-                  <NavItem href="/prototype/model" icon={Folder}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/model" icon={Folder}>
                     Model
                   </NavItem>
-                  <NavItem href="/prototype/citation" icon={CreditCard}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/citation" icon={CreditCard}>
                     Citation
                   </NavItem>
-                  <NavItem href="/prototype/improve" icon={Video}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/improve" icon={Video}>
                     Improve
                   </NavItem>
-                  <NavItem href="/prototype/marketing" icon={TrendingUp}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/marketing" icon={TrendingUp}>
                     Marketing Strategy
                   </NavItem>
-                  <NavItem href="/prototype/stp" icon={Users2}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/stp" icon={Users2}>
                     STP Insight
                   </NavItem>
-                  <NavItem href="/prototype/cvi" icon={Shield}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/cvi" icon={Shield}>
                     CVI
                   </NavItem>
                 </div>
@@ -162,14 +165,14 @@ export default function Sidebar() {
 
               <div className="border-t border-gray-300 dark:border-gray-600 pt-6">
                 <div className="space-y-1">
-                  <NavItem
+                  <NavItem onNavigate={handleNavigation}
                     icon={TrendingUp}
                     hasSubmenu
                     onClick={() => handleSubmenuClick("analytics")}
                   >
                     Analytics
                   </NavItem>
-                  <NavItem
+                  <NavItem onNavigate={handleNavigation}
                     icon={ShoppingCart}
                     hasSubmenu
                     onClick={() => handleSubmenuClick("shopping")}
@@ -183,10 +186,10 @@ export default function Sidebar() {
 
           <div className="px-4 py-4 border-t border-gray-300 dark:border-gray-600">
             <div className="space-y-1">
-              <NavItem href="#" icon={Settings}>
+              <NavItem onNavigate={handleNavigation} href="#" icon={Settings}>
                 Settings
               </NavItem>
-              <NavItem href="#" icon={HelpCircle}>
+              <NavItem onNavigate={handleNavigation} href="#" icon={HelpCircle}>
                 Help
               </NavItem>
             </div>
@@ -222,49 +225,49 @@ export default function Sidebar() {
                   Analytics
                 </div>
                 <div className="space-y-1">
-                  <NavItem href="/prototype/analytics/overview" icon={Home}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/overview" icon={Home}>
                     Overview
                   </NavItem>
-                  <NavItem href="/prototype/analytics/brand" icon={CreditCard}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/brand" icon={CreditCard}>
                     Brand
                   </NavItem>
-                  <NavItem href="/prototype/analytics/website" icon={Building2}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/website" icon={Building2}>
                     Website
                   </NavItem>
-                  <NavItem
+                  <NavItem onNavigate={handleNavigation}
                     href="/prototype/analytics/conversations"
                     icon={MessagesSquare}
                   >
                     Conversations
                   </NavItem>
-                  <NavItem href="/prototype/analytics/uceg" icon={TrendingUp}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/uceg" icon={TrendingUp}>
                     UCEG
                   </NavItem>
-                  <NavItem href="/prototype/analytics/aida" icon={BarChart2}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/aida" icon={BarChart2}>
                     AIDA+
                   </NavItem>
-                  <NavItem
+                  <NavItem onNavigate={handleNavigation}
                     href="/prototype/analytics/eda"
                     icon={MessagesSquare}
                   >
                     EDA+
                   </NavItem>
-                  <NavItem href="/prototype/analytics/pja" icon={Folder}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/pja" icon={Folder}>
                     PJA
                   </NavItem>
-                  <NavItem href="/prototype/analytics/bhi" icon={Shield}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/bhi" icon={Shield}>
                     BHI
                   </NavItem>
-                  <NavItem href="/prototype/analytics/behavioral" icon={Users2}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/analytics/behavioral" icon={Users2}>
                     Behavioral
                   </NavItem>
-                  <NavItem
+                  <NavItem onNavigate={handleNavigation}
                     href="/prototype/analytics/internal-pulse"
                     icon={Building2}
                   >
                     Internal Pulse
                   </NavItem>
-                  <NavItem
+                  <NavItem onNavigate={handleNavigation}
                     href="/prototype/analytics/auto-weight"
                     icon={Settings}
                   >
@@ -305,7 +308,7 @@ export default function Sidebar() {
                   Shopping
                 </div>
                 <div className="space-y-1">
-                  <NavItem href="/prototype/shopping" icon={ShoppingCart}>
+                  <NavItem onNavigate={handleNavigation} href="/prototype/shopping" icon={ShoppingCart}>
                     Overview
                   </NavItem>
                 </div>

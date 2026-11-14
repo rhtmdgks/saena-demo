@@ -68,7 +68,7 @@ export function TeamSection() {
           Meet Our Team
         </h2>
         <p className="mt-4 text-lg text-gray-400">
-          19 dedicated professionals driving SAENA's vision
+          19 dedicated professionals driving SAENA&apos;s vision
         </p>
       </div>
 

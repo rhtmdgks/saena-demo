@@ -9,7 +9,7 @@ export default function WaitlistPage() {
       {/* Heading */}
       <div className="space-y-7">
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-12 whitespace-pre-wrap text-pretty">
-          Claim Your Brand's{"\n"}Place Inside the AI Era
+          Claim Your Brand&apos;s{"\n"}Place Inside the AI Era
         </h1>
         <div className="text-slate-10 [&>p]:tracking-tight text-pretty">
           <p>
@@ -18,7 +18,7 @@ export default function WaitlistPage() {
           </p>
           <p className="mt-2">
             Join SAENA to access early tools that measure, optimize, and expand
-            your brand's presence across AI platforms.
+            your brand&apos;s presence across AI platforms.
           </p>
         </div>
       </div>
