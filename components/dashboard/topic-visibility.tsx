@@ -11,11 +11,9 @@ export default function TopicVisibility({ data }: TopicVisibilityProps) {
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null)
 
   // 실제 데이터가 없으면 로딩 표시
-  if (!data) {
-    return <div>Loading...</div>;
-  }
 
-  const topThemes = data.topThemes.map((theme) => ({
+
+  const topThemes = (data?.topThemes ?? []).map((theme) => ({
     rank: theme.rank,
     theme: theme.themeName,
     frequency: theme.frequency,
@@ -49,7 +47,7 @@ export default function TopicVisibility({ data }: TopicVisibilityProps) {
     }
   };
 
-  const keywords = data.keywords.map((keyword) => ({
+  const keywords = (data?.keywords ?? []).map((keyword) => ({
     text: keyword.text,
     size: getSizeClass(keyword.size),
     color: getColorClass(keyword.color),
@@ -63,6 +61,7 @@ export default function TopicVisibility({ data }: TopicVisibilityProps) {
       <div className="lg:col-span-2">
         <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">Keyword Frequency</h4>
         <div className="flex flex-wrap gap-4 items-center justify-center min-h-[300px] p-6 bg-gray-50 dark:bg-[#1F1F23] rounded-lg relative">
+          {!data && <p className="text-sm text-gray-500">측정 전 · 키워드 빈도를 계산하지 않았습니다.</p>}
           {keywords.map((keyword, index) => (
             <span
               key={index}

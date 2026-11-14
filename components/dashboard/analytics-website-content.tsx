@@ -1,5 +1,7 @@
 "use client"
 
+import HtmlAuditPanel from "./html-audit-panel"
+
 import { Globe, TrendingUp, FileText, Award, ExternalLink, ArrowUpRight } from "lucide-react"
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
@@ -52,7 +54,7 @@ const websiteData = {
       citations: 145,
       authority: 52,
       contentType: "product",
-      platforms: ["ChatGPT", "Perplexity", "Claude"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/blog/pa-rating-explained",
@@ -60,7 +62,7 @@ const websiteData = {
       citations: 98,
       authority: 45,
       contentType: "educational",
-      platforms: ["ChatGPT", "Google AI Overviews", "Perplexity"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/products/sensitive-skin-sunscreen",
@@ -68,7 +70,7 @@ const websiteData = {
       citations: 87,
       authority: 48,
       contentType: "product",
-      platforms: ["ChatGPT", "Claude"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/blog/how-to-reapply-sunscreen",
@@ -76,7 +78,7 @@ const websiteData = {
       citations: 76,
       authority: 42,
       contentType: "educational",
-      platforms: ["ChatGPT", "Perplexity"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/ingredients/niacinamide-benefits",
@@ -84,7 +86,7 @@ const websiteData = {
       citations: 65,
       authority: 40,
       contentType: "educational",
-      platforms: ["Google AI Overviews", "Claude"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/faq/white-cast-prevention",
@@ -92,7 +94,7 @@ const websiteData = {
       citations: 58,
       authority: 38,
       contentType: "faq",
-      platforms: ["ChatGPT", "Perplexity"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/products/water-resistant-sunscreen",
@@ -100,7 +102,7 @@ const websiteData = {
       citations: 52,
       authority: 46,
       contentType: "product",
-      platforms: ["ChatGPT", "Google AI Overviews"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/blog/korean-vs-western-sunscreen",
@@ -108,7 +110,7 @@ const websiteData = {
       citations: 48,
       authority: 44,
       contentType: "educational",
-      platforms: ["Perplexity", "Claude"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/ingredients/centella-asiatica",
@@ -116,7 +118,7 @@ const websiteData = {
       citations: 42,
       authority: 39,
       contentType: "educational",
-      platforms: ["Google AI Overviews", "ChatGPT"]
+      platforms: ["ChatGPT Search"]
     },
     {
       url: "/reviews/customer-testimonials",
@@ -124,7 +126,7 @@ const websiteData = {
       citations: 38,
       authority: 35,
       contentType: "review",
-      platforms: ["ChatGPT", "Perplexity"]
+      platforms: ["ChatGPT Search"]
     }
   ],
   contentTypeBreakdown: [
@@ -137,10 +139,6 @@ const websiteData = {
   ],
   platformDistribution: [
     { platform: "ChatGPT", citations: 485, percentage: 37.1 },
-    { platform: "Perplexity", citations: 342, percentage: 26.2 },
-    { platform: "Claude", citations: 268, percentage: 20.5 },
-    { platform: "Google AI Overviews", citations: 185, percentage: 14.2 },
-    { platform: "Others", citations: 40, percentage: 3.1 }
   ],
   recommendations: [
     {
@@ -179,12 +177,15 @@ const websiteData = {
 export default function AnalyticsWebsiteContent() {
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Website Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
           How AI platforms reference your owned content
         </p>
       </div>
+
+      <HtmlAuditPanel />
 
       {/* Domain Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -196,24 +197,24 @@ export default function AnalyticsWebsiteContent() {
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-2">
                 <Globe className="h-5 w-5 text-accent-green" />
-                <span className="text-sm font-medium text-gray-900 dark:text-white">{domain.name}</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</span>
               </div>
               <span className="text-xs px-2 py-1 rounded-full bg-accent-green/10 text-accent-green">
-                {domain.type}
+                {"--"}
               </span>
             </div>
             <div className="space-y-3">
               <div>
-                <p className="text-3xl font-bold text-gray-900 dark:text-white">{domain.citations}</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}</p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Total Citations</p>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">Authority: {domain.authority}</p>
-                  <p className="text-xs text-accent-green-glow">+{domain.change}%</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Authority: {"--"}</p>
+                  <p className="text-xs text-accent-green-glow">+{"--"}%</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">Pos: #{domain.avgPosition}</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Pos: #{"--"}</p>
                   <p className="text-xs text-gray-600 dark:text-gray-400">Avg rank</p>
                 </div>
               </div>
@@ -229,7 +230,7 @@ export default function AnalyticsWebsiteContent() {
         </h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={websiteData.citationTrend}>
+            <LineChart data={[]}>
               <XAxis
                 dataKey="date"
                 stroke="#888888"
@@ -281,26 +282,26 @@ export default function AnalyticsWebsiteContent() {
                 <tr key={index} className="border-b border-gray-100 dark:border-[#1F1F23] hover:bg-gray-50 dark:hover:bg-[#1F1F23]">
                   <td className="py-3 px-4">
                     <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">{page.title}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500">{page.url}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-500">{"--"}</p>
                     </div>
                   </td>
                   <td className="py-3 px-4">
                     <span className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-[#1F1F23] text-gray-700 dark:text-gray-300">
-                      {page.contentType}
+                      {"--"}
                     </span>
                   </td>
                   <td className="py-3 px-4 text-center">
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">{page.citations}</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</span>
                   </td>
                   <td className="py-3 px-4 text-center">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{page.authority}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{"--"}</span>
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex flex-wrap gap-1">
                       {page.platforms.map((platform, idx) => (
                         <span key={idx} className="text-xs px-2 py-0.5 rounded bg-accent-green/10 text-accent-green">
-                          {platform}
+                          {"--"}
                         </span>
                       ))}
                     </div>
@@ -328,24 +329,24 @@ export default function AnalyticsWebsiteContent() {
             {websiteData.contentTypeBreakdown.map((type, index) => (
               <div key={index}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-gray-900 dark:text-white">{type.type}</span>
+                  <span className="text-sm text-gray-900 dark:text-white">{"--"}</span>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {type.citations}
+                      {"--"}
                     </span>
                     <span className="text-xs text-gray-600 dark:text-gray-400">
-                      ({type.percentage}%)
+                      ({"--"}%)
                     </span>
                   </div>
                 </div>
                 <div className="h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-accent-green rounded-full"
-                    style={{ width: `${type.percentage}%` }}
+                    style={{ width: "0%" }}
                   />
                 </div>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                  Avg Authority: {type.avgAuthority}
+                  Avg Authority: {"--"}
                 </p>
               </div>
             ))}
@@ -361,15 +362,15 @@ export default function AnalyticsWebsiteContent() {
             {websiteData.platformDistribution.map((platform, index) => (
               <div key={index}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-gray-900 dark:text-white">{platform.platform}</span>
+                  <span className="text-sm text-gray-900 dark:text-white">{"--"}</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {platform.citations} ({platform.percentage}%)
+                    {"--"} ({"--"}%)
                   </span>
                 </div>
                 <div className="h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-accent-green rounded-full"
-                    style={{ width: `${platform.percentage}%` }}
+                    style={{ width: "0%" }}
                   />
                 </div>
               </div>
@@ -400,12 +401,12 @@ export default function AnalyticsWebsiteContent() {
               />
               <div className="flex-1">
                 <div className="flex items-start justify-between mb-1">
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{rec.title}</h4>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{"--"}</h4>
                   <span className="text-xs px-2 py-1 rounded-full bg-accent-green/10 text-accent-green">
-                    {rec.impact}
+                    {"--"}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{rec.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{"--"}</p>
               </div>
             </div>
           ))}

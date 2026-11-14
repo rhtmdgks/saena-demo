@@ -16,28 +16,8 @@ const conversationsData = {
       brandMentions: 1,
       competitorMentions: 2
     },
-    {
-      id: "conv-002",
-      platform: "Perplexity",
-      timestamp: "2025-10-18T13:15:00Z",
-      userQuery: "suelo sunscreen vs beauty of joseon which is better?",
-      aiResponse: "Both are excellent K-beauty sunscreens. **Suelo** excels in: no white cast on all skin tones, PA++++ protection, and makeup compatibility. **Beauty of Joseon** is known for: rice extract benefits and dewy finish. For sensitive skin and makeup wearers, suelo might be preferable. For dry skin seeking extra hydration, Beauty of Joseon could be better.",
-      sentiment: 0.88,
-      intent: "comparison",
-      brandMentions: 2,
-      competitorMentions: 2
-    },
-    {
-      id: "conv-003",
-      platform: "Claude",
-      timestamp: "2025-10-18T12:00:00Z",
-      userQuery: "What does PA++++ mean in sunscreen?",
-      aiResponse: "PA++++ is the highest rating in the Japanese/Korean sun protection system, indicating very high UVA protection. The '+' symbols show protection levels: PA+ (some), PA++ (moderate), PA+++ (high), PA++++ (very high). Brands like **suelo**, Beauty of Joseon, and Round Lab often feature PA++++ in their formulations, offering superior protection against UVA rays that cause aging and pigmentation.",
-      sentiment: 0.85,
-      intent: "ingredient_question",
-      brandMentions: 1,
-      competitorMentions: 2
-    },
+
+
     {
       id: "conv-004",
       platform: "ChatGPT",
@@ -49,28 +29,8 @@ const conversationsData = {
       brandMentions: 1,
       competitorMentions: 0
     },
-    {
-      id: "conv-005",
-      platform: "Google AI Overviews",
-      timestamp: "2025-10-18T10:45:00Z",
-      userQuery: "Best sunscreen for oily acne-prone skin",
-      aiResponse: "For oily, acne-prone skin, look for: oil-free, non-comedogenic, lightweight formulas. Top recommendations: **Suelo Daily PA++++** (water-gel texture, sebum control), La Roche-Posay Anthelios (mattifying), and COSRX Aloe Soothing Sun Cream (calming). Avoid heavy, greasy formulas and look for ingredients like niacinamide and centella.",
-      sentiment: 0.87,
-      intent: "skin_type_recommendation",
-      brandMentions: 1,
-      competitorMentions: 2
-    },
-    {
-      id: "conv-006",
-      platform: "Perplexity",
-      timestamp: "2025-10-18T09:20:00Z",
-      userQuery: "Is suelo sunscreen reef safe?",
-      aiResponse: "**Suelo sunscreen** uses hybrid filters (combination of chemical and physical) that are generally considered reef-safer than traditional chemical filters like oxybenzone and octinoxate. While not 100% mineral, suelo avoids the most harmful ingredients. For maximum reef safety, look for 100% mineral sunscreens with zinc oxide or titanium dioxide.",
-      sentiment: 0.75,
-      intent: "ingredient_question",
-      brandMentions: 2,
-      competitorMentions: 0
-    }
+
+
   ],
   intentDistribution: [
     { intent: "Product Inquiry", percentage: 35, count: 420 },
@@ -127,6 +87,7 @@ export default function AnalyticsConversationsContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Conversations Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -152,9 +113,9 @@ export default function AnalyticsConversationsContent() {
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-400">{stat.label}</span>
               </div>
               <p className="text-3xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-1">
-                {stat.value}
+                {"--"}
               </p>
-              <p className="text-xs font-medium text-accent-green">{stat.change}</p>
+              <p className="text-xs font-medium text-accent-green">{"--"}</p>
             </div>
           </div>
         ))}
@@ -178,9 +139,6 @@ export default function AnalyticsConversationsContent() {
           >
             <option value="all">All Platforms</option>
             <option value="ChatGPT">ChatGPT</option>
-            <option value="Claude">Claude</option>
-            <option value="Perplexity">Perplexity</option>
-            <option value="Google AI Overviews">Google AI Overviews</option>
           </select>
           <select
             value={filterIntent}
@@ -203,7 +161,7 @@ export default function AnalyticsConversationsContent() {
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl border border-gray-200 dark:border-[#1F1F23] overflow-hidden">
           <div className="p-4 border-b border-gray-200 dark:border-[#1F1F23]">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Recent Conversations ({filteredConversations.length})
+              Recent Conversations ({"--"})
             </h3>
           </div>
           <div className="overflow-y-auto max-h-[600px]">
@@ -218,26 +176,26 @@ export default function AnalyticsConversationsContent() {
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-medium px-2 py-1 rounded-full bg-accent-green/10 text-accent-green">
-                      {conv.platform}
+                      {"--"}
                     </span>
                     <span className="text-xs text-gray-500 dark:text-gray-500">
-                      {new Date(conv.timestamp).toLocaleDateString()}
+                      {"--"}
                     </span>
                   </div>
                   <ChevronRight className="h-4 w-4 text-gray-400" />
                 </div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white mb-2 line-clamp-2">
-                  {conv.userQuery}
+                  {"--"}
                 </p>
                 <div className="flex items-center gap-3 text-xs">
                   <span className="text-gray-600 dark:text-gray-400">
-                    {getIntentLabel(conv.intent)}
+                    {"--"}
                   </span>
                   <span className={getSentimentColor(conv.sentiment)}>
-                    Sentiment: {(conv.sentiment * 100).toFixed(0)}%
+                    Sentiment: {"--"}%
                   </span>
                   <span className="text-gray-600 dark:text-gray-400">
-                    {conv.brandMentions} mentions
+                    {"--"} mentions
                   </span>
                 </div>
               </div>
@@ -261,18 +219,18 @@ export default function AnalyticsConversationsContent() {
                       User Query
                     </span>
                     <span className="text-xs text-gray-500 dark:text-gray-500">
-                      {new Date(selectedConv.timestamp).toLocaleString()}
+                      {"--"}
                     </span>
                   </div>
                   <p className="text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-[#1F1F23] p-4 rounded-lg">
-                    {selectedConv.userQuery}
+                    {"--"}
                   </p>
                 </div>
 
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-xs font-medium px-2 py-1 rounded-full bg-accent-green/10 text-accent-green">
-                      {selectedConv.platform} Response
+                      {"--"} Response
                     </span>
                   </div>
                   <div
@@ -287,25 +245,25 @@ export default function AnalyticsConversationsContent() {
                   <div className="p-4 bg-gray-50 dark:bg-[#1F1F23] rounded-lg">
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Intent</p>
                     <p className="text-sm font-medium text-gray-900 dark:text-white">
-                      {getIntentLabel(selectedConv.intent)}
+                      {"--"}
                     </p>
                   </div>
                   <div className="p-4 bg-gray-50 dark:bg-[#1F1F23] rounded-lg">
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Sentiment</p>
                     <p className={`text-sm font-medium ${getSentimentColor(selectedConv.sentiment)}`}>
-                      {(selectedConv.sentiment * 100).toFixed(0)}% Positive
+                      {"--"}% Positive
                     </p>
                   </div>
                   <div className="p-4 bg-gray-50 dark:bg-[#1F1F23] rounded-lg">
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Brand Mentions</p>
                     <p className="text-sm font-medium text-gray-900 dark:text-white">
-                      {selectedConv.brandMentions}
+                      {"--"}
                     </p>
                   </div>
                   <div className="p-4 bg-gray-50 dark:bg-[#1F1F23] rounded-lg">
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Competitor Mentions</p>
                     <p className="text-sm font-medium text-gray-900 dark:text-white">
-                      {selectedConv.competitorMentions}
+                      {"--"}
                     </p>
                   </div>
                 </div>
@@ -329,15 +287,15 @@ export default function AnalyticsConversationsContent() {
             {conversationsData.intentDistribution.map((item, index) => (
               <div key={index}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-gray-900 dark:text-white">{item.intent}</span>
+                  <span className="text-sm text-gray-900 dark:text-white">{"--"}</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {item.percentage}% ({item.count})
+                    {"--"}% ({"--"})
                   </span>
                 </div>
                 <div className="h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-accent-green rounded-full transition-all duration-500"
-                    style={{ width: `${item.percentage}%` }}
+                    style={{ width: "0%" }}
                   />
                 </div>
               </div>
@@ -356,9 +314,9 @@ export default function AnalyticsConversationsContent() {
                 className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-[#1F1F23] transition-colors"
               >
                 <span className="text-xs font-bold text-gray-500 dark:text-gray-400 w-6">
-                  #{index + 1}
+                  #{"--"}
                 </span>
-                <span className="text-sm text-gray-900 dark:text-white">{question}</span>
+                <span className="text-sm text-gray-900 dark:text-white">{"--"}</span>
               </div>
             ))}
           </div>

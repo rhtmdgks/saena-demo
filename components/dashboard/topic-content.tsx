@@ -1,27 +1,34 @@
 "use client"
 
+import { MeasurementNotice } from "./measurement-state";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { useEffect, useState } from "react"
 import TopicVisibility from "./topic-visibility"
 import { getTopicVisibilityData } from "@/lib/api/dashboard-data"
 import type { TopicVisibilityData } from "@/types/dashboard"
 
 export default function TopicContent() {
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
   const [topicData, setTopicData] = useState<TopicVisibilityData | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const data = await getTopicVisibilityData()
-        setTopicData(data)
+        if (active) setTopicData(data)
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch topic data:", error)
       } finally {
-        setIsLoading(false)
+        if (active) setIsLoading(false)
       }
     }
 
-    fetchData()
+    fetchData();
+    return () => { active = false; };
   }, [])
 
   if (isLoading) {
@@ -32,12 +39,14 @@ export default function TopicContent() {
     )
   }
 
+
   return (
     <div className="space-y-6">
+      {loadError && <MeasurementNotice code={loadError} />}
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Topic Visibility</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Analyze keyword frequency and theme distribution across AI platforms
+          Analyze keyword frequency and theme distribution in ChatGPT Search
         </p>
       </div>
 

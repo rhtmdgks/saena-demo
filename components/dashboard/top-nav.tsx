@@ -30,7 +30,6 @@ const pageNames: Record<string, string> = {
   "/prototype/analytics/brand": "Analytics Brand",
   "/prototype/analytics/website": "Analytics Website",
   "/prototype/analytics/conversations": "Analytics Conversations",
-  "/prototype/analytics/copilot": "Analytics Copilot",
 }
 
 export default function TopNav() {

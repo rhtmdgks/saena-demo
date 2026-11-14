@@ -1,27 +1,35 @@
 "use client"
 
+import ObservationPanel from "./observation-panel";
+import { MeasurementNotice } from "./measurement-state";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { useEffect, useState } from "react"
 import CitationAnalysis from "./citation-analysis"
 import { getCitationAnalysisData } from "@/lib/api/dashboard-data"
 import type { CitationAnalysisData } from "@/types/dashboard"
 
 export default function CitationContent() {
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
   const [citationData, setCitationData] = useState<CitationAnalysisData | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const data = await getCitationAnalysisData()
-        setCitationData(data)
+        if (active) setCitationData(data)
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch citation data:", error)
       } finally {
-        setIsLoading(false)
+        if (active) setIsLoading(false)
       }
     }
 
-    fetchData()
+    fetchData();
+    return () => { active = false; };
   }, [])
 
   if (isLoading) {
@@ -32,8 +40,11 @@ export default function CitationContent() {
     )
   }
 
+
   return (
     <div className="space-y-6">
+      <ObservationPanel />
+      {loadError && <MeasurementNotice code={loadError} />}
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Citation</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -44,7 +55,7 @@ export default function CitationContent() {
       <div>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">Citation Domain Count</h3>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Total citations: {citationData?.totalCitations.toLocaleString()}
+          Total citations: {citationData?.totalCitations.toLocaleString() ?? "--"}
         </p>
         <CitationAnalysis data={citationData} />
       </div>

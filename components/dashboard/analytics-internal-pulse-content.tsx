@@ -25,6 +25,7 @@ export default function AnalyticsInternalPulseContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Internal Pulse</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -37,10 +38,10 @@ export default function AnalyticsInternalPulseContent() {
           <div key={index} className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{kpi.metric}</p>
             <div className="flex items-baseline gap-1">
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{kpi.value}</p>
-              <p className="text-xs text-gray-600 dark:text-gray-400">{kpi.unit}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{"--"}</p>
             </div>
-            <p className="text-xs text-accent-green-glow mt-1">{kpi.trend}</p>
+            <p className="text-xs text-accent-green-glow mt-1">{"--"}</p>
           </div>
         ))}
       </div>
@@ -50,25 +51,25 @@ export default function AnalyticsInternalPulseContent() {
         <div className="space-y-4">
           {teamMetrics.map((team, index) => (
             <div key={index} className="p-4 rounded-lg bg-gray-50 dark:bg-[#1F1F23]">
-              <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">{team.team}</h4>
+              <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">{"--"}</h4>
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Productivity</p>
-                  <p className="text-xl font-bold text-gray-900 dark:text-white">{team.productivity}%</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
                   <div className="mt-2 h-1.5 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-green rounded-full" style={{ width: `${team.productivity}%` }} />
+                    <div className="h-full bg-accent-green rounded-full" style={{ width: "0%" }} />
                   </div>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Satisfaction</p>
-                  <p className="text-xl font-bold text-gray-900 dark:text-white">{team.satisfaction}%</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
                   <div className="mt-2 h-1.5 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                    <div className="h-full bg-blue-500 rounded-full" style={{ width: `${team.satisfaction}%` }} />
+                    <div className="h-full bg-blue-500 rounded-full" style={{ width: "0%" }} />
                   </div>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Output</p>
-                  <p className="text-xl font-bold text-gray-900 dark:text-white">{team.output}</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-white">{"--"}</p>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">items/month</p>
                 </div>
               </div>
@@ -83,30 +84,30 @@ export default function AnalyticsInternalPulseContent() {
           {initiatives.map((initiative, index) => (
             <div key={index} className="p-4 rounded-lg bg-gray-50 dark:bg-[#1F1F23]">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-sm font-medium text-gray-900 dark:text-white">{initiative.name}</h4>
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</h4>
                 <div className="flex items-center gap-2">
                   <span className={`text-xs px-2 py-1 rounded-full ${
-                    initiative.status === "active" 
-                      ? "bg-accent-green/10 text-accent-green" 
+                    initiative.status === "active"
+                      ? "bg-accent-green/10 text-accent-green"
                       : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
                   }`}>
-                    {initiative.status}
+                    {"--"}
                   </span>
                   <span className={`text-xs px-2 py-1 rounded-full ${
                     initiative.impact === "high"
                       ? "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
                       : "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400"
                   }`}>
-                    {initiative.impact} impact
+                    {"--"} impact
                   </span>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                  <div className="h-full bg-accent-green rounded-full" style={{ width: `${initiative.progress}%` }} />
+                  <div className="h-full bg-accent-green rounded-full" style={{ width: "0%" }} />
                 </div>
                 <span className="text-sm font-medium text-gray-900 dark:text-white w-12 text-right">
-                  {initiative.progress}%
+                  {"--"}%
                 </span>
               </div>
             </div>

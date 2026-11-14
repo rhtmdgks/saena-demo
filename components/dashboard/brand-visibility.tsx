@@ -133,12 +133,10 @@ export default function BrandVisibility({ data }: BrandVisibilityProps) {
   );
 
   // 실제 데이터가 없으면 기본값 사용
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+
 
   // 데이터 변환
-  const brandRankings = data.brandRankings.map((item) => ({
+  const brandRankings = (data?.brandRankings ?? []).map((item) => ({
     rank: item.rank,
     brand: item.brandName,
     visibility: item.visibilityScore,
@@ -147,8 +145,8 @@ export default function BrandVisibility({ data }: BrandVisibilityProps) {
   }));
 
   // 차트 데이터 준비
-  const chartData = data.timeSeriesData.map((item) => item.score);
-  const dates = data.timeSeriesData.map((item) => {
+  const chartData = (data?.timeSeriesData ?? []).map((item) => item.score);
+  const dates = (data?.timeSeriesData ?? []).map((item) => {
     const date = new Date(item.date);
     return date.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
   });
@@ -160,21 +158,21 @@ export default function BrandVisibility({ data }: BrandVisibilityProps) {
         <div className="mb-4">
           <div className="flex items-baseline gap-3 mb-2">
             <span className="text-4xl font-bold text-gray-900 dark:text-white">
-              {data.currentScore}%
+              {data ? `${data.currentScore}%` : "--"}
             </span>
             <span
               className={`text-base font-medium flex items-center gap-1 ${
-                data.changeTrend === "up"
+                data?.changeTrend === "up"
                   ? "text-accent-green-glow"
                   : "text-red-600 dark:text-red-400"
               }`}
             >
-              {data.changeTrend === "up" ? (
+              {!data ? null : data.changeTrend === "up" ? (
                 <ArrowUpRight className="h-5 w-5" />
               ) : (
                 <ArrowDownRight className="h-5 w-5" />
               )}
-              {data.changePercent}% vs last week
+              {data ? `${data.changePercent}% vs last week` : "측정 전"}
             </span>
           </div>
           <p className="text-base text-gray-600 dark:text-gray-400">
@@ -282,6 +280,7 @@ export default function BrandVisibility({ data }: BrandVisibilityProps) {
           Brand Industry Ranking
         </h4>
         <BrandRankingList items={brandRankings} />
+        {!data && <p className="text-sm text-gray-500">측정 전 · 순위를 계산하지 않았습니다.</p>}
       </div>
     </div>
   );

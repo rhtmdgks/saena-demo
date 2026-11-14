@@ -40,6 +40,7 @@ export default function AnalyticsAutoWeightContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Auto-Weight Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -51,7 +52,7 @@ export default function AnalyticsAutoWeightContent() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Current vs Recommended Weights</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">AI-optimized weighting for maximum performance</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">가중치 최적화 효과는 검증 전입니다.</p>
           </div>
           <button className="px-4 py-2 bg-accent-green text-black rounded-lg text-sm font-medium hover:bg-accent-green/90 transition-colors">
             Apply Recommended
@@ -63,14 +64,14 @@ export default function AnalyticsAutoWeightContent() {
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{weight.metric}</h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">{weight.impact} impact metric</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{"--"} impact metric</p>
                 </div>
                 <span className={`text-sm font-medium px-2 py-1 rounded ${
-                  weight.adjustment.startsWith("+") 
-                    ? "bg-accent-green/10 text-accent-green" 
+                  weight.adjustment.startsWith("+")
+                    ? "bg-accent-green/10 text-accent-green"
                     : "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
                 }`}>
-                  {weight.adjustment}%
+                  {"--"}%
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -78,18 +79,18 @@ export default function AnalyticsAutoWeightContent() {
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Current</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                      <div className="h-full bg-gray-400 rounded-full" style={{ width: `${weight.current * 3.33}%` }} />
+                      <div className="h-full bg-gray-400 rounded-full" style={{ width: "0%" }} />
                     </div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white w-10">{weight.current}%</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white w-10">{"--"}%</span>
                   </div>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Recommended</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                      <div className="h-full bg-accent-green rounded-full" style={{ width: `${weight.recommended * 3.33}%` }} />
+                      <div className="h-full bg-accent-green rounded-full" style={{ width: "0%" }} />
                     </div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white w-10">{weight.recommended}%</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white w-10">{"--"}%</span>
                   </div>
                 </div>
               </div>
@@ -105,9 +106,9 @@ export default function AnalyticsAutoWeightContent() {
               ? "bg-accent-green/10 border-accent-green"
               : "bg-white dark:bg-[#0F0F12] border-gray-200 dark:border-[#1F1F23]"
           }`}>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{scenario.name}</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{scenario.score}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400">{scenario.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{"--"}</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{"--"}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400">{"--"}</p>
           </div>
         ))}
       </div>
@@ -123,12 +124,12 @@ export default function AnalyticsAutoWeightContent() {
                     rec.priority === "high" ? "bg-red-500" : "bg-orange-500"
                   }`} />
                   <div>
-                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">{rec.title}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{rec.description}</p>
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">{"--"}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{"--"}</p>
                   </div>
                 </div>
                 <span className="text-xs px-2 py-1 rounded-full bg-accent-green/10 text-accent-green whitespace-nowrap">
-                  {rec.expectedImpact}
+                  {"--"}
                 </span>
               </div>
             </div>
@@ -139,11 +140,11 @@ export default function AnalyticsAutoWeightContent() {
       <div className="bg-blue-50 dark:bg-blue-900/10 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">About Auto-Weight</h3>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Auto-Weight uses machine learning to analyze your brand's performance across all metrics and recommends optimal weighting to maximize your overall score. The system considers your strengths, industry benchmarks, and competitive positioning to suggest adjustments.
+          관측 자료와 검증된 산식이 연결되기 전에는 가중치 최적화 성과를 제공하지 않습니다.
         </p>
         <div className="flex items-center gap-2 text-sm">
           <span className="text-gray-600 dark:text-gray-400">Potential Score Improvement:</span>
-          <span className="text-xl font-bold text-accent-green">+3.7 points</span>
+          <span className="text-xl font-bold text-accent-green">--</span>
           <span className="text-gray-600 dark:text-gray-400">(87.5 → 91.2)</span>
         </div>
       </div>

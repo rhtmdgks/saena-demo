@@ -15,6 +15,7 @@ export default function AnalyticsEDAContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">EDA+ Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -26,8 +27,8 @@ export default function AnalyticsEDAContent() {
         {emotions.slice(0, 4).map((item, index) => (
           <div key={index} className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{item.emotion}</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white">{item.score}%</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{item.mentions.toLocaleString()} mentions</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{"--"} mentions</p>
           </div>
         ))}
       </div>
@@ -40,9 +41,9 @@ export default function AnalyticsEDAContent() {
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm text-gray-900 dark:text-white">{item.emotion}</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">{item.mentions.toLocaleString()}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{"--"}</span>
                   <span className={`text-xs ${item.trend === "up" ? "text-accent-green" : item.trend === "down" ? "text-red-500" : "text-gray-500"}`}>
-                    {item.trend === "up" ? "↑" : item.trend === "down" ? "↓" : "→"}
+                    {"--"}
                   </span>
                 </div>
               </div>
@@ -53,7 +54,7 @@ export default function AnalyticsEDAContent() {
                       ? "bg-accent-green"
                       : "bg-red-500"
                   }`}
-                  style={{ width: `${item.score}%` }}
+                  style={{ width: "0%" }}
                 />
               </div>
             </div>
@@ -65,15 +66,17 @@ export default function AnalyticsEDAContent() {
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Emotional Insights</h3>
         <div className="space-y-3">
           <div className="p-4 rounded-lg bg-accent-green/10">
-            <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">Positive Emotions Dominant</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">Emotion Analysis</p>
             <p className="text-xs text-gray-600 dark:text-gray-400">
-              Joy, Trust, and Anticipation account for 113% of emotional responses, indicating strong brand affinity.
+
+              검증된 관측 자료가 없어 감정 분포를 평가하지 않습니다.
             </p>
           </div>
           <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/10">
-            <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">Low Negative Sentiment</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">Negative Sentiment</p>
             <p className="text-xs text-gray-600 dark:text-gray-400">
-              Negative emotions (Sadness, Fear, Anger, Disgust) total only 33%, well below industry average of 45%.
+
+              검증된 관측 자료가 없어 산업 평균과 비교하지 않습니다.
             </p>
           </div>
         </div>

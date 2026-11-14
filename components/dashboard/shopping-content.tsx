@@ -1,27 +1,35 @@
 "use client"
 
+import { MeasurementNotice } from "./measurement-state";
+import { shoppingEmpty } from "./unmeasured-layout";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { ShoppingCart, TrendingUp, Package, DollarSign, Star, ExternalLink } from "lucide-react"
 import { useEffect, useState } from "react"
 import { getShoppingContentData } from "@/lib/api/dashboard-data"
 import type { ShoppingContentData } from "@/types/dashboard"
 
 export default function ShoppingContent() {
-  const [data, setData] = useState<ShoppingContentData | null>(null)
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
+  const [data, setData] = useState<ShoppingContentData>(shoppingEmpty)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const shoppingData = await getShoppingContentData()
-        setData(shoppingData)
+        if (active) setData(shoppingData)
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch shopping data:", error)
       } finally {
-        setIsLoading(false)
+        if (active) setIsLoading(false)
       }
     }
 
-    fetchData()
+    fetchData();
+    return () => { active = false; };
   }, [])
 
   if (isLoading) {
@@ -32,9 +40,6 @@ export default function ShoppingContent() {
     )
   }
 
-  if (!data) {
-    return <div>Failed to load data</div>
-  }
 
   // Shopping metrics
   const shoppingMetrics = [
@@ -94,6 +99,7 @@ export default function ShoppingContent() {
 
   return (
     <div className="space-y-6">
+      {loadError && <MeasurementNotice code={loadError} />}
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Shopping Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -119,13 +125,13 @@ export default function ShoppingContent() {
                     : "text-red-600 dark:text-red-400"
                 }`}
               >
-                {metric.change}
+                {loadError ? "--" : metric.change}
               </span>
             </div>
             <div className="space-y-1">
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{loadError ? "--" : metric.value}</p>
               <p className="text-xs text-gray-600 dark:text-gray-400">{metric.title}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-500">{metric.description}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-500">{loadError ? "--" : metric.description}</p>
             </div>
           </div>
         ))}
@@ -160,7 +166,7 @@ export default function ShoppingContent() {
                   className="border-b border-gray-100 dark:border-[#1F1F23] hover:bg-gray-50 dark:hover:bg-[#1F1F23] transition-colors"
                 >
                   <td className="py-3 px-4">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{platform.name}</span>
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{loadError ? "--" : platform.name}</span>
                   </td>
                   <td className="py-3 px-4 text-right">
                     <div className="flex items-center justify-end gap-2">
@@ -171,17 +177,17 @@ export default function ShoppingContent() {
                         />
                       </div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white w-10">
-                        {platform.visibility}%
+                        {loadError ? "--" : platform.visibility}%
                       </span>
                     </div>
                   </td>
                   <td className="py-3 px-4 text-right">
-                    <span className="text-sm text-gray-900 dark:text-white">{platform.mentions}</span>
+                    <span className="text-sm text-gray-900 dark:text-white">{loadError ? "--" : platform.mentions}</span>
                   </td>
                   <td className="py-3 px-4 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <Star className="h-3 w-3 text-[#C6FF3A] fill-[#C6FF3A] drop-shadow-[0_0_6px_rgba(198,255,58,0.5)]" />
-                      <span className="text-sm font-semibold text-gray-900 dark:text-white">{platform.rating}</span>
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white">{loadError ? "--" : platform.rating}</span>
                     </div>
                   </td>
                   <td className="py-3 px-4 text-right">
@@ -192,7 +198,7 @@ export default function ShoppingContent() {
                           : "text-red-600 dark:text-red-400"
                       }`}
                     >
-                      {platform.trend === "up" ? "↑" : "↓"} {Math.abs(platform.change)}%
+                      {loadError ? "--" : platform.trend === "up" ? "↑" : "↓"} {loadError ? "--" : Math.abs(platform.change)}%
                     </span>
                   </td>
                 </tr>
@@ -211,8 +217,8 @@ export default function ShoppingContent() {
             {productCategories.map((item, index) => (
               <div key={index} className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">{item.category}</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">{item.mentions} mentions</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">{loadError ? "--" : item.category}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{loadError ? "--" : item.mentions} mentions</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -228,8 +234,8 @@ export default function ShoppingContent() {
                         : "text-red-600 dark:text-red-400"
                     }`}
                   >
-                    {item.growth > 0 ? "+" : ""}
-                    {item.growth}%
+                    {loadError ? "--" : item.growth > 0 ? "+" : ""}
+                    {loadError ? "--" : item.growth}%
                   </span>
                 </div>
               </div>
@@ -247,7 +253,7 @@ export default function ShoppingContent() {
                 className="p-4 rounded-lg bg-gray-50 dark:bg-[#1F1F23] hover:bg-gray-100 dark:hover:bg-[#2B2B30] transition-colors"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">{item.product}</span>
+                  <span className="text-sm font-semibold text-gray-900 dark:text-white">{loadError ? "--" : item.product}</span>
                   {item.advantage && (
                     <span className="px-2 py-0.5 bg-[#C6FF3A]/20 text-[#C6FF3A] text-xs rounded-full font-medium shadow-lg shadow-[#C6FF3A]/30">
                       Best Price
@@ -257,16 +263,16 @@ export default function ShoppingContent() {
                 <div className="grid grid-cols-3 gap-2 text-xs">
                   <div>
                     <p className="text-gray-500 dark:text-gray-400">Your Price</p>
-                    <p className="font-semibold text-gray-900 dark:text-white">{item.ourPrice}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">{loadError ? "--" : item.ourPrice}</p>
                   </div>
                   <div>
                     <p className="text-gray-500 dark:text-gray-400">Competitor Avg</p>
-                    <p className="font-semibold text-gray-900 dark:text-white">{item.competitorAvg}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">{loadError ? "--" : item.competitorAvg}</p>
                   </div>
                   <div>
                     <p className="text-gray-500 dark:text-gray-400">Savings</p>
                     <p className="font-semibold text-[#C6FF3A] drop-shadow-[0_0_6px_rgba(198,255,58,0.5)]">
-                      {item.savings}
+                      {loadError ? "--" : item.savings}
                     </p>
                   </div>
                 </div>
@@ -315,7 +321,7 @@ export default function ShoppingContent() {
               />
               <div className="flex-1">
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">{insight.title}</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{insight.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{loadError ? "--" : insight.description}</p>
               </div>
             </div>
           ))}

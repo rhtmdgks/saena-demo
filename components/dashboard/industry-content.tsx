@@ -1,27 +1,35 @@
 "use client"
 
+import { MeasurementNotice } from "./measurement-state";
+import { industryEmpty } from "./unmeasured-layout";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { Building2, TrendingUp, Users, Award } from "lucide-react"
 import { useEffect, useState } from "react"
 import { getIndustryContentData } from "@/lib/api/dashboard-data"
 import type { IndustryContentData } from "@/types/dashboard"
 
 export default function IndustryContent() {
-  const [data, setData] = useState<IndustryContentData | null>(null)
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
+  const [data, setData] = useState<IndustryContentData>(industryEmpty)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const industryData = await getIndustryContentData()
-        setData(industryData)
+        if (active) setData(industryData)
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch industry data:", error)
       } finally {
-        setIsLoading(false)
+        if (active) setIsLoading(false)
       }
     }
 
-    fetchData()
+    fetchData();
+    return () => { active = false; };
   }, [])
 
   if (isLoading) {
@@ -32,9 +40,6 @@ export default function IndustryContent() {
     )
   }
 
-  if (!data) {
-    return <div>Failed to load data</div>
-  }
 
   // Industry comparison - 실제 데이터 사용
   const industryComparison = data.competitors.map(comp => ({
@@ -79,6 +84,7 @@ export default function IndustryContent() {
 
   return (
     <div className="space-y-6">
+      {loadError && <MeasurementNotice code={loadError} />}
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Industry Benchmarking</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -97,12 +103,12 @@ export default function IndustryContent() {
               <div className="p-2 bg-gray-100 dark:bg-[#1F1F23] rounded-lg group-hover:bg-accent-green-10 transition-colors">
                 <metric.icon className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-accent-green transition-colors" />
               </div>
-              <span className="text-sm font-medium text-accent-green-glow">{metric.change}</span>
+              <span className="text-sm font-medium text-accent-green-glow">{loadError ? "--" : metric.change}</span>
             </div>
             <div className="space-y-1">
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{loadError ? "--" : metric.value}</p>
               <p className="text-sm text-gray-600 dark:text-gray-400">{metric.title}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-500">{metric.description}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500">{loadError ? "--" : metric.description}</p>
             </div>
           </div>
         ))}
@@ -139,7 +145,7 @@ export default function IndustryContent() {
                   }`}
                 >
                   <td className="py-3 px-4">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">#{company.rank}</span>
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white">#{loadError ? "--" : company.rank}</span>
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
@@ -150,7 +156,7 @@ export default function IndustryContent() {
                             : "text-gray-900 dark:text-white"
                         }`}
                       >
-                        {company.company}
+                        {loadError ? "--" : company.company}
                       </span>
                       {company.company === "suelo" && (
                         <span className="px-2 py-0.5 bg-accent-green-20 text-accent-green-glow text-xs rounded-full font-medium">
@@ -160,10 +166,10 @@ export default function IndustryContent() {
                     </div>
                   </td>
                   <td className="py-3 px-4 text-right">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{company.score}%</span>
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{loadError ? "--" : company.score}%</span>
                   </td>
                   <td className="py-3 px-4 text-right">
-                    <span className="text-sm text-gray-900 dark:text-white">{company.marketShare}%</span>
+                    <span className="text-sm text-gray-900 dark:text-white">{loadError ? "--" : company.marketShare}%</span>
                   </td>
                   <td className="py-3 px-4 text-right">
                     <span
@@ -173,8 +179,8 @@ export default function IndustryContent() {
                           : "text-red-600 dark:text-red-400"
                       }`}
                     >
-                      {company.growth > 0 ? "+" : ""}
-                      {company.growth}%
+                      {loadError ? "--" : company.growth > 0 ? "+" : ""}
+                      {loadError ? "--" : company.growth}%
                     </span>
                   </td>
                 </tr>
@@ -192,7 +198,7 @@ export default function IndustryContent() {
             {data.strengths.map((strength, index) => (
               <div key={index} className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#C6FF3A] shadow-lg shadow-[#C6FF3A]/50 mt-2 flex-shrink-0" />
-                <p className="text-sm text-gray-600 dark:text-gray-400">{strength}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{loadError ? "--" : strength}</p>
               </div>
             ))}
           </div>
@@ -204,7 +210,7 @@ export default function IndustryContent() {
             {data.opportunities.map((opportunity, index) => (
               <div key={index} className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-accent-green mt-2 flex-shrink-0" />
-                <p className="text-sm text-gray-600 dark:text-gray-400">{opportunity}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{loadError ? "--" : opportunity}</p>
               </div>
             ))}
           </div>

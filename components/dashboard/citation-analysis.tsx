@@ -12,11 +12,9 @@ export default function CitationAnalysis({ data }: CitationAnalysisProps) {
   const [hoveredDomain, setHoveredDomain] = useState<string | null>(null)
 
   // 실제 데이터가 없으면 로딩 표시
-  if (!data) {
-    return <div>Loading...</div>;
-  }
 
-  const citationDomains = data.domains.map((domain) => ({
+
+  const citationDomains = (data?.domains ?? []).map((domain) => ({
     rank: domain.rank,
     domain: domain.domainName,
     mentions: domain.mentionCount,
@@ -61,36 +59,36 @@ export default function CitationAnalysis({ data }: CitationAnalysisProps) {
             <div className="w-3 h-3 rounded-full bg-blue-500"></div>
             <span className="text-gray-700 dark:text-gray-300">Earned</span>
             <span className="text-gray-500 dark:text-gray-400">
-              {data.citationsByType.earned.count.toLocaleString()} ({data.citationsByType.earned.percentage}%)
+              {data?.citationsByType.earned.count.toLocaleString() ?? "--"} ({data?.citationsByType.earned.percentage ?? "--"}%)
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-orange-500"></div>
             <span className="text-gray-700 dark:text-gray-300">Operated</span>
             <span className="text-gray-500 dark:text-gray-400">
-              {data.citationsByType.operated.count.toLocaleString()} ({data.citationsByType.operated.percentage}%)
+              {data?.citationsByType.operated.count.toLocaleString() ?? "--"} ({data?.citationsByType.operated.percentage ?? "--"}%)
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-cyan-500"></div>
             <span className="text-gray-700 dark:text-gray-300">Owned</span>
             <span className="text-gray-500 dark:text-gray-400">
-              {data.citationsByType.owned.count.toLocaleString()} ({data.citationsByType.owned.percentage}%)
+              {data?.citationsByType.owned.count.toLocaleString() ?? "--"} ({data?.citationsByType.owned.percentage ?? "--"}%)
             </span>
           </div>
         </div>
         <div className="h-8 flex rounded-lg overflow-hidden">
-          <div 
-            className="bg-blue-500" 
-            style={{ flex: data.citationsByType.earned.percentage }}
+          <div
+            className="bg-blue-500"
+            style={{ flex: data?.citationsByType.earned.percentage ?? 0 }}
           ></div>
-          <div 
-            className="bg-orange-500" 
-            style={{ flex: data.citationsByType.operated.percentage }}
+          <div
+            className="bg-orange-500"
+            style={{ flex: data?.citationsByType.operated.percentage ?? 0 }}
           ></div>
-          <div 
-            className="bg-cyan-500" 
-            style={{ flex: data.citationsByType.owned.percentage }}
+          <div
+            className="bg-cyan-500"
+            style={{ flex: data?.citationsByType.owned.percentage ?? 0 }}
           ></div>
         </div>
       </div>
@@ -102,6 +100,7 @@ export default function CitationAnalysis({ data }: CitationAnalysisProps) {
           <span className="col-span-6">Domain</span>
           <span className="col-span-5 text-right">Number of mentions</span>
         </div>
+        {!data && <p className="text-sm text-gray-500 px-4">측정 전 · 인용 도메인을 집계하지 않았습니다.</p>}
         {citationDomains.map((item) => (
           <div
             key={item.rank}
@@ -112,9 +111,9 @@ export default function CitationAnalysis({ data }: CitationAnalysisProps) {
             <span className="col-span-1 text-gray-500 dark:text-gray-400 font-medium">{item.rank}</span>
             <div className="col-span-6 flex items-center gap-2">
               {item.url ? (
-                <a 
-                  href={item.url} 
-                  target="_blank" 
+                <a
+                  href={item.url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
                 >

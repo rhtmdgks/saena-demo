@@ -20,6 +20,7 @@ export default function SearchContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Search Query Analysis</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -35,24 +36,24 @@ export default function SearchContent() {
             className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]"
           >
             <div className="flex items-start justify-between mb-3">
-              <span className="text-xs font-semibold text-accent-green-glow">#{index + 1} Top Query</span>
+              <span className="text-xs font-semibold text-accent-green-glow">#{"--"} Top Query</span>
               <span
                 className={`text-xs font-medium ${
                   query.trend === "up" ? "text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]" : "text-red-600 dark:text-red-400"
                 }`}
               >
-                {query.trend === "up" ? "↑" : "↓"} {Math.abs(query.change)}%
+                {"--"} {"--"}%
               </span>
             </div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">"{query.query}"</h3>
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">"{"--"}"</h3>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{query.visibility}%</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Visibility</p>
               </div>
               <div className="text-right">
                 <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                  {query.volume.toLocaleString()}
+                  {"--"}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Monthly searches</p>
               </div>
@@ -80,14 +81,14 @@ export default function SearchContent() {
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2 flex-1 min-w-0">
                 <Search className="h-4 w-4 text-gray-400 flex-shrink-0" />
-                <span className="text-sm font-medium text-gray-900 dark:text-white truncate">"{query.query}"</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white truncate">"{"--"}"</span>
               </div>
               <div className="flex items-center gap-4 flex-shrink-0">
                 <span className="text-sm text-gray-900 dark:text-white w-20 text-right">
-                  {query.volume.toLocaleString()}
+                  {"--"}
                 </span>
                 <span className="text-sm font-semibold text-gray-900 dark:text-white w-12 text-right">
-                  {query.visibility}%
+                  {"--"}%
                 </span>
                 <span
                   className={`text-sm font-medium flex items-center gap-1 w-16 justify-end ${
@@ -97,7 +98,7 @@ export default function SearchContent() {
                   }`}
                 >
                   <TrendingUp className={`h-3 w-3 ${query.trend === "down" ? "rotate-180" : ""}`} />
-                  {Math.abs(query.change)}%
+                  {"--"}%
                 </span>
               </div>
             </div>
@@ -123,12 +124,12 @@ export default function SearchContent() {
               <div key={index}>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{item.category}</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">{item.count} queries</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">{"--"} queries</span>
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div
                     className="bg-accent-green h-2 rounded-full transition-all duration-500"
-                    style={{ width: `${item.percentage}%` }}
+                    style={{ width: "0%" }}
                   />
                 </div>
               </div>
@@ -144,7 +145,8 @@ export default function SearchContent() {
               <div>
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Summer Peak Season</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Sunscreen queries increase by 65% during May-August as UV index rises and outdoor activities peak.
+
+                  계절별 검색 변화는 아직 측정되지 않았습니다.
                 </p>
               </div>
             </div>
@@ -153,7 +155,8 @@ export default function SearchContent() {
               <div>
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Year-Round Interest</h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  PA++++ and sensitive skin queries maintain steady 40% baseline throughout winter months.
+
+                  장기 관측 자료가 아직 없습니다.
                 </p>
               </div>
             </div>

@@ -49,6 +49,7 @@ export default function ImproveContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Improve</h2>
       </div>
@@ -67,11 +68,11 @@ export default function ImproveContent() {
                   }`}
                 ></div>
                 <span className="text-xs text-gray-600 dark:text-gray-400">
-                  {item.impact} / {item.effort}
+                  {"--"} / {"--"}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{item.description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{"--"}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{"--"}</p>
               {item.links.length > 0 && (
                 <div className="flex gap-2 mb-4">
                   {item.links.map((link, i) => (
@@ -79,7 +80,7 @@ export default function ImproveContent() {
                       key={i}
                       className="px-3 py-1 rounded-full bg-gray-100 dark:bg-[#1F1F23] text-xs text-gray-700 dark:text-gray-300"
                     >
-                      {link}
+                      {"--"}
                     </span>
                   ))}
                 </div>
@@ -92,7 +93,7 @@ export default function ImproveContent() {
                 {item.steps.map((step, stepIndex) => (
                   <div key={stepIndex} className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-gray-400 dark:text-gray-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{step}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{"--"}</span>
                   </div>
                 ))}
               </div>

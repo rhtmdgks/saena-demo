@@ -32,68 +32,7 @@ const categoryStyles = {
   platform: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
 }
 
-const ACTIVITIES: Activity[] = [
-  {
-    id: "1",
-    title: "ChatGPT Mentions Increased",
-    value: "+15%",
-    type: "positive",
-    category: "mention",
-    icon: MessageSquare,
-    timestamp: "Today, 2:45 PM",
-    status: "completed",
-  },
-  {
-    id: "2",
-    title: "Positive Sentiment Spike",
-    value: "+8.5%",
-    type: "positive",
-    category: "sentiment",
-    icon: Star,
-    timestamp: "Today, 9:00 AM",
-    status: "completed",
-  },
-  {
-    id: "3",
-    title: "Perplexity Coverage",
-    value: "92%",
-    type: "positive",
-    category: "platform",
-    icon: Globe,
-    timestamp: "Yesterday",
-    status: "pending",
-  },
-  {
-    id: "4",
-    title: "Brand Visibility Score",
-    value: "+12.3%",
-    type: "positive",
-    category: "visibility",
-    icon: TrendingUp,
-    timestamp: "2 days ago",
-    status: "completed",
-  },
-  {
-    id: "5",
-    title: "Claude Mentions",
-    value: "+6.2%",
-    type: "positive",
-    category: "mention",
-    icon: MessageSquare,
-    timestamp: "3 days ago",
-    status: "completed",
-  },
-  {
-    id: "6",
-    title: "Google AI Overviews Coverage",
-    value: "88%",
-    type: "positive",
-    category: "platform",
-    icon: Globe,
-    timestamp: "4 days ago",
-    status: "completed",
-  },
-]
+const ACTIVITIES: Activity[] = []
 
 export default function List02({ activities = ACTIVITIES, className }: List02Props) {
   return (

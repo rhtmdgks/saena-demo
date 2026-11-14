@@ -42,7 +42,12 @@ export default function HomeContent({ brandVisibilityData, homeData }: HomeConte
       description: homeData.keyMetrics.weakestCategory.description,
       icon: Globe,
     },
-  ] : [];
+  ] : [
+    { title: "Total Score", value: "--", change: "--", trend: "unmeasured", description: "측정 전", icon: Target },
+    { title: "Competitive Rank", value: "--", change: "--", trend: "unmeasured", description: "측정 전", icon: TrendingUp },
+    { title: "Strongest Category", value: "--", change: "--", trend: "unmeasured", description: "측정 전", icon: Zap },
+    { title: "Weakest Category", value: "--", change: "--", trend: "unmeasured", description: "측정 전", icon: Globe },
+  ];
 
   // 인사이트 데이터 변환
   const recentInsights = homeData ? homeData.insights.map((insight) => ({
@@ -72,7 +77,7 @@ export default function HomeContent({ brandVisibilityData, homeData }: HomeConte
               </div>
               <span
                 className={`text-sm font-medium ${
-                  metric.trend === "up"
+                  metric.trend === "unmeasured" ? "text-gray-500" : metric.trend === "up"
                     ? "text-accent-green-glow"
                     : "text-red-600 dark:text-red-400"
                 }`}
@@ -101,7 +106,7 @@ export default function HomeContent({ brandVisibilityData, homeData }: HomeConte
           Brand visibility
         </h2>
         <p className="text-base text-gray-600 dark:text-gray-400 mb-4">
-          Percentage of AI answers about sunscreen products that mention your brand
+          Percentage of observed ChatGPT Search answers that mention your brand
         </p>
         <BrandVisibility data={brandVisibilityData} />
       </div>
@@ -112,6 +117,7 @@ export default function HomeContent({ brandVisibilityData, homeData }: HomeConte
           Recent Insights
         </h2>
         <div className="space-y-3">
+          {!homeData && <p className="text-sm text-gray-500">측정 전 · 검증된 인사이트가 없습니다.</p>}
           {recentInsights.map((insight, index) => (
             <div
               key={index}
@@ -148,7 +154,7 @@ export default function HomeContent({ brandVisibilityData, homeData }: HomeConte
           Platform Coverage
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {(homeData?.platformCoverage || []).map((platform, index) => (
+          {(homeData?.platformCoverage || [{ platformName: "ChatGPT Search", isActive: false, coveragePercent: 0 }]).map((platform, index) => (
             <div
               key={index}
               className="flex flex-col items-center p-3 rounded-lg bg-gray-50 dark:bg-[#1F1F23] hover:bg-gray-100 dark:hover:bg-[#2B2B30] transition-colors"

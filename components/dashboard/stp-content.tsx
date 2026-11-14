@@ -1,28 +1,36 @@
 "use client"
 
+import { MeasurementNotice } from "./measurement-state";
+import { stpEmpty } from "./unmeasured-layout";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { useState, useEffect } from "react"
 import { Users2, Target, Crosshair } from "lucide-react"
 import { getSTPData } from "@/lib/api/dashboard-data"
 import type { STPData } from "@/types/dashboard"
 
 export default function STPContent() {
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
   const [selectedSegment, setSelectedSegment] = useState<string | null>(null)
-  const [data, setData] = useState<STPData | null>(null)
+  const [data, setData] = useState<STPData>(stpEmpty)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const stpData = await getSTPData()
-        setData(stpData)
+        if (active) setData(stpData)
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch STP data:", error)
       } finally {
-        setIsLoading(false)
+        if (active) setIsLoading(false)
       }
     }
 
-    fetchData()
+    fetchData();
+    return () => { active = false; };
   }, [])
 
   if (isLoading) {
@@ -33,9 +41,6 @@ export default function STPContent() {
     )
   }
 
-  if (!data) {
-    return <div>Failed to load data</div>
-  }
 
   const stpData = {
     segmentation: {
@@ -80,6 +85,7 @@ export default function STPContent() {
 
   return (
     <div className="space-y-6">
+      {loadError && <MeasurementNotice code={loadError} />}
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">STP Insight</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
@@ -93,7 +99,7 @@ export default function STPContent() {
           <Users2 className="h-6 w-6 text-[#C6FF3A] drop-shadow-[0_0_6px_rgba(198,255,58,0.5)]" />
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stpData.segmentation.title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{stpData.segmentation.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{loadError ? "--" : stpData.segmentation.description}</p>
           </div>
         </div>
 
@@ -109,8 +115,8 @@ export default function STPContent() {
               onClick={() => setSelectedSegment(selectedSegment === segment.name ? null : segment.name)}
             >
               <div className="flex items-center justify-between mb-3">
-                <h4 className="font-semibold text-gray-900 dark:text-white">{segment.name}</h4>
-                <span className="text-sm font-medium text-[#C6FF3A]">{segment.size}%</span>
+                <h4 className="font-semibold text-gray-900 dark:text-white">{loadError ? "--" : segment.name}</h4>
+                <span className="text-sm font-medium text-[#C6FF3A]">{loadError ? "--" : segment.size}%</span>
               </div>
 
               <div className="mb-3">
@@ -134,7 +140,7 @@ export default function STPContent() {
                         key={idx}
                         className="text-xs px-2 py-1 bg-gray-100 dark:bg-[#1F1F23] text-gray-700 dark:text-gray-300 rounded"
                       >
-                        {char}
+                        {loadError ? "--" : char}
                       </span>
                     ))}
                   </div>
@@ -148,7 +154,7 @@ export default function STPContent() {
                         key={idx}
                         className="text-xs px-2 py-1 bg-[#C6FF3A]/10 text-gray-700 dark:text-gray-300 rounded"
                       >
-                        {keyword}
+                        {loadError ? "--" : keyword}
                       </span>
                     ))}
                   </div>
@@ -165,7 +171,7 @@ export default function STPContent() {
           <Target className="h-6 w-6 text-[#C6FF3A] drop-shadow-[0_0_6px_rgba(198,255,58,0.5)]" />
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stpData.targeting.title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{stpData.targeting.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{loadError ? "--" : stpData.targeting.description}</p>
           </div>
         </div>
 
@@ -175,17 +181,17 @@ export default function STPContent() {
             <div className="flex items-center justify-between mb-4">
               <h4 className="font-semibold text-gray-900 dark:text-white">Primary Target</h4>
               <span className="text-2xl font-bold text-[#C6FF3A] drop-shadow-[0_0_6px_rgba(198,255,58,0.5)]">
-                {stpData.targeting.primaryTarget.score}
+                {loadError ? "--" : stpData.targeting.primaryTarget.score}
               </span>
             </div>
             <p className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              {stpData.targeting.primaryTarget.segment}
+              {loadError ? "--" : stpData.targeting.primaryTarget.segment}
             </p>
             <div className="space-y-2">
               {stpData.targeting.primaryTarget.rationale.map((reason, idx) => (
                 <div key={idx} className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#C6FF3A] mt-2 flex-shrink-0" />
-                  <p className="text-sm text-gray-700 dark:text-gray-300">{reason}</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">{loadError ? "--" : reason}</p>
                 </div>
               ))}
             </div>
@@ -196,17 +202,17 @@ export default function STPContent() {
             <div className="flex items-center justify-between mb-4">
               <h4 className="font-semibold text-gray-900 dark:text-white">Secondary Target</h4>
               <span className="text-2xl font-bold text-gray-600 dark:text-gray-400">
-                {stpData.targeting.secondaryTarget.score}
+                {loadError ? "--" : stpData.targeting.secondaryTarget.score}
               </span>
             </div>
             <p className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              {stpData.targeting.secondaryTarget.segment}
+              {loadError ? "--" : stpData.targeting.secondaryTarget.segment}
             </p>
             <div className="space-y-2">
               {stpData.targeting.secondaryTarget.rationale.map((reason, idx) => (
                 <div key={idx} className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 flex-shrink-0" />
-                  <p className="text-sm text-gray-700 dark:text-gray-300">{reason}</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">{loadError ? "--" : reason}</p>
                 </div>
               ))}
             </div>
@@ -220,14 +226,14 @@ export default function STPContent() {
           <Crosshair className="h-6 w-6 text-[#C6FF3A] drop-shadow-[0_0_6px_rgba(198,255,58,0.5)]" />
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{stpData.positioning.title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{stpData.positioning.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{loadError ? "--" : stpData.positioning.description}</p>
           </div>
         </div>
 
         {/* Positioning Statement */}
         <div className="p-5 rounded-xl bg-[#C6FF3A]/5 border border-[#C6FF3A]/30 mb-6">
           <p className="text-lg font-medium text-gray-900 dark:text-white text-center">
-            &quot;{stpData.positioning.statement}&quot;
+            &quot;{loadError ? "--" : stpData.positioning.statement}&quot;
           </p>
         </div>
 
@@ -235,7 +241,7 @@ export default function STPContent() {
         <div className="mb-6">
           <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4">Positioning Map</h4>
           <div className="bg-gray-50 dark:bg-[#1F1F23] rounded-xl p-6 border border-gray-200 dark:border-[#2B2B30]">
-            <svg width="100%" height="400" viewBox="0 0 500 400" className="overflow-visible">
+            <svg width="100%" height="400" viewBox="0 0 500 400" className="overflow-visible" opacity={loadError ? 0 : 1}>
               <defs>
                 <filter id="glow-stp">
                   <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -261,28 +267,28 @@ export default function STPContent() {
               <text x="255" y="345" textAnchor="start" className="text-xs fill-gray-600 dark:fill-gray-400">Low Quality ↓</text>
 
               {/* Our Brand */}
-              <circle 
-                cx={data.positioning.positioningMap.yourBrand.x} 
-                cy={data.positioning.positioningMap.yourBrand.y} 
-                r="40" 
-                fill="#C6FF3A" 
-                fillOpacity="0.2" 
-                stroke="#C6FF3A" 
-                strokeWidth="2" 
-                filter="url(#glow-stp)" 
+              <circle
+                cx={data.positioning.positioningMap.yourBrand.x}
+                cy={data.positioning.positioningMap.yourBrand.y}
+                r="40"
+                fill="#C6FF3A"
+                fillOpacity="0.2"
+                stroke="#C6FF3A"
+                strokeWidth="2"
+                filter="url(#glow-stp)"
               />
-              <circle 
-                cx={data.positioning.positioningMap.yourBrand.x} 
-                cy={data.positioning.positioningMap.yourBrand.y} 
-                r="6" 
-                fill="#C6FF3A" 
-                stroke="white" 
-                strokeWidth="2" 
+              <circle
+                cx={data.positioning.positioningMap.yourBrand.x}
+                cy={data.positioning.positioningMap.yourBrand.y}
+                r="6"
+                fill="#C6FF3A"
+                stroke="white"
+                strokeWidth="2"
               />
-              <text 
-                x={data.positioning.positioningMap.yourBrand.x} 
-                y={data.positioning.positioningMap.yourBrand.y - 15} 
-                textAnchor="middle" 
+              <text
+                x={data.positioning.positioningMap.yourBrand.x}
+                y={data.positioning.positioningMap.yourBrand.y - 15}
+                textAnchor="middle"
                 className="text-sm font-bold fill-gray-900 dark:fill-white"
               >
                 suelo
@@ -291,28 +297,28 @@ export default function STPContent() {
               {/* Competitors */}
               {data.positioning.positioningMap.competitors.map((comp, idx) => (
                 <g key={idx}>
-                  <circle 
-                    cx={comp.x} 
-                    cy={comp.y} 
-                    r={comp.size} 
-                    fill="#9CA3AF" 
-                    fillOpacity="0.2" 
-                    stroke="#9CA3AF" 
-                    strokeWidth="2" 
+                  <circle
+                    cx={comp.x}
+                    cy={comp.y}
+                    r={comp.size}
+                    fill="#9CA3AF"
+                    fillOpacity="0.2"
+                    stroke="#9CA3AF"
+                    strokeWidth="2"
                   />
-                  <circle 
-                    cx={comp.x} 
-                    cy={comp.y} 
-                    r="4" 
-                    fill="#9CA3AF" 
+                  <circle
+                    cx={comp.x}
+                    cy={comp.y}
+                    r="4"
+                    fill="#9CA3AF"
                   />
-                  <text 
-                    x={comp.x} 
-                    y={comp.y + comp.size + 15} 
-                    textAnchor="middle" 
+                  <text
+                    x={comp.x}
+                    y={comp.y + comp.size + 15}
+                    textAnchor="middle"
                     className="text-xs fill-gray-600 dark:fill-gray-400"
                   >
-                    {comp.name}
+                    {loadError ? "--" : comp.name}
                   </text>
                 </g>
               ))}
@@ -327,10 +333,10 @@ export default function STPContent() {
             {stpData.positioning.attributes.map((attr) => (
               <div key={attr.name}>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{attr.name}</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{loadError ? "--" : attr.name}</span>
                   <div className="flex items-center gap-4">
-                    <span className="text-sm text-[#C6FF3A]">Us: {attr.value}</span>
-                    <span className="text-sm text-gray-500">Competitor: {attr.competitor}</span>
+                    <span className="text-sm text-[#C6FF3A]">Us: {loadError ? "--" : attr.value}</span>
+                    <span className="text-sm text-gray-500">Competitor: {loadError ? "--" : attr.competitor}</span>
                   </div>
                 </div>
                 <div className="relative h-2 bg-gray-200 dark:bg-gray-800 rounded-full">
@@ -360,7 +366,7 @@ export default function STPContent() {
                 key={idx}
                 className="p-4 rounded-lg bg-gray-50 dark:bg-[#1F1F23] border border-gray-200 dark:border-[#2B2B30]"
               >
-                <p className="text-sm font-medium text-gray-900 dark:text-white text-center">{diff}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white text-center">{loadError ? "--" : diff}</p>
               </div>
             ))}
           </div>

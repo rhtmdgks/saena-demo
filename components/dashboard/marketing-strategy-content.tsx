@@ -1,5 +1,9 @@
 "use client";
 
+import { MeasurementNotice } from "./measurement-state";
+import { marketing_strategyEmpty } from "./unmeasured-layout";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { useState, useEffect } from "react";
 import {
   Package,
@@ -17,25 +21,29 @@ import { getMarketingStrategyData } from "@/lib/api/dashboard-data";
 import type { MarketingStrategyData } from "@/types/dashboard";
 
 export default function MarketingStrategyContent() {
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
   const [selectedView, setSelectedView] = useState<"4p" | "4e">("4p");
   const [selectedP, setSelectedP] = useState<string | null>(null);
   const [selectedE, setSelectedE] = useState<string | null>(null);
-  const [data, setData] = useState<MarketingStrategyData | null>(null);
+  const [data, setData] = useState<MarketingStrategyData>(marketing_strategyEmpty);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const marketingData = await getMarketingStrategyData();
-        setData(marketingData);
+        if (active) setData(marketingData);
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch marketing strategy data:", error);
       } finally {
-        setIsLoading(false);
+        if (active) setIsLoading(false);
       }
     }
 
     fetchData();
+    return () => { active = false; };
   }, []);
 
   if (isLoading) {
@@ -46,9 +54,6 @@ export default function MarketingStrategyContent() {
     );
   }
 
-  if (!data) {
-    return <div>Failed to load data</div>;
-  }
 
   // 4P data - 실제 데이터 사용
   const fourPData = {
@@ -182,6 +187,7 @@ export default function MarketingStrategyContent() {
 
   return (
     <div className="space-y-6">
+      {loadError && <MeasurementNotice code={loadError} />}
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -251,13 +257,13 @@ export default function MarketingStrategyContent() {
                             : "text-red-500"
                         }`}
                       >
-                        {data.change > 0 ? "+" : ""}
-                        {data.change}%
+                        {loadError ? "--" : data.change > 0 ? "+" : ""}
+                        {loadError ? "--" : data.change}%
                       </span>
                     </div>
                   </div>
                   <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                    {data.score}
+                    {loadError ? "--" : data.score}
                   </div>
                   <div className="text-sm font-medium text-gray-600 dark:text-gray-400">
                     {key}
@@ -268,7 +274,7 @@ export default function MarketingStrategyContent() {
                     <svg
                       width="100%"
                       height="100%"
-                      className="overflow-visible"
+                      className="overflow-visible" opacity={loadError ? 0 : 1}
                     >
                       <polyline
                         points={data.trendData
@@ -300,12 +306,12 @@ export default function MarketingStrategyContent() {
               </h3>
 
               <div className="flex items-center justify-center">
-                <svg 
-                  width="400" 
-                  height="400" 
+                <svg
+                  width="400"
+                  height="400"
                   className="overflow-visible"
                   role="img"
-                  aria-label="4P Marketing Strategy Radar Chart"
+                  aria-label="4P Marketing Strategy Radar Chart" opacity={loadError ? 0 : 1}
                 >
                   <defs>
                     <filter id="glow-4p">
@@ -393,7 +399,7 @@ export default function MarketingStrategyContent() {
                         textAnchor="middle"
                         className="text-xs font-bold fill-gray-900 dark:fill-white"
                       >
-                        {point.value}
+                        {loadError ? "--" : point.value}
                       </text>
                     </g>
                   ))}
@@ -412,7 +418,7 @@ export default function MarketingStrategyContent() {
                         dominantBaseline="middle"
                         className="text-sm font-semibold fill-gray-900 dark:fill-white"
                       >
-                        {item.axis}
+                        {loadError ? "--" : item.axis}
                       </text>
                     );
                   })}
@@ -440,7 +446,7 @@ export default function MarketingStrategyContent() {
                       );
                     })()}
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                      {selectedP} Analysis
+                      {loadError ? "--" : selectedP} Analysis
                     </h3>
                   </div>
 
@@ -454,10 +460,10 @@ export default function MarketingStrategyContent() {
                         className="p-3 rounded-lg bg-gray-50 dark:bg-[#1F1F23]"
                       >
                         <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                          {metric}
+                          {loadError ? "--" : metric}
                         </div>
                         <div className="text-lg font-bold text-gray-900 dark:text-white">
-                          {value}
+                          {loadError ? "--" : value}
                         </div>
                       </div>
                     ))}
@@ -477,7 +483,7 @@ export default function MarketingStrategyContent() {
                           className="p-3 bg-gray-50 dark:bg-[#1F1F23] rounded-lg"
                         >
                           <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                            &quot;{mention.text}&quot;
+                            &quot;{loadError ? "--" : mention.text}&quot;
                           </p>
                           <div className="flex items-center gap-2">
                             <div className="flex-1 h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
@@ -493,7 +499,7 @@ export default function MarketingStrategyContent() {
                               />
                             </div>
                             <span className="text-xs text-gray-500 dark:text-gray-400">
-                              {(mention.sentiment * 100).toFixed(0)}%
+                              {loadError ? "--" : (mention.sentiment * 100).toFixed(0)}%
                             </span>
                           </div>
                         </div>
@@ -539,7 +545,7 @@ export default function MarketingStrategyContent() {
                     <div className="flex items-center gap-1">
                       <TrendingUp className="h-4 w-4 text-accent-green" />
                       <span className="text-sm font-medium text-accent-green">
-                        +{data.change}%
+                        +{loadError ? "--" : data.change}%
                       </span>
                     </div>
                   </div>
@@ -548,12 +554,12 @@ export default function MarketingStrategyContent() {
                     {key}
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                    {data.description}
+                    {loadError ? "--" : data.description}
                   </p>
 
                   {/* Circular Progress */}
                   <div className="relative w-32 h-32 mx-auto">
-                    <svg className="transform -rotate-90 w-32 h-32">
+                    <svg className="transform -rotate-90 w-32 h-32" opacity={loadError ? 0 : 1}>
                       <circle
                         cx="64"
                         cy="64"
@@ -582,7 +588,7 @@ export default function MarketingStrategyContent() {
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-4xl font-bold text-gray-900 dark:text-white leading-none">
-                        {data.score}
+                        {loadError ? "--" : data.score}
                       </span>
                       <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         Score
@@ -592,7 +598,7 @@ export default function MarketingStrategyContent() {
 
                   <div className="text-center mt-4">
                     <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Ratio: {(data.ratio * 100).toFixed(0)}%
+                      Ratio: {loadError ? "--" : (data.ratio * 100).toFixed(0)}%
                     </div>
                   </div>
                 </div>
@@ -618,7 +624,7 @@ export default function MarketingStrategyContent() {
                   );
                 })()}
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {selectedE} Deep Dive
+                  {loadError ? "--" : selectedE} Deep Dive
                 </h3>
               </div>
 
@@ -630,7 +636,7 @@ export default function MarketingStrategyContent() {
                   </h4>
                   <div className="p-4 bg-gray-50 dark:bg-[#1F1F23] rounded-lg border border-gray-200 dark:border-[#2B2B30]">
                     <code className="text-sm text-gray-700 dark:text-gray-300 font-mono">
-                      {fourEData[selectedE as keyof typeof fourEData].formula}
+                      {loadError ? "--" : fourEData[selectedE as keyof typeof fourEData].formula}
                     </code>
                   </div>
                 </div>
@@ -654,7 +660,7 @@ export default function MarketingStrategyContent() {
                           }}
                         />
                         <p className="text-sm text-gray-700 dark:text-gray-300">
-                          {insight}
+                          {loadError ? "--" : insight}
                         </p>
                       </div>
                     ))}
@@ -674,10 +680,10 @@ export default function MarketingStrategyContent() {
               {data.emotionDistribution.map((emotionData) => (
                 <div key={emotionData.emotion} className="text-center">
                   <div className="relative w-20 h-20 mx-auto mb-2">
-                    <svg 
+                    <svg
                       className="transform -rotate-90 w-20 h-20"
                       role="img"
-                      aria-label={`${emotionData.emotion}: ${emotionData.value}%`}
+                      aria-label={`${emotionData.emotion}: ${emotionData.value}%`} opacity={loadError ? 0 : 1}
                     >
                       <circle
                         cx="40"
@@ -704,12 +710,12 @@ export default function MarketingStrategyContent() {
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-lg font-bold text-gray-900 dark:text-white">
-                        {emotionData.value}
+                        {loadError ? "--" : emotionData.value}
                       </span>
                     </div>
                   </div>
                   <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {emotionData.emotion}
+                    {loadError ? "--" : emotionData.emotion}
                   </div>
                 </div>
               ))}

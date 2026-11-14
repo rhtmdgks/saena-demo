@@ -30,6 +30,7 @@ export default function AnalyticsBHIContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">BHI Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -39,15 +40,15 @@ export default function AnalyticsBHIContent() {
 
       <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-8 border border-gray-200 dark:border-[#1F1F23] text-center">
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Overall Brand Health Index</p>
-        <p className="text-6xl font-bold text-accent-green mb-2">{healthMetrics.overall}</p>
-        <p className="text-sm text-gray-600 dark:text-gray-400">Strong Brand Health</p>
+        <p className="text-6xl font-bold text-accent-green mb-2">{"--"}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400">측정 전</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {Object.entries(healthMetrics).filter(([key]) => key !== 'overall').map(([key, value]) => (
           <div key={key} className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
             <p className="text-xs text-gray-600 dark:text-gray-400 mb-1 capitalize">{key}</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{"--"}</p>
           </div>
         ))}
       </div>
@@ -60,20 +61,20 @@ export default function AnalyticsBHIContent() {
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-gray-900 dark:text-white">{dim.name}</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-600 dark:text-gray-400">vs {dim.benchmark}</span>
+                  <span className="text-xs text-gray-600 dark:text-gray-400">vs {"--"}</span>
                   <span className={`text-xs px-2 py-1 rounded-full ${
                     dim.status === "excellent" ? "bg-accent-green/10 text-accent-green" : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
                   }`}>
-                    {dim.status}
+                    {"--"}
                   </span>
                 </div>
               </div>
               <div className="relative h-8 bg-gray-200 dark:bg-[#1F1F23] rounded-lg overflow-hidden">
-                <div className="absolute h-full bg-gray-300 dark:bg-gray-700" style={{ width: `${dim.benchmark}%` }} />
-                <div className="absolute h-full bg-accent-green" style={{ width: `${dim.score}%` }} />
+                <div className="absolute h-full bg-gray-300 dark:bg-gray-700" style={{ width: "0%" }} />
+                <div className="absolute h-full bg-accent-green" style={{ width: "0%" }} />
                 <div className="absolute inset-0 flex items-center justify-between px-3">
-                  <span className="text-xs font-medium text-white">Your Brand: {dim.score}</span>
-                  <span className="text-xs text-white/70">Industry: {dim.benchmark}</span>
+                  <span className="text-xs font-medium text-white">Your Brand: {"--"}</span>
+                  <span className="text-xs text-white/70">Industry: {"--"}</span>
                 </div>
               </div>
             </div>
@@ -87,16 +88,16 @@ export default function AnalyticsBHIContent() {
           {competitors.map((comp, index) => (
             <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-[#1F1F23]">
               <div className="flex items-center gap-3">
-                <span className="text-sm font-bold text-gray-500 dark:text-gray-400 w-8">#{comp.rank}</span>
+                <span className="text-sm font-bold text-gray-500 dark:text-gray-400 w-8">#{"--"}</span>
                 <span className={`text-sm font-medium ${comp.name === "suelo" ? "text-accent-green" : "text-gray-900 dark:text-white"}`}>
-                  {comp.name}
+                  {"--"}
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-32 h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full ${comp.name === "suelo" ? "bg-accent-green" : "bg-gray-400"}`} style={{ width: `${comp.score}%` }} />
+                  <div className={`h-full rounded-full ${comp.name === "suelo" ? "bg-accent-green" : "bg-gray-400"}`} style={{ width: "0%" }} />
                 </div>
-                <span className="text-sm font-medium text-gray-900 dark:text-white w-8">{comp.score}</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white w-8">{"--"}</span>
               </div>
             </div>
           ))}

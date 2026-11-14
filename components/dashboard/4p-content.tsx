@@ -43,6 +43,7 @@ export default function FourPContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">4P Analysis</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">
@@ -61,10 +62,10 @@ export default function FourPContent() {
               <div className="flex items-center gap-3 mb-4">
                 <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {item.title}
+                  {"--"}
                 </h2>
               </div>
-              <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
+              <p className="text-gray-600 dark:text-gray-400">{"--"}</p>
             </div>
           )
         })}

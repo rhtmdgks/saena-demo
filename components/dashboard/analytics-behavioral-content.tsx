@@ -19,6 +19,7 @@ export default function AnalyticsBehavioralContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Behavioral Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -32,21 +33,21 @@ export default function AnalyticsBehavioralContent() {
           {behaviors.map((behavior, index) => (
             <div key={index} className="p-4 rounded-lg bg-gray-50 dark:bg-[#1F1F23]">
               <div className="flex items-center justify-between mb-3">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{behavior.pattern}</h4>
-                <span className="text-lg font-bold text-accent-green">{behavior.percentage}%</span>
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{"--"}</h4>
+                <span className="text-lg font-bold text-accent-green">{"--"}%</span>
               </div>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Users:</span>
-                  <span className="text-gray-900 dark:text-white font-medium">{behavior.users.toLocaleString()}</span>
+                  <span className="text-gray-900 dark:text-white font-medium">{"--"}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Avg Queries:</span>
-                  <span className="text-gray-900 dark:text-white font-medium">{behavior.avgQueries}</span>
+                  <span className="text-gray-900 dark:text-white font-medium">{"--"}</span>
                 </div>
               </div>
               <div className="mt-3 h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                <div className="h-full bg-accent-green rounded-full" style={{ width: `${behavior.percentage}%` }} />
+                <div className="h-full bg-accent-green rounded-full" style={{ width: "0%" }} />
               </div>
             </div>
           ))}
@@ -61,12 +62,12 @@ export default function AnalyticsBehavioralContent() {
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm text-gray-900 dark:text-white">{action.action}</span>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-gray-600 dark:text-gray-400">{action.count.toLocaleString()}</span>
-                  <span className="text-sm font-medium text-accent-green">{action.conversion}%</span>
+                  <span className="text-xs text-gray-600 dark:text-gray-400">{"--"}</span>
+                  <span className="text-sm font-medium text-accent-green">{"--"}%</span>
                 </div>
               </div>
               <div className="h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                <div className="h-full bg-accent-green rounded-full" style={{ width: `${action.conversion}%` }} />
+                <div className="h-full bg-accent-green rounded-full" style={{ width: "0%" }} />
               </div>
             </div>
           ))}
@@ -76,18 +77,18 @@ export default function AnalyticsBehavioralContent() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Avg Session Duration</p>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">4:32</p>
-          <p className="text-xs text-accent-green-glow mt-1">+18% vs last month</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">--</p>
+          <p className="text-xs text-accent-green-glow mt-1">-- vs last month</p>
         </div>
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Pages per Session</p>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">6.8</p>
-          <p className="text-xs text-accent-green-glow mt-1">+12% vs last month</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">--</p>
+          <p className="text-xs text-accent-green-glow mt-1">-- vs last month</p>
         </div>
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Return Rate</p>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">42%</p>
-          <p className="text-xs text-accent-green-glow mt-1">+8% vs last month</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">--</p>
+          <p className="text-xs text-accent-green-glow mt-1">-- vs last month</p>
         </div>
       </div>
     </div>

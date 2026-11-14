@@ -1,27 +1,35 @@
 "use client"
 
+import { MeasurementNotice } from "./measurement-state";
+import { modelEmpty } from "./unmeasured-layout";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { Bot, Zap, Shield, Globe } from "lucide-react"
 import { useEffect, useState } from "react"
 import { getModelContentData } from "@/lib/api/dashboard-data"
 import type { ModelContentData } from "@/types/dashboard"
 
 export default function ModelContent() {
-  const [data, setData] = useState<ModelContentData | null>(null)
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
+  const [data, setData] = useState<ModelContentData>(modelEmpty)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const modelData = await getModelContentData()
-        setData(modelData)
+        if (active) setData(modelData)
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch model data:", error)
       } finally {
-        setIsLoading(false)
+        if (active) setIsLoading(false)
       }
     }
 
-    fetchData()
+    fetchData();
+    return () => { active = false; };
   }, [])
 
   if (isLoading) {
@@ -32,9 +40,6 @@ export default function ModelContent() {
     )
   }
 
-  if (!data) {
-    return <div>Failed to load data</div>
-  }
 
   // AI model performance data - 실제 데이터 사용
   const aiModels = data.models
@@ -44,7 +49,7 @@ export default function ModelContent() {
     {
       title: "Average Visibility",
       value: `${data.overallMetrics.averageVisibility}%`,
-      description: "across all AI models",
+      description: "for ChatGPT Search",
       icon: Bot,
     },
     {
@@ -56,7 +61,7 @@ export default function ModelContent() {
     {
       title: "Total Mentions",
       value: data.overallMetrics.totalMentions.toLocaleString(),
-      description: "across all platforms",
+      description: "for ChatGPT Search",
       icon: Zap,
     },
     {
@@ -69,10 +74,11 @@ export default function ModelContent() {
 
   return (
     <div className="space-y-6">
+      {loadError && <MeasurementNotice code={loadError} />}
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">AI Model Performance</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Track how different AI models represent your brand
+          Track how ChatGPT Search represent your brand
         </p>
       </div>
 
@@ -89,9 +95,9 @@ export default function ModelContent() {
               </div>
             </div>
             <div className="space-y-1">
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{loadError ? "--" : metric.value}</p>
               <p className="text-sm text-gray-600 dark:text-gray-400">{metric.title}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-500">{metric.description}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500">{loadError ? "--" : metric.description}</p>
             </div>
           </div>
         ))}
@@ -146,12 +152,12 @@ export default function ModelContent() {
                         />
                       </div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white w-10">
-                        {model.visibility}%
+                        {loadError ? "--" : model.visibility}%
                       </span>
                     </div>
                   </td>
                   <td className="py-3 px-4 text-right">
-                    <span className="text-sm text-gray-900 dark:text-white">{model.accuracy}%</span>
+                    <span className="text-sm text-gray-900 dark:text-white">{loadError ? "--" : model.accuracy}%</span>
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
@@ -161,11 +167,11 @@ export default function ModelContent() {
                           : "bg-gray-500/20 text-gray-600 dark:text-gray-400"
                       }`}
                     >
-                      {model.sentiment}
+                      {loadError ? "--" : model.sentiment}
                     </span>
                   </td>
                   <td className="py-3 px-4 text-right">
-                    <span className="text-sm text-gray-900 dark:text-white">{model.mentions.toLocaleString()}</span>
+                    <span className="text-sm text-gray-900 dark:text-white">{loadError ? "--" : model.mentions.toLocaleString()}</span>
                   </td>
                   <td className="py-3 px-4 text-right">
                     <span
@@ -175,7 +181,7 @@ export default function ModelContent() {
                           : "text-red-600 dark:text-red-400"
                       }`}
                     >
-                      {model.trend === "up" ? "↑" : "↓"} {Math.abs(model.change)}%
+                      {loadError ? "--" : model.trend === "up" ? "↑" : "↓"} {loadError ? "--" : Math.abs(model.change)}%
                     </span>
                   </td>
                 </tr>
@@ -196,7 +202,7 @@ export default function ModelContent() {
               .map((model, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{model.name}</span>
-                  <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{model.visibility}%</span>
+                  <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{loadError ? "--" : model.visibility}%</span>
                 </div>
               ))}
           </div>
@@ -212,7 +218,7 @@ export default function ModelContent() {
                 <div key={index} className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{model.name}</span>
                   <span className="text-sm font-semibold text-[#C6FF3A] drop-shadow-[0_0_8px_rgba(198,255,58,0.5)]">
-                    +{model.change}%
+                    +{loadError ? "--" : model.change}%
                   </span>
                 </div>
               ))}
@@ -229,7 +235,7 @@ export default function ModelContent() {
                 <div key={index} className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{model.name}</span>
                   <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">
-                    {model.accuracy}%
+                    {loadError ? "--" : model.accuracy}%
                   </span>
                 </div>
               ))}

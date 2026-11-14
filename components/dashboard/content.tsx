@@ -1,32 +1,40 @@
 "use client"
 
+import ObservationPanel from "./observation-panel";
+import { MeasurementNotice } from "./measurement-state";
+import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
+
 import { useEffect, useState } from "react"
 import HomeContent from "./home-content"
 import { getBrandVisibilityData, getHomeContentData } from "@/lib/api/dashboard-data"
 import type { BrandVisibilityData, HomeContentData } from "@/types/dashboard"
 
 export default function Content() {
+  const [loadError, setLoadError] = useState<DashboardFailure | undefined>();
   const [brandVisibilityData, setBrandVisibilityData] = useState<BrandVisibilityData | undefined>(undefined)
   const [homeData, setHomeData] = useState<HomeContentData | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    let active = true;
     async function fetchData() {
       try {
         const [brandData, homeContentData] = await Promise.all([
           getBrandVisibilityData(),
           getHomeContentData()
         ])
-        setBrandVisibilityData(brandData)
-        setHomeData(homeContentData)
+        if (active) setBrandVisibilityData(brandData)
+        if (active) setHomeData(homeContentData)
       } catch (error) {
+        if (active) setLoadError(dashboardFailure(error));
         console.error("Failed to fetch dashboard data:", error)
       } finally {
-        setIsLoading(false)
+        if (active) setIsLoading(false)
       }
     }
 
-    fetchData()
+    fetchData();
+    return () => { active = false; };
   }, [])
 
   if (isLoading) {
@@ -37,5 +45,6 @@ export default function Content() {
     )
   }
 
-  return <HomeContent brandVisibilityData={brandVisibilityData} homeData={homeData} />
+
+  return <><ObservationPanel />{loadError && <MeasurementNotice code={loadError} />}<HomeContent brandVisibilityData={brandVisibilityData} homeData={homeData} /></>
 }

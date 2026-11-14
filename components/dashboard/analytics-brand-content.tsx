@@ -62,11 +62,6 @@ const brandData = {
   },
   platforms: [
     { name: "ChatGPT", visibility: 95, mentions: 1450, sentiment: 0.94, growth: 8.5 },
-    { name: "Perplexity", visibility: 92, mentions: 1210, sentiment: 0.90, growth: 6.1 },
-    { name: "Claude", visibility: 91, mentions: 1280, sentiment: 0.92, growth: 7.2 },
-    { name: "Google AI Overviews", visibility: 88, mentions: 1170, sentiment: 0.89, growth: 5.6 },
-    { name: "Copilot", visibility: 86, mentions: 900, sentiment: 0.86, growth: 4.7 },
-    { name: "Grok", visibility: 80, mentions: 710, sentiment: 0.82, growth: 3.9 }
   ],
   regions: [
     { region: "North America", visibility: 92, mentions: 3200, growth: 15 },
@@ -117,6 +112,7 @@ export default function AnalyticsBrandContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Brand Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -150,18 +146,18 @@ export default function AnalyticsBrandContent() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Current Score</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{brandData.visibility.score}</p>
-              <p className="text-xs text-accent-green-glow mt-1">+10.6 vs last month</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}</p>
+              <p className="text-xs text-accent-green-glow mt-1">-- · 비교 관측 전</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Industry Rank</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">#2</p>
-              <p className="text-xs text-accent-green-glow mt-1">+1 position</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">--</p>
+              <p className="text-xs text-accent-green-glow mt-1">--</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">vs Competitors</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">+9.7</p>
-              <p className="text-xs text-accent-green-glow mt-1">Above average</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">--</p>
+              <p className="text-xs text-accent-green-glow mt-1">비교 관측 전</p>
             </div>
           </div>
 
@@ -169,7 +165,7 @@ export default function AnalyticsBrandContent() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Visibility Trend</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={brandData.visibility.trend}>
+                <LineChart data={[]}>
                   <XAxis dataKey="date" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
                   <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
                   <Tooltip contentStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)", border: "none", borderRadius: "8px", color: "#fff" }} />
@@ -186,16 +182,16 @@ export default function AnalyticsBrandContent() {
               {brandData.visibility.competitors.map((comp, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <div className="flex items-center gap-3 flex-1">
-                    <span className="text-sm font-bold text-gray-500 dark:text-gray-400 w-6">#{index + 1}</span>
+                    <span className="text-sm font-bold text-gray-500 dark:text-gray-400 w-6">#{"--"}</span>
                     <span className={`text-sm font-medium ${comp.name === "suelo" ? "text-accent-green" : "text-gray-900 dark:text-white"}`}>
-                      {comp.name}
+                      {"--"}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-32 h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full ${comp.name === "suelo" ? "bg-accent-green" : "bg-gray-400"}`} style={{ width: `${comp.score}%` }} />
+                      <div className={`h-full rounded-full ${comp.name === "suelo" ? "bg-accent-green" : "bg-gray-400"}`} style={{ width: "0%" }} />
                     </div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white w-12 text-right">{comp.score}</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white w-12 text-right">{"--"}</span>
                   </div>
                 </div>
               ))}
@@ -209,19 +205,19 @@ export default function AnalyticsBrandContent() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Overall Score</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{brandData.sentiment.overall}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Positive</p>
-              <p className="text-3xl font-bold text-accent-green">{brandData.sentiment.positive}%</p>
+              <p className="text-3xl font-bold text-accent-green">{"--"}%</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Neutral</p>
-              <p className="text-3xl font-bold text-blue-500">{brandData.sentiment.neutral}%</p>
+              <p className="text-3xl font-bold text-blue-500">{"--"}%</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Negative</p>
-              <p className="text-3xl font-bold text-red-500">{brandData.sentiment.negative}%</p>
+              <p className="text-3xl font-bold text-red-500">{"--"}%</p>
             </div>
           </div>
 
@@ -231,11 +227,11 @@ export default function AnalyticsBrandContent() {
               {brandData.sentiment.byAspect.map((aspect, index) => (
                 <div key={index}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-gray-900 dark:text-white">{aspect.aspect}</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">{(aspect.score * 100).toFixed(0)}%</span>
+                    <span className="text-sm text-gray-900 dark:text-white">{"--"}</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">{"--"}%</span>
                   </div>
                   <div className="h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-green rounded-full" style={{ width: `${aspect.score * 100}%` }} />
+                    <div className="h-full bg-accent-green rounded-full" style={{ width: "0%" }} />
                   </div>
                 </div>
               ))}
@@ -252,12 +248,12 @@ export default function AnalyticsBrandContent() {
               {brandData.topics.clusters.map((topic, index) => (
                 <div key={index} className="p-4 rounded-lg bg-gray-50 dark:bg-[#1F1F23]">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">{topic.topic}</span>
-                    <span className="text-xs text-accent-green-glow">+{topic.growth}%</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</span>
+                    <span className="text-xs text-accent-green-glow">+{"--"}%</span>
                   </div>
                   <div className="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-400">
-                    <span>{topic.mentions} mentions</span>
-                    <span>Sentiment: {(topic.sentiment * 100).toFixed(0)}%</span>
+                    <span>{"--"} mentions</span>
+                    <span>Sentiment: {"--"}%</span>
                   </div>
                 </div>
               ))}
@@ -272,13 +268,13 @@ export default function AnalyticsBrandContent() {
             {brandData.platforms.map((platform, index) => (
               <div key={index} className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">{platform.name}</span>
-                  <span className="text-xs text-accent-green-glow">+{platform.growth}%</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</span>
+                  <span className="text-xs text-accent-green-glow">+{"--"}%</span>
                 </div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{platform.visibility}%</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{platform.mentions} mentions</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{"--"}%</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{"--"} mentions</p>
                 <div className="mt-3 h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                  <div className="h-full bg-accent-green rounded-full" style={{ width: `${platform.visibility}%` }} />
+                  <div className="h-full bg-accent-green rounded-full" style={{ width: "0%" }} />
                 </div>
               </div>
             ))}
@@ -292,17 +288,17 @@ export default function AnalyticsBrandContent() {
             {brandData.regions.map((region, index) => (
               <div key={index} className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{region.region}</h3>
-                  <span className="text-xs px-2 py-1 rounded-full bg-accent-green/10 text-accent-green">+{region.growth}%</span>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{"--"}</h3>
+                  <span className="text-xs px-2 py-1 rounded-full bg-accent-green/10 text-accent-green">+{"--"}%</span>
                 </div>
                 <div className="space-y-3">
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Visibility Score</p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{region.visibility}%</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Mentions</p>
-                    <p className="text-xl font-medium text-gray-900 dark:text-white">{region.mentions.toLocaleString()}</p>
+                    <p className="text-xl font-medium text-gray-900 dark:text-white">{"--"}</p>
                   </div>
                 </div>
               </div>
@@ -316,19 +312,19 @@ export default function AnalyticsBrandContent() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Product Mentions</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{brandData.shopping.productMentions}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Avg Rating</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{brandData.shopping.averageRating}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Price Competitiveness</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{brandData.shopping.priceCompetitiveness}%</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Availability</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{brandData.shopping.availabilityScore}%</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}%</p>
             </div>
           </div>
 
@@ -337,10 +333,10 @@ export default function AnalyticsBrandContent() {
             <div className="space-y-3">
               {brandData.shopping.platforms.map((platform, index) => (
                 <div key={index} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-900 dark:text-white">{platform.name}</span>
+                  <span className="text-sm text-gray-900 dark:text-white">{"--"}</span>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{platform.mentions} mentions</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">{platform.visibility}%</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{"--"} mentions</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">{"--"}%</span>
                   </div>
                 </div>
               ))}
@@ -354,15 +350,15 @@ export default function AnalyticsBrandContent() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Citations</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white">{brandData.citations.total.toLocaleString()}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">{"--"}</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Earned (85%)</p>
-              <p className="text-3xl font-bold text-accent-green">{brandData.citations.earned.toLocaleString()}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Earned (--)</p>
+              <p className="text-3xl font-bold text-accent-green">{"--"}</p>
             </div>
             <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Owned (5%)</p>
-              <p className="text-3xl font-bold text-blue-500">{brandData.citations.owned.toLocaleString()}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Owned (--)</p>
+              <p className="text-3xl font-bold text-blue-500">{"--"}</p>
             </div>
           </div>
 
@@ -372,10 +368,10 @@ export default function AnalyticsBrandContent() {
               {brandData.citations.topSources.map((source, index) => (
                 <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-[#1F1F23]">
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">{source.domain}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Authority: {source.authority} • {source.type}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Authority: {"--"} • {"--"}</p>
                   </div>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">{source.mentions.toLocaleString()}</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">{"--"}</span>
                 </div>
               ))}
             </div>

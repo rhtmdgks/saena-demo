@@ -20,40 +20,40 @@ const METRICS: MetricItem[] = [
     id: "1",
     title: "Brand Visibility",
     description: "AI mention rate",
-    value: "89.8%",
+    value: "--",
     type: "visibility",
   },
   {
     id: "2",
     title: "Total Mentions",
-    description: "Across all LLMs",
-    value: "7,400",
+    description: "ChatGPT Search",
+    value: "--",
     type: "mentions",
   },
   {
     id: "3",
     title: "Positive Sentiment",
     description: "User reviews",
-    value: "83%",
+    value: "--",
     type: "sentiment",
   },
   {
     id: "4",
     title: "Industry Rank",
     description: "Among competitors",
-    value: "#2",
+    value: "--",
     type: "ranking",
   },
   {
     id: "5",
     title: "Platform Coverage",
-    description: "Active LLMs",
-    value: "10+",
+    description: "ChatGPT Search",
+    value: "--",
     type: "mentions",
   },
 ]
 
-export default function List01({ totalScore = "89.8", metrics = METRICS, className }: List01Props) {
+export default function List01({ totalScore = "--", metrics = METRICS, className }: List01Props) {
   return (
     <div
       className={cn(

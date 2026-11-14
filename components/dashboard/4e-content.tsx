@@ -19,6 +19,7 @@ const emotionData = [
 export default function FourEContent() {
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">4E Insight — Experience Value Map</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -30,19 +31,19 @@ export default function FourEContent() {
         <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-4">4E Value Distribution</h3>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={fourEData}>
+            <BarChart data={[]}>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis 
-                dataKey="name" 
+              <XAxis
+                dataKey="name"
                 tick={{ fill: '#888', fontSize: 12 }}
               />
-              <YAxis 
+              <YAxis
                 tick={{ fill: '#888', fontSize: 12 }}
                 domain={[0, 100]}
               />
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: '#1F1F23', 
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1F1F23',
                   border: '1px solid #333',
                   borderRadius: '8px'
                 }}
@@ -64,13 +65,13 @@ export default function FourEContent() {
             <div key={item.emotion} className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-700 dark:text-gray-300">{item.emotion}</span>
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">{item.value}%</span>
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">{"--"}%</span>
               </div>
               <div className="h-3 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full rounded-full transition-all duration-500"
-                  style={{ 
-                    width: `${item.value}%`,
+                  style={{
+                    width: "0%",
                     backgroundColor: item.color
                   }}
                 />
@@ -83,22 +84,22 @@ export default function FourEContent() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
           <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Experience Ratio</div>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white">82%</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">--</div>
           <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">체험형 문장 비율</div>
         </div>
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
           <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Exchange Index</div>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white">0.68</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">--</div>
           <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">교환가치 언급률</div>
         </div>
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
           <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Evangelism Rate</div>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white">75%</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">--</div>
           <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">추천/신뢰 비율</div>
         </div>
         <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
           <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Everyplace Index</div>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white">0.71</div>
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">--</div>
           <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">접점 다양성</div>
         </div>
       </div>

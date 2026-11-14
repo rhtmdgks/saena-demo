@@ -237,9 +237,6 @@ export default function Sidebar() {
                   >
                     Conversations
                   </NavItem>
-                  <NavItem href="/prototype/analytics/copilot" icon={Video}>
-                    Copilot
-                  </NavItem>
                   <NavItem href="/prototype/analytics/uceg" icon={TrendingUp}>
                     UCEG
                   </NavItem>

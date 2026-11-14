@@ -11,7 +11,7 @@ const professionalMetrics = {
     brandHealth: { value: 87, change: 5, components: { awareness: 92, consideration: 85, preference: 82, loyalty: 78 } },
     roi: { value: 3.8, change: 0.5, investment: 124000, return: 471200 }
   },
-  
+
   // Performance Indicators
   performanceMatrix: [
     { metric: "Query Coverage", current: 94, target: 95, status: "on-track", category: "Reach" },
@@ -20,7 +20,7 @@ const professionalMetrics = {
     { metric: "Engagement Rate", current: 76, target: 80, status: "needs-attention", category: "Engagement" },
     { metric: "Conversion Attribution", current: 12.5, target: 15, status: "needs-attention", category: "Impact" }
   ],
-  
+
   // Competitive Intelligence
   competitivePosition: {
     marketShare: 18.5,
@@ -30,15 +30,12 @@ const professionalMetrics = {
     gapToFollower: 1.6,
     momentum: "gaining"
   },
-  
+
   // Channel Performance
   channelMix: [
     { channel: "ChatGPT", visibility: 95, volume: 38.2, quality: 94, efficiency: 92 },
-    { channel: "Perplexity", visibility: 92, volume: 25.8, quality: 90, efficiency: 88 },
-    { channel: "Claude", visibility: 91, volume: 21.5, quality: 92, efficiency: 90 },
-    { channel: "Google AI Overviews", visibility: 88, volume: 14.5, quality: 89, efficiency: 85 }
   ],
-  
+
   // Trend Analysis
   trendData: [
     { week: "W1", avi: 79.2, sov: 15.2, engagement: 68, conversions: 420 },
@@ -47,21 +44,22 @@ const professionalMetrics = {
     { week: "W4", avi: 87.9, sov: 17.9, engagement: 76, conversions: 545 },
     { week: "W5", avi: 89.8, sov: 18.5, engagement: 78, conversions: 580 }
   ],
-  
+
   // Risk & Opportunities
   insights: [
     { type: "opportunity", priority: "high", title: "Expand PA++++ Content", impact: "+15% visibility", confidence: 92 },
     { type: "risk", priority: "medium", title: "Competitor Round Lab Gaining", impact: "-2% share", confidence: 78 },
-    { type: "opportunity", priority: "high", title: "Perplexity Growth Trend", impact: "+8% reach", confidence: 88 },
+
     { type: "achievement", priority: "low", title: "Exceeded Q4 Targets", impact: "112% of goal", confidence: 100 }
   ]
 }
 
 export default function AnalyticsOverviewContent() {
   const COLORS = ['#84cc16', '#3b82f6', '#8b5cf6', '#f59e0b']
-  
+
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Analytics Overview</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -77,8 +75,8 @@ export default function AnalyticsOverviewContent() {
             <div>
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Answer Visibility Index</p>
               <div className="flex items-baseline gap-2">
-                <p className="text-4xl font-black text-gray-900 dark:text-white">{professionalMetrics.executiveSummary.avi.value}</p>
-                <span className="text-sm font-bold text-accent-green">+{professionalMetrics.executiveSummary.avi.change}%</span>
+                <p className="text-4xl font-black text-gray-900 dark:text-white">{"--"}</p>
+                <span className="text-sm font-bold text-accent-green">+{"--"}%</span>
               </div>
             </div>
             <Target className="h-8 w-8 text-accent-green/30" />
@@ -86,11 +84,11 @@ export default function AnalyticsOverviewContent() {
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
               <span className="text-gray-600 dark:text-gray-400">vs Benchmark</span>
-              <span className="font-medium text-gray-900 dark:text-white">{professionalMetrics.executiveSummary.avi.benchmark}</span>
+              <span className="font-medium text-gray-900 dark:text-white">{"--"}</span>
             </div>
             <div className="flex justify-between text-xs">
               <span className="text-gray-600 dark:text-gray-400">Percentile Rank</span>
-              <span className="font-medium text-accent-green">{professionalMetrics.executiveSummary.avi.percentile}th</span>
+              <span className="font-medium text-accent-green">{"--"}th</span>
             </div>
           </div>
         </div>
@@ -101,8 +99,8 @@ export default function AnalyticsOverviewContent() {
             <div>
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Share of Voice</p>
               <div className="flex items-baseline gap-2">
-                <p className="text-4xl font-black text-gray-900 dark:text-white">{professionalMetrics.executiveSummary.shareOfVoice.value}%</p>
-                <span className="text-sm font-bold text-accent-green">+{professionalMetrics.executiveSummary.shareOfVoice.change}%</span>
+                <p className="text-4xl font-black text-gray-900 dark:text-white">{"--"}%</p>
+                <span className="text-sm font-bold text-accent-green">+{"--"}%</span>
               </div>
             </div>
             <PieChart className="h-8 w-8 text-blue-500/30" />
@@ -110,10 +108,10 @@ export default function AnalyticsOverviewContent() {
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
               <span className="text-gray-600 dark:text-gray-400">Competitor Avg</span>
-              <span className="font-medium text-gray-900 dark:text-white">{professionalMetrics.executiveSummary.shareOfVoice.competitors}%</span>
+              <span className="font-medium text-gray-900 dark:text-white">{"--"}%</span>
             </div>
             <div className="h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-blue-500 to-accent-green rounded-full" style={{ width: `${professionalMetrics.executiveSummary.shareOfVoice.value * 5}%` }} />
+              <div className="h-full bg-gradient-to-r from-blue-500 to-accent-green rounded-full" style={{ width: "0%" }} />
             </div>
           </div>
         </div>
@@ -124,8 +122,8 @@ export default function AnalyticsOverviewContent() {
             <div>
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Brand Health Index</p>
               <div className="flex items-baseline gap-2">
-                <p className="text-4xl font-black text-gray-900 dark:text-white">{professionalMetrics.executiveSummary.brandHealth.value}</p>
-                <span className="text-sm font-bold text-accent-green">+{professionalMetrics.executiveSummary.brandHealth.change}</span>
+                <p className="text-4xl font-black text-gray-900 dark:text-white">{"--"}</p>
+                <span className="text-sm font-bold text-accent-green">+{"--"}</span>
               </div>
             </div>
             <Activity className="h-8 w-8 text-purple-500/30" />
@@ -133,8 +131,8 @@ export default function AnalyticsOverviewContent() {
           <div className="grid grid-cols-2 gap-2 text-xs">
             {Object.entries(professionalMetrics.executiveSummary.brandHealth.components).map(([key, value]) => (
               <div key={key} className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400 capitalize">{key.slice(0, 4)}</span>
-                <span className="font-medium text-gray-900 dark:text-white">{value}</span>
+                <span className="text-gray-600 dark:text-gray-400 capitalize">{"--"}</span>
+                <span className="font-medium text-gray-900 dark:text-white">{"--"}</span>
               </div>
             ))}
           </div>
@@ -146,8 +144,8 @@ export default function AnalyticsOverviewContent() {
             <div>
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Marketing ROI</p>
               <div className="flex items-baseline gap-2">
-                <p className="text-4xl font-black text-gray-900 dark:text-white">{professionalMetrics.executiveSummary.roi.value}x</p>
-                <span className="text-sm font-bold text-accent-green">+{professionalMetrics.executiveSummary.roi.change}x</span>
+                <p className="text-4xl font-black text-gray-900 dark:text-white">{"--"}x</p>
+                <span className="text-sm font-bold text-accent-green">+{"--"}x</span>
               </div>
             </div>
             <Award className="h-8 w-8 text-yellow-500/30" />
@@ -155,11 +153,11 @@ export default function AnalyticsOverviewContent() {
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
               <span className="text-gray-600 dark:text-gray-400">Investment</span>
-              <span className="font-medium text-gray-900 dark:text-white">${(professionalMetrics.executiveSummary.roi.investment / 1000).toFixed(0)}K</span>
+              <span className="font-medium text-gray-900 dark:text-white">${"--"}K</span>
             </div>
             <div className="flex justify-between text-xs">
               <span className="text-gray-600 dark:text-gray-400">Return</span>
-              <span className="font-medium text-accent-green">${(professionalMetrics.executiveSummary.roi.return / 1000).toFixed(0)}K</span>
+              <span className="font-medium text-accent-green">${"--"}K</span>
             </div>
           </div>
         </div>
@@ -185,18 +183,18 @@ export default function AnalyticsOverviewContent() {
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-bold text-gray-900 dark:text-white">{item.current}%</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">/ {item.target}%</span>
+                    <span className="text-sm font-bold text-gray-900 dark:text-white">{"--"}%</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">/ {"--"}%</span>
                   </div>
                 </div>
                 <div className="relative h-2 bg-gray-200 dark:bg-[#1F1F23] rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className={`h-full rounded-full transition-all duration-500 ${
                       item.status === 'exceeding' ? 'bg-gradient-to-r from-accent-green to-green-400' :
                       item.status === 'on-track' ? 'bg-gradient-to-r from-blue-500 to-blue-400' :
                       'bg-gradient-to-r from-orange-500 to-orange-400'
                     }`}
-                    style={{ width: `${(item.current / item.target) * 100}%` }}
+                    style={{ width: "0%" }}
                   />
                   <div className="absolute top-0 h-full w-0.5 bg-gray-400 dark:bg-gray-600" style={{ left: '100%' }} />
                 </div>
@@ -211,29 +209,29 @@ export default function AnalyticsOverviewContent() {
           <div className="space-y-6">
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-accent-green/20 to-accent-green/10 mb-3">
-                <div className="text-4xl font-black text-accent-green">#{professionalMetrics.competitivePosition.rank}</div>
+                <div className="text-4xl font-black text-accent-green">#{"--"}</div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">out of {professionalMetrics.competitivePosition.totalCompetitors} brands</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">out of {"--"} brands</p>
             </div>
-            
+
             <div className="space-y-3">
               <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-[#1F1F23]">
                 <span className="text-xs text-gray-600 dark:text-gray-400">Market Share</span>
-                <span className="text-sm font-bold text-gray-900 dark:text-white">{professionalMetrics.competitivePosition.marketShare}%</span>
+                <span className="text-sm font-bold text-gray-900 dark:text-white">{"--"}%</span>
               </div>
               <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-[#1F1F23]">
                 <span className="text-xs text-gray-600 dark:text-gray-400">Gap to Leader</span>
-                <span className="text-sm font-bold text-orange-500">-{professionalMetrics.competitivePosition.gapToLeader}%</span>
+                <span className="text-sm font-bold text-orange-500">-{"--"}%</span>
               </div>
               <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-[#1F1F23]">
                 <span className="text-xs text-gray-600 dark:text-gray-400">Lead over #3</span>
-                <span className="text-sm font-bold text-accent-green">+{professionalMetrics.competitivePosition.gapToFollower}%</span>
+                <span className="text-sm font-bold text-accent-green">+{"--"}%</span>
               </div>
               <div className="flex justify-between items-center p-3 rounded-lg bg-accent-green/10">
                 <span className="text-xs font-medium text-accent-green">Momentum</span>
                 <div className="flex items-center gap-1">
                   <TrendingUp className="h-4 w-4 text-accent-green" />
-                  <span className="text-sm font-bold text-accent-green capitalize">{professionalMetrics.competitivePosition.momentum}</span>
+                  <span className="text-sm font-bold text-accent-green capitalize">{"--"}</span>
                 </div>
               </div>
             </div>
@@ -269,7 +267,7 @@ export default function AnalyticsOverviewContent() {
         </div>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={professionalMetrics.trendData}>
+            <AreaChart data={[]}>
               <defs>
                 <linearGradient id="colorAvi" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#84cc16" stopOpacity={0.3}/>
@@ -301,23 +299,23 @@ export default function AnalyticsOverviewContent() {
             {professionalMetrics.channelMix.map((channel, index) => (
               <div key={index} className="p-4 rounded-xl bg-gray-50 dark:bg-[#1F1F23] hover:bg-gray-100 dark:hover:bg-[#2B2B30] transition-colors">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold text-gray-900 dark:text-white">{channel.channel}</span>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">{"--"}</span>
                   <span className="text-xs px-2 py-1 rounded-full bg-accent-green/10 text-accent-green font-medium">
-                    {channel.volume}% volume
+                    {"--"}% volume
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-xs">
                   <div>
                     <div className="text-gray-500 dark:text-gray-400 mb-1">Visibility</div>
-                    <div className="font-bold text-gray-900 dark:text-white">{channel.visibility}%</div>
+                    <div className="font-bold text-gray-900 dark:text-white">{"--"}%</div>
                   </div>
                   <div>
                     <div className="text-gray-500 dark:text-gray-400 mb-1">Quality</div>
-                    <div className="font-bold text-gray-900 dark:text-white">{channel.quality}%</div>
+                    <div className="font-bold text-gray-900 dark:text-white">{"--"}%</div>
                   </div>
                   <div>
                     <div className="text-gray-500 dark:text-gray-400 mb-1">Efficiency</div>
-                    <div className="font-bold text-gray-900 dark:text-white">{channel.efficiency}%</div>
+                    <div className="font-bold text-gray-900 dark:text-white">{"--"}%</div>
                   </div>
                 </div>
               </div>
@@ -345,13 +343,13 @@ export default function AnalyticsOverviewContent() {
                       insight.priority === 'medium' ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400' :
                       'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
                     }`}>
-                      {insight.priority}
+                      {"--"}
                     </span>
                   </div>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{insight.confidence}% confidence</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">{"--"}% confidence</span>
                 </div>
-                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1">{insight.title}</h4>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Expected impact: <span className="font-medium text-gray-900 dark:text-white">{insight.impact}</span></p>
+                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1">{"--"}</h4>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Expected impact: <span className="font-medium text-gray-900 dark:text-white">{"--"}</span></p>
               </div>
             ))}
           </div>

@@ -11,6 +11,7 @@ export default function AnalyticsAIDAContent() {
 
   return (
     <div className="space-y-6">
+      <p role="status" className="text-sm text-gray-500 dark:text-gray-400">측정 전 · ChatGPT Search 검증 자료가 없습니다. --는 0점이나 성과 없음이 아닙니다.</p>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">AIDA+ Analytics</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -21,17 +22,17 @@ export default function AnalyticsAIDAContent() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {Object.entries(aidaData).map(([stage, data], index) => (
           <div key={index} className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 capitalize">{stage}</h3>
-            <p className="text-4xl font-bold text-accent-green mb-2">{data.score}</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 capitalize">{"--"}</h3>
+            <p className="text-4xl font-bold text-accent-green mb-2">{"--"}</p>
             <div className="space-y-2 text-sm">
               {Object.entries(data).filter(([key]) => key !== 'score' && key !== 'change').map(([key, value]) => (
                 <div key={key} className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400 capitalize">{key}:</span>
-                  <span className="text-gray-900 dark:text-white font-medium">{value}</span>
+                  <span className="text-gray-900 dark:text-white font-medium">{"--"}</span>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-accent-green-glow mt-3">+{data.change}% vs last period</p>
+            <p className="text-xs text-accent-green-glow mt-3">+{"--"}% vs last period</p>
           </div>
         ))}
       </div>
@@ -42,15 +43,15 @@ export default function AnalyticsAIDAContent() {
           {Object.entries(aidaData).map(([stage, data], index) => (
             <div key={index}>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-medium text-gray-900 dark:text-white capitalize">{stage}</span>
-                <span className="text-sm text-gray-600 dark:text-gray-400">{data.score}%</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white capitalize">{"--"}</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">{"--"}%</span>
               </div>
               <div className="h-12 bg-gray-200 dark:bg-[#1F1F23] rounded-lg overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-accent-green to-accent-green/70 flex items-center justify-center text-white font-medium text-sm"
-                  style={{ width: `${data.score}%` }}
+                  style={{ width: "0%" }}
                 >
-                  {data.score}%
+                  {"--"}%
                 </div>
               </div>
             </div>

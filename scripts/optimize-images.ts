@@ -6,7 +6,7 @@
 
 import sharp from 'sharp';
 import { writeFileSync, readdirSync, statSync } from 'fs';
-import { join, basename, extname } from 'path';
+import { join, basename, extname, dirname } from 'path';
 import seoPolicy from '../configs/seo.policy.json';
 
 const MAX_PIXELS = seoPolicy.cwv.hero_image_max_pixels;
