@@ -35,7 +35,7 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
     email: "",
   });
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const [, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -71,7 +71,6 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
   };
 
   const handleComplete = async () => {
-    console.log("User data:", formData);
     setIsLoading(true);
 
     try {

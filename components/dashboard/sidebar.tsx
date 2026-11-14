@@ -14,11 +14,9 @@ import {
   ChevronRight,
   ChevronLeft,
   TrendingUp,
-  Package,
   Home,
   Users2,
   Shield,
-  Presentation,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -34,7 +32,7 @@ function NavItem({
   onNavigate,
 }: {
   href?: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   children: React.ReactNode;
   hasSubmenu?: boolean;
   onClick?: () => void;

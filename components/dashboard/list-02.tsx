@@ -2,9 +2,6 @@ import { cn } from "@/lib/utils"
 import {
   TrendingUp,
   TrendingDown,
-  MessageSquare,
-  Star,
-  Globe,
   type LucideIcon,
   ArrowRight,
 } from "lucide-react"
@@ -25,12 +22,7 @@ interface List02Props {
   className?: string
 }
 
-const categoryStyles = {
-  mention: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  sentiment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  visibility: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  platform: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-}
+
 
 const ACTIVITIES: Activity[] = []
 

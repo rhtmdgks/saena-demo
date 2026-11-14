@@ -47,7 +47,7 @@ export default function Stepper({
   backButtonText = "Back",
   nextButtonText = "Continue",
   disableStepIndicators = false,
-  dynamicWidth = false,
+  dynamicWidth: _dynamicWidth = false,
   hideFooterOnLastStep = false,
   renderStepIndicator,
   ...rest

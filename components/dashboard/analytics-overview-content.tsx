@@ -1,7 +1,7 @@
 "use client"
 
-import { TrendingUp, TrendingDown, Users, Zap, Target, Award, BarChart3, PieChart, Activity, AlertTriangle } from "lucide-react"
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Area, AreaChart, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, BarChart, Bar, Cell } from "recharts"
+import { TrendingUp, Zap, Target, Award, PieChart, Activity, AlertTriangle } from "lucide-react"
+import { Line, ResponsiveContainer, Tooltip, XAxis, YAxis, Area, AreaChart,  } from "recharts"
 
 const professionalMetrics = {
   // Executive Summary Metrics
@@ -55,7 +55,7 @@ const professionalMetrics = {
 }
 
 export default function AnalyticsOverviewContent() {
-  const COLORS = ['#84cc16', '#3b82f6', '#8b5cf6', '#f59e0b']
+
 
   return (
     <div className="space-y-6">
@@ -129,7 +129,7 @@ export default function AnalyticsOverviewContent() {
             <Activity className="h-8 w-8 text-purple-500/30" />
           </div>
           <div className="grid grid-cols-2 gap-2 text-xs">
-            {Object.entries(professionalMetrics.executiveSummary.brandHealth.components).map(([key, value]) => (
+            {Object.entries(professionalMetrics.executiveSummary.brandHealth.components).map(([key, _value]) => (
               <div key={key} className="flex justify-between">
                 <span className="text-gray-600 dark:text-gray-400 capitalize">{"--"}</span>
                 <span className="font-medium text-gray-900 dark:text-white">{"--"}</span>

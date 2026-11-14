@@ -13,7 +13,6 @@ export default function CitationAnalysis({ data }: CitationAnalysisProps) {
 
   // 실제 데이터가 없으면 로딩 표시
 
-
   const citationDomains = (data?.domains ?? []).map((domain) => ({
     rank: domain.rank,
     domain: domain.domainName,
@@ -37,18 +36,6 @@ export default function CitationAnalysis({ data }: CitationAnalysisProps) {
     }
   }
 
-  const getTypeLabel = (type: string) => {
-    switch (type) {
-      case "earned":
-        return "Earned Media"
-      case "operated":
-        return "Operated"
-      case "owned":
-        return "Owned"
-      default:
-        return type
-    }
-  }
 
   return (
     <div>

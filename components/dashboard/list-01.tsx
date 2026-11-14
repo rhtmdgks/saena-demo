@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { TrendingUp, TrendingDown, Star, Package, Globe, Plus, ArrowRight, Target } from "lucide-react"
+import { TrendingUp, Star, Package, Globe, Plus, ArrowRight, Target } from "lucide-react"
 
 interface MetricItem {
   id: string

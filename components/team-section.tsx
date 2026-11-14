@@ -91,7 +91,6 @@ export function TeamSection() {
               enableTilt={true}
               enableMobileTilt={false}
               contactText="Connect"
-              onContactClick={() => console.log(`Contact ${member.name}`)}
             />
           ))}
         </div>

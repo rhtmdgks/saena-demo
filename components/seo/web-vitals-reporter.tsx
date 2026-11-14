@@ -6,7 +6,7 @@
  */
 
 import { useEffect } from 'react';
-import { onCLS, onFID, onLCP, onINP, onFCP, onTTFB } from 'web-vitals';
+import { type Metric, onCLS, onFID, onLCP, onINP, onFCP, onTTFB } from 'web-vitals';
 
 interface WebVitalsReporterProps {
   /**
@@ -28,11 +28,10 @@ export function WebVitalsReporter({
   useEffect(() => {
     // 샘플링 체크
     if (Math.random() > samplingRate) {
-      if (debug) console.log('[Web Vitals] Skipped due to sampling');
       return;
     }
     
-    function sendToAnalytics(metric: any) {
+    function sendToAnalytics(metric: Metric) {
       const body = {
         name: metric.name,
         value: metric.value,
@@ -47,9 +46,7 @@ export function WebVitalsReporter({
         connectionType: getConnectionType()
       };
       
-      if (debug) {
-        console.log('[Web Vitals]', body);
-      }
+
       
       // Beacon API 사용 (페이지 이탈 시에도 전송 보장)
       if (navigator.sendBeacon) {
@@ -102,7 +99,8 @@ function getDeviceType(): 'mobile' | 'tablet' | 'desktop' {
  * 연결 타입 감지
  */
 function getConnectionType(): string {
-  const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+  const networkNavigator = navigator as Navigator & { connection?: { effectiveType?: string; type?: string }; mozConnection?: { effectiveType?: string; type?: string }; webkitConnection?: { effectiveType?: string; type?: string } };
+  const connection = networkNavigator.connection || networkNavigator.mozConnection || networkNavigator.webkitConnection;
   
   if (!connection) return 'unknown';
   

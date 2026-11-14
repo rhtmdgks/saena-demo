@@ -2,7 +2,7 @@
 
 import HtmlAuditPanel from "./html-audit-panel"
 
-import { Globe, TrendingUp, FileText, Award, ExternalLink, ArrowUpRight } from "lucide-react"
+import { Globe, ExternalLink } from "lucide-react"
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 const websiteData = {

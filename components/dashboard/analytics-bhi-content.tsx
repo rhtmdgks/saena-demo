@@ -45,7 +45,7 @@ export default function AnalyticsBHIContent() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {Object.entries(healthMetrics).filter(([key]) => key !== 'overall').map(([key, value]) => (
+        {Object.entries(healthMetrics).filter(([key]) => key !== 'overall').map(([key, _value]) => (
           <div key={key} className="bg-white dark:bg-[#0F0F12] rounded-xl p-5 border border-gray-200 dark:border-[#1F1F23]">
             <p className="text-xs text-gray-600 dark:text-gray-400 mb-1 capitalize">{key}</p>
             <p className="text-2xl font-bold text-gray-900 dark:text-white">{"--"}</p>

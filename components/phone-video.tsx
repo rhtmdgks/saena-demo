@@ -30,9 +30,8 @@ export default function PhoneVideo({
           const playVideo = async () => {
             try {
               await el.play()
-            } catch (error) {
+            } catch {
               // Autoplay might be blocked; will play on first interaction.
-              console.log("Autoplay blocked:", error)
             }
           }
 
@@ -50,15 +49,13 @@ export default function PhoneVideo({
           // Video is out of view - pause it but keep it loaded
           try {
             el.pause()
-          } catch (error) {
-            console.log("Error pausing video:", error)
+          } catch {
           }
         } else if (entry.isIntersecting && loaded) {
           // Video is back in view - resume playing
           try {
             await el.play()
-          } catch (error) {
-            console.log("Error resuming video:", error)
+          } catch {
           }
         }
       })

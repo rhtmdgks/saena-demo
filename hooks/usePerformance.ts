@@ -27,15 +27,12 @@ export function usePerformance() {
       const fcpEntry = entries.find((entry) => entry.name === 'first-contentful-paint');
       if (fcpEntry) {
         metrics.fcp = fcpEntry.startTime;
-        if (process.env.NODE_ENV === 'development') {
-          console.log('FCP:', metrics.fcp);
-        }
       }
     });
 
     try {
       fcpObserver.observe({ entryTypes: ['paint'] });
-    } catch (e) {
+    } catch {
       // Ignore errors
     }
 
@@ -45,34 +42,28 @@ export function usePerformance() {
       const lastEntry = entries[entries.length - 1];
       if (lastEntry) {
         metrics.lcp = lastEntry.startTime;
-        if (process.env.NODE_ENV === 'development') {
-          console.log('LCP:', metrics.lcp);
-        }
       }
     });
 
     try {
       lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-    } catch (e) {
+    } catch {
       // Ignore errors
     }
 
     // Measure FID (First Input Delay)
     const fidObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      entries.forEach((entry: any) => {
-        if (entry.processingStart && entry.startTime) {
+      entries.forEach((entry) => {
+        if ('processingStart' in entry && typeof entry.processingStart === 'number' && entry.processingStart && entry.startTime) {
           metrics.fid = entry.processingStart - entry.startTime;
-          if (process.env.NODE_ENV === 'development') {
-            console.log('FID:', metrics.fid);
-          }
         }
       });
     });
 
     try {
       fidObserver.observe({ entryTypes: ['first-input'] });
-    } catch (e) {
+    } catch {
       // Ignore errors
     }
 
@@ -80,20 +71,17 @@ export function usePerformance() {
     let clsValue = 0;
     const clsObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      entries.forEach((entry: any) => {
-        if (!entry.hadRecentInput) {
+      entries.forEach((entry) => {
+        if ('hadRecentInput' in entry && 'value' in entry && typeof entry.value === 'number' && !entry.hadRecentInput) {
           clsValue += entry.value;
           metrics.cls = clsValue;
-          if (process.env.NODE_ENV === 'development') {
-            console.log('CLS:', metrics.cls);
-          }
         }
       });
     });
 
     try {
       clsObserver.observe({ entryTypes: ['layout-shift'] });
-    } catch (e) {
+    } catch {
       // Ignore errors
     }
 
@@ -101,9 +89,6 @@ export function usePerformance() {
     const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
     if (navigationEntry) {
       metrics.ttfb = navigationEntry.responseStart - navigationEntry.requestStart;
-      if (process.env.NODE_ENV === 'development') {
-        console.log('TTFB:', metrics.ttfb);
-      }
     }
 
     return () => {

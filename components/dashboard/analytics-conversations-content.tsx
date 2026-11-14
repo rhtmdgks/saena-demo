@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { MessageSquare, Search, Filter, TrendingUp, Star, AlertCircle, ChevronRight } from "lucide-react"
+import { MessageSquare, Search, TrendingUp, Star, AlertCircle, ChevronRight } from "lucide-react"
 
 const conversationsData = {
   conversations: [
@@ -75,9 +75,7 @@ export default function AnalyticsConversationsContent() {
 
   const selectedConv = conversationsData.conversations.find(c => c.id === selectedConversation)
 
-  const getIntentLabel = (intent: string) => {
-    return intent.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-  }
+
 
   const getSentimentColor = (sentiment: number) => {
     if (sentiment >= 0.8) return "text-accent-green-glow"

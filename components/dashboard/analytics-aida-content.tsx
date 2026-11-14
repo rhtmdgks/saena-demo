@@ -20,12 +20,12 @@ export default function AnalyticsAIDAContent() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {Object.entries(aidaData).map(([stage, data], index) => (
+        {Object.entries(aidaData).map(([_stage, data], index) => (
           <div key={index} className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 capitalize">{"--"}</h3>
             <p className="text-4xl font-bold text-accent-green mb-2">{"--"}</p>
             <div className="space-y-2 text-sm">
-              {Object.entries(data).filter(([key]) => key !== 'score' && key !== 'change').map(([key, value]) => (
+              {Object.entries(data).filter(([key]) => key !== 'score' && key !== 'change').map(([key, _value]) => (
                 <div key={key} className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400 capitalize">{key}:</span>
                   <span className="text-gray-900 dark:text-white font-medium">{"--"}</span>
@@ -40,7 +40,7 @@ export default function AnalyticsAIDAContent() {
       <div className="bg-white dark:bg-[#0F0F12] rounded-xl p-6 border border-gray-200 dark:border-[#1F1F23]">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Funnel Visualization</h3>
         <div className="space-y-3">
-          {Object.entries(aidaData).map(([stage, data], index) => (
+          {Object.entries(aidaData).map(([_stage, _data], index) => (
             <div key={index}>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm font-medium text-gray-900 dark:text-white capitalize">{"--"}</span>

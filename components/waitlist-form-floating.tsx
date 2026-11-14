@@ -25,7 +25,7 @@ const STATES: Record<State, State> = {
   error: "error",
 };
 
-export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
+export function InputForm({ formAction, buttonCopy }: InputForm) {
   const [state, setState] = useState<State>(STATES.idle);
   const [error, setError] = useState<string>();
   const [value, setValue] = useState("");

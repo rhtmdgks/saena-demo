@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { TrendingUp, Star, MessageSquare, Globe, MapPin, ShoppingBag, FileText } from "lucide-react"
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from "recharts"
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,  } from "recharts"
 
 const brandData = {
   visibility: {

@@ -103,7 +103,6 @@ export default function SearchContent() {
               </div>
             </div>
           ))}
-          onItemSelect={(item, index) => console.log('Selected:', searchQueries[index])}
           showGradients={true}
           enableArrowNavigation={true}
           displayScrollbar={true}

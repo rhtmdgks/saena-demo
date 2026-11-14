@@ -4,7 +4,7 @@ import { MeasurementNotice } from "./measurement-state";
 import { shoppingEmpty } from "./unmeasured-layout";
 import { dashboardFailure, type DashboardFailure } from "@/lib/api/dashboard-data";
 
-import { ShoppingCart, TrendingUp, Package, DollarSign, Star, ExternalLink } from "lucide-react"
+import { ShoppingCart, Package, DollarSign, Star } from "lucide-react"
 import { useEffect, useState } from "react"
 import { getShoppingContentData } from "@/lib/api/dashboard-data"
 import type { ShoppingContentData } from "@/types/dashboard"

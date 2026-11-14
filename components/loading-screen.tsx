@@ -104,10 +104,10 @@ export function LoadingScreen({ onLoadingComplete, minDuration = 2000 }: Loading
     await Promise.all(tasks);
     
     // Final optimization: trigger garbage collection hint
-    if ('gc' in window && typeof (window as any).gc === 'function') {
+    if ('gc' in window && typeof window.gc === 'function') {
       try {
-        (window as any).gc();
-      } catch (e) {
+        window.gc();
+      } catch {
         // GC not available, that's fine
       }
     }

@@ -47,11 +47,8 @@ export default function LazyVideo({
             const playVideo = async () => {
               try {
                 await el.play()
-              } catch (error) {
+              } catch {
                 // Autoplay might be blocked - this is expected behavior
-                if (process.env.NODE_ENV === 'development') {
-                  console.log("Autoplay blocked:", error)
-                }
               }
             }
 
@@ -70,17 +67,11 @@ export default function LazyVideo({
           // Video is out of view and has autoplay - pause it but keep it loaded
           try {
             el.pause()
-          } catch (error) {
-            if (process.env.NODE_ENV === 'development') {
-              console.log("Error pausing video:", error)
-            }
+          } catch {
           }
         } else if (entry.isIntersecting && loaded && autoplay) {
           // Video is back in view and has autoplay - resume playing
-          el.play().catch((error) => {
-            if (process.env.NODE_ENV === 'development') {
-              console.log("Error resuming video:", error)
-            }
+          el.play().catch(() => {
           })
         }
       })
